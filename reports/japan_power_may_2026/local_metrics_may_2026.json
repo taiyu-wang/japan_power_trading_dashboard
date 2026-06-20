@@ -1,0 +1,488 @@
+{
+  "period": "May 2026",
+  "source_caveat": "Dashboard historical/fuel/forward values are bundled synthetic samples unless processed public CSVs or uploads are explicitly identified.",
+  "market_summary": [
+    {
+      "market": "BRENT",
+      "may_avg": 86.84592258064517,
+      "may_min": 82.0624,
+      "may_max": 89.5444,
+      "may_last": 82.0624,
+      "apr_avg": 81.57168666666666,
+      "mom_change_pct": 6.46576787792934
+    },
+    {
+      "market": "CFR_JAPAN_COAL",
+      "may_avg": 123.44728387096772,
+      "may_min": 112.0102,
+      "may_max": 135.3253,
+      "may_last": 124.2827,
+      "apr_avg": 141.60428000000002,
+      "mom_change_pct": -12.822349811059585
+    },
+    {
+      "market": "DES_JAPAN_LNG",
+      "may_avg": 12.830535483870968,
+      "may_min": 11.5027,
+      "may_max": 14.0181,
+      "may_last": 13.8158,
+      "apr_avg": 14.239466666666665,
+      "mom_change_pct": -9.894550236870048
+    },
+    {
+      "market": "JAPAN_POWER_FUTURES",
+      "may_avg": 23.30514838709678,
+      "may_min": 21.5021,
+      "may_max": 25.448,
+      "may_last": 23.9765,
+      "apr_avg": 26.510133333333332,
+      "mom_change_pct": -12.08965985171665
+    },
+    {
+      "market": "JCC",
+      "may_avg": 79.64641612903227,
+      "may_min": 75.9607,
+      "may_max": 83.3624,
+      "may_last": 76.0804,
+      "apr_avg": 75.00437666666667,
+      "mom_change_pct": 6.1890247858410685
+    },
+    {
+      "market": "JCC_LINKED_LNG",
+      "may_avg": 12.524109677419355,
+      "may_min": 11.8995,
+      "may_max": 13.1427,
+      "may_last": 11.8995,
+      "apr_avg": 11.795546666666667,
+      "mom_change_pct": 6.176593856489521
+    },
+    {
+      "market": "JEPX_INTRADAY",
+      "may_avg": 22.236874193548385,
+      "may_min": 15.0676,
+      "may_max": 26.441,
+      "may_last": 23.1064,
+      "apr_avg": 23.318163333333324,
+      "mom_change_pct": -4.637111098022184
+    },
+    {
+      "market": "JEPX_KANSAI",
+      "may_avg": 21.486619354838712,
+      "may_min": 16.2052,
+      "may_max": 24.9549,
+      "may_last": 21.9492,
+      "apr_avg": 22.68985666666667,
+      "mom_change_pct": -5.302974494306156
+    },
+    {
+      "market": "JEPX_SYSTEM",
+      "may_avg": 21.625206451612897,
+      "may_min": 18.1718,
+      "may_max": 24.3035,
+      "may_last": 22.5659,
+      "apr_avg": 22.96366666666666,
+      "mom_change_pct": -5.828599737500251
+    },
+    {
+      "market": "JEPX_TOKYO",
+      "may_avg": 23.892074193548385,
+      "may_min": 19.0838,
+      "may_max": 28.4228,
+      "may_last": 26.9424,
+      "apr_avg": 25.353519999999996,
+      "mom_change_pct": -5.764271810981714
+    },
+    {
+      "market": "JKM",
+      "may_avg": 12.387422580645158,
+      "may_min": 11.3345,
+      "may_max": 13.4376,
+      "may_last": 13.4376,
+      "apr_avg": 13.791456666666669,
+      "mom_change_pct": -10.180462586051542
+    },
+    {
+      "market": "NEWCASTLE_COAL",
+      "may_avg": 116.71968064516128,
+      "may_min": 106.802,
+      "may_max": 128.3331,
+      "may_last": 118.9208,
+      "apr_avg": 134.88386666666668,
+      "mom_change_pct": -13.466537155547186
+    },
+    {
+      "market": "USDJPY",
+      "may_avg": 145.20715483870967,
+      "may_min": 142.5865,
+      "may_max": 148.4812,
+      "may_last": 143.2625,
+      "apr_avg": 149.53907666666666,
+      "mom_change_pct": -2.896849388480016
+    }
+  ],
+  "spreads": {
+    "tokyo_minus_kansai_may_avg": 2.4054548387096766,
+    "tokyo_minus_kansai_apr_avg": 2.663663333333333,
+    "system_minus_intraday_may_avg": -0.6116677419354839,
+    "jkm_minus_jcc_lng_may_avg": -0.13668709677419352,
+    "lng_minus_coal_may_avg": -104.3322580645161
+  },
+  "srmc_summary": {
+    "coal_srmc": 7.125848555384204,
+    "jkm_gas_srmc": 11.65651950807379,
+    "jepx_system": 21.625206451612897,
+    "jepx_vs_coal_srmc": 14.499357896228704,
+    "jepx_vs_jkm_gas_srmc": 9.968686943539115
+  },
+  "weather_summary": [
+    {
+      "region": "Kansai",
+      "avg_temp_c": 18.86387096774194,
+      "cooling_degree_days": 5.98,
+      "heating_degree_days": 22.24,
+      "max_temp_c": 27.87
+    },
+    {
+      "region": "Tokyo",
+      "avg_temp_c": 17.524516129032257,
+      "cooling_degree_days": 0.0,
+      "heating_degree_days": 31.540000000000003,
+      "max_temp_c": 26.78
+    }
+  ],
+  "supply_mix_summary": [
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Nuclear",
+      "generation_gwh": 2341.537,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 28.409046928237686
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Gas",
+      "generation_gwh": 1851.639,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 22.465286367524875
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Coal",
+      "generation_gwh": 1320.882,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 16.02579789457286
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Solar",
+      "generation_gwh": 1125.562,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 13.656048859634105
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Hydro",
+      "generation_gwh": 1005.442,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 12.198675041915271
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Other",
+      "generation_gwh": 290.324,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 3.52239923622547
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Biomass",
+      "generation_gwh": 240.558,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 2.918605817872193
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Oil",
+      "generation_gwh": 44.797,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 0.5435062846516043
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "generation_type": "Wind",
+      "generation_gwh": 21.482,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 0.2606335693659344
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Gas",
+      "generation_gwh": 7985.434,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 47.58267808167795
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Solar",
+      "generation_gwh": 2784.288,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 16.590692452117057
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Coal",
+      "generation_gwh": 2680.098,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 15.969857162597412
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Hydro",
+      "generation_gwh": 992.506,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 5.914029656012917
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Nuclear",
+      "generation_gwh": 975.156,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 5.810646488020154
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Other",
+      "generation_gwh": 848.242,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 5.054406062508145
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Biomass",
+      "generation_gwh": 344.288,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 2.0515034087545825
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Wind",
+      "generation_gwh": 124.867,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 0.7440429992940748
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "generation_type": "Oil",
+      "generation_gwh": 47.35,
+      "source": "JapanesePower.org regional half-hourly supply mix",
+      "source_note": "Free public aggregate half-hourly regional demand/generation mix. Use processed aggregates for dashboard speed; verify licensing and source lineage before commercial use.",
+      "share_pct": 0.28214368901771036
+    }
+  ],
+  "residual_thermal_summary": [
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Kansai",
+      "thermal_gwh": 3446.635,
+      "clean_supply_gwh": 4734.58,
+      "demand_gwh": 9942.834,
+      "residual_thermal_share_pct": 34.665,
+      "source": "JapanesePower.org regional half-hourly supply mix"
+    },
+    {
+      "month": "2026-05-01 00:00:00",
+      "area": "Tokyo",
+      "thermal_gwh": 11384.897,
+      "clean_supply_gwh": 5221.104,
+      "demand_gwh": 19419.721,
+      "residual_thermal_share_pct": 58.625,
+      "source": "JapanesePower.org regional half-hourly supply mix"
+    }
+  ],
+  "daily_shape_summary": [
+    {
+      "area": "Kansai",
+      "avg_solar_midday_share_pct": 28.385645161290324,
+      "avg_evening_thermal_ramp_mw": 1917.2298387096773,
+      "total_renewable_curtailment_mwh": 80256.0,
+      "avg_peak_demand_mw": 15776.161290322581
+    },
+    {
+      "area": "Tokyo",
+      "avg_solar_midday_share_pct": 38.5138064516129,
+      "avg_evening_thermal_ramp_mw": 5751.459677419355,
+      "total_renewable_curtailment_mwh": 0.0,
+      "avg_peak_demand_mw": 30932.58064516129
+    }
+  ],
+  "intraday_summary": {
+    "avg_price": 14.841666666666667,
+    "avg_daily_volume_mwh": 24471.604838709678,
+    "avg_daily_contracts": 9953.451612903225,
+    "avg_high_low_range": 17.37956317204301
+  },
+  "offer_stack_summary": {
+    "records": 4176,
+    "avg_clearing_estimate": 14.195043103448276,
+    "avg_upside_depth_mw": 8562.125383141763,
+    "avg_downside_depth_mw": 15586.619540229885,
+    "scarcity_blocks": 2,
+    "thin_blocks": 84
+  },
+  "curve_summary": [
+    {
+      "market": "BRENT",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 78.8375,
+      "q3_2026_avg": 79.07889999999999,
+      "cal_2027_avg": 80.75965000000001
+    },
+    {
+      "market": "CFR_JAPAN_COAL",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 145.1444,
+      "q3_2026_avg": 147.75553333333335,
+      "cal_2027_avg": 166.6241
+    },
+    {
+      "market": "DES_JAPAN_LNG",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 13.4144,
+      "q3_2026_avg": 13.500633333333333,
+      "cal_2027_avg": 10.429741666666667
+    },
+    {
+      "market": "JAPAN_POWER_FUTURES",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 16.5125,
+      "q3_2026_avg": 16.7697,
+      "cal_2027_avg": 16.696425
+    },
+    {
+      "market": "JCC",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 72.9408,
+      "q3_2026_avg": 73.29723333333332,
+      "cal_2027_avg": 76.33602499999999
+    },
+    {
+      "market": "JCC_LINKED_LNG",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 11.0593,
+      "q3_2026_avg": 11.1404,
+      "cal_2027_avg": 11.802716666666667
+    },
+    {
+      "market": "JEPX_KANSAI",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 14.7853,
+      "q3_2026_avg": 15.121866666666667,
+      "cal_2027_avg": 14.901449999999999
+    },
+    {
+      "market": "JEPX_SYSTEM",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 15.8324,
+      "q3_2026_avg": 16.112433333333332,
+      "cal_2027_avg": 15.555933333333336
+    },
+    {
+      "market": "JEPX_TOKYO",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 17.2187,
+      "q3_2026_avg": 17.52333333333333,
+      "cal_2027_avg": 16.831891666666667
+    },
+    {
+      "market": "JKM",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 13.0847,
+      "q3_2026_avg": 13.0447,
+      "cal_2027_avg": 9.1291
+    },
+    {
+      "market": "NEWCASTLE_COAL",
+      "curve_date": "2026-06-08",
+      "front_contract": "2026-07-01",
+      "front_price": 137.6298,
+      "q3_2026_avg": 139.51806666666667,
+      "cal_2027_avg": 158.07265
+    }
+  ],
+  "power_futures_summary": [
+    {
+      "area": "Kansai",
+      "load_type": "Baseload",
+      "front_contract": "2026-07-01",
+      "front_price": 16.0444,
+      "q3_2026_avg": 16.104066666666668
+    },
+    {
+      "area": "Kansai",
+      "load_type": "Peakload",
+      "front_contract": "2026-07-01",
+      "front_price": 18.6052,
+      "q3_2026_avg": 18.687966666666668
+    },
+    {
+      "area": "Tokyo",
+      "load_type": "Baseload",
+      "front_contract": "2026-07-01",
+      "front_price": 18.2096,
+      "q3_2026_avg": 18.141066666666664
+    },
+    {
+      "area": "Tokyo",
+      "load_type": "Peakload",
+      "front_contract": "2026-07-01",
+      "front_price": 20.8302,
+      "q3_2026_avg": 20.89946666666667
+    }
+  ],
+  "news_summary": []
+}

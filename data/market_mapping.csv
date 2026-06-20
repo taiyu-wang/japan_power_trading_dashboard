@@ -1,0 +1,14 @@
+market,asset_class,region,currency,unit,description
+JKM,LNG,Japan/Korea,USD,MMBtu,Platts JKM LNG benchmark proxy
+DES_JAPAN_LNG,LNG,Japan,USD,MMBtu,Delivered ex-ship Japan LNG proxy
+JCC,Crude,Japan,USD,bbl,"Synthetic Japan customs-cleared crude proxy. Real JCC is a monthly customs statistic, not an exchange futures contract."
+JCC_LINKED_LNG,LNG,Japan,USD,MMBtu,Oil-linked LNG contract proxy
+NEWCASTLE_COAL,Coal,Australia,USD,tonne,Newcastle thermal coal benchmark proxy
+CFR_JAPAN_COAL,Coal,Japan,USD,tonne,CFR Japan coal delivered proxy
+BRENT,Crude,Global,USD,bbl,Synthetic Brent crude benchmark proxy. Production source should use EIA Brent spot history or ICE Brent futures settlements.
+USDJPY,FX,Japan,JPY,USD,USDJPY FX rate
+JEPX_SYSTEM,Power,Japan,JPY,kWh,JEPX day-ahead system price proxy
+JEPX_INTRADAY,Power,Japan,JPY,kWh,JEPX intraday price proxy
+JEPX_TOKYO,Power,Tokyo,JPY,kWh,Tokyo area power price proxy
+JEPX_KANSAI,Power,Kansai,JPY,kWh,Kansai area power price proxy
+JAPAN_POWER_FUTURES,Power,Japan,JPY,kWh,"Prompt-month cash-settled Japan power futures proxy; financial futures, not physical delivery."
