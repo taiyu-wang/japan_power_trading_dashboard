@@ -1,0 +1,80 @@
+{
+  "datasets": [
+    {
+      "artifact": "jepx_baseload.csv",
+      "dataset_id": "jepx_baseload",
+      "fetched_at": "2026-07-01T14:44:03.018542+00:00",
+      "label": "JEPX baseload",
+      "observation_end": "2026-01-30",
+      "observation_start": "2019-08-09",
+      "row_count": 78,
+      "source": "Bundled JEPX baseload seed",
+      "stale_after_days": 30,
+      "status": "stale"
+    },
+    {
+      "artifact": "jepx_intraday.csv",
+      "dataset_id": "jepx_intraday",
+      "fetched_at": "2026-07-01T14:44:03.018542+00:00",
+      "label": "JEPX intraday",
+      "observation_end": "2026-06-02",
+      "observation_start": "2026-04-01",
+      "row_count": 3015,
+      "source": "Bundled JEPX intraday seed",
+      "stale_after_days": 4,
+      "status": "stale"
+    },
+    {
+      "artifact": "jepx_offer_stack_curves.csv",
+      "dataset_id": "jepx_offer_stack_curves",
+      "fetched_at": "2026-07-01T14:44:03.018542+00:00",
+      "label": "JEPX compact offer-stack curves",
+      "observation_end": "2026-06-02",
+      "observation_start": "2026-05-27",
+      "row_count": 18594,
+      "source": "Bundled JEPX offer-stack seed",
+      "stale_after_days": 4,
+      "status": "stale"
+    },
+    {
+      "artifact": "jepx_offer_stack_depth.csv",
+      "dataset_id": "jepx_offer_stack_depth",
+      "fetched_at": "2026-07-01T14:44:03.018542+00:00",
+      "label": "JEPX offer-stack depth",
+      "observation_end": "2026-06-02",
+      "observation_start": "2026-05-27",
+      "row_count": 3099,
+      "source": "Bundled JEPX offer-stack seed",
+      "stale_after_days": 4,
+      "status": "stale"
+    },
+    {
+      "artifact": "power_news.csv",
+      "dataset_id": "news",
+      "fetched_at": "2026-07-01T14:44:03.018542+00:00",
+      "label": "Japan power news",
+      "observation_end": "2026-06-08",
+      "observation_start": "2026-06-06",
+      "row_count": 3,
+      "source": "Bundled news seed",
+      "stale_after_days": 2,
+      "status": "stale"
+    },
+    {
+      "artifact": "weather_temperatures.csv",
+      "dataset_id": "weather",
+      "fetched_at": "2026-07-01T14:44:03.018542+00:00",
+      "label": "Tokyo/Kansai weather",
+      "observation_end": "2026-06-08",
+      "observation_start": "2023-04-26",
+      "row_count": 2280,
+      "source": "Bundled weather seed",
+      "stale_after_days": 7,
+      "status": "stale"
+    }
+  ],
+  "generated_at": "2026-07-01T14:44:03.018542+00:00",
+  "overall_status": "stale",
+  "version": 1,
+  "warnings": []
+}
