@@ -3525,7 +3525,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-27,13,Tokyo / Chubu,200.0,24874.3,10087.8,14786.5,JEPX processed sampled bidding curve
 2026-06-27,13,Tokyo / Chubu,300.0,24874.3,6714.8,18159.5,JEPX processed sampled bidding curve
 2026-06-27,13,Tokyo / Chubu,500.0,24874.3,6127.303576537912,18746.996423462086,JEPX processed sampled bidding curve
-2026-06-27,13,Tokyo / Chubu,800.0,24874.3,5246.058941344779,19628.24105865522,JEPX processed sampled bidding curve
+2026-06-27,13,Tokyo / Chubu,800.0,24874.3,5246.058941344778,19628.24105865522,JEPX processed sampled bidding curve
 2026-06-27,13,Tokyo / Chubu,1000.0,24874.3,0.0,24874.3,JEPX processed sampled bidding curve
 2026-06-27,14,Hokkaido / Tohoku,0.0,2481.4,7629.1,-5147.700000000001,JEPX processed sampled bidding curve
 2026-06-27,14,Hokkaido / Tohoku,1.0,6409.8,7576.2,-1166.3999999999996,JEPX processed sampled bidding curve
@@ -3597,7 +3597,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-27,14,Tokyo / Chubu,200.0,25717.8,10106.6,15611.199999999999,JEPX processed sampled bidding curve
 2026-06-27,14,Tokyo / Chubu,300.0,25717.8,6718.2,18999.6,JEPX processed sampled bidding curve
 2026-06-27,14,Tokyo / Chubu,500.0,25717.8,6130.703576537911,19587.096423462088,JEPX processed sampled bidding curve
-2026-06-27,14,Tokyo / Chubu,800.0,25717.8,5249.458941344778,20468.34105865522,JEPX processed sampled bidding curve
+2026-06-27,14,Tokyo / Chubu,800.0,25717.8,5249.4589413447775,20468.34105865522,JEPX processed sampled bidding curve
 2026-06-27,14,Tokyo / Chubu,1000.0,25717.8,0.0,25717.8,JEPX processed sampled bidding curve
 2026-06-27,15,Hokkaido / Tohoku,0.0,2779.5,8109.1,-5329.6,JEPX processed sampled bidding curve
 2026-06-27,15,Hokkaido / Tohoku,1.0,6682.2,8050.9,-1368.6999999999998,JEPX processed sampled bidding curve
@@ -6615,7 +6615,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-28,21,Hokkaido / Tohoku,30.0,10338.7,6384.9,3953.800000000001,JEPX processed sampled bidding curve
 2026-06-28,21,Hokkaido / Tohoku,40.0,10395.1,6353.4,4041.7000000000007,JEPX processed sampled bidding curve
 2026-06-28,21,Hokkaido / Tohoku,50.0,10446.6,6269.6,4177.0,JEPX processed sampled bidding curve
-2026-06-28,21,Hokkaido / Tohoku,75.0,10479.9,5973.849999999999,4506.05,JEPX processed sampled bidding curve
+2026-06-28,21,Hokkaido / Tohoku,75.0,10479.9,5973.85,4506.049999999999,JEPX processed sampled bidding curve
 2026-06-28,21,Hokkaido / Tohoku,100.0,10479.9,5840.9,4639.0,JEPX processed sampled bidding curve
 2026-06-28,21,Hokkaido / Tohoku,150.0,10479.9,5830.4,4649.5,JEPX processed sampled bidding curve
 2026-06-28,21,Hokkaido / Tohoku,200.0,10479.9,5829.0,4650.9,JEPX processed sampled bidding curve
@@ -6831,7 +6831,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-28,25,Hokkaido / Tohoku,30.0,10453.2,6477.7,3975.500000000001,JEPX processed sampled bidding curve
 2026-06-28,25,Hokkaido / Tohoku,40.0,10510.6,6444.0,4066.6000000000004,JEPX processed sampled bidding curve
 2026-06-28,25,Hokkaido / Tohoku,50.0,10562.1,6357.5,4204.6,JEPX processed sampled bidding curve
-2026-06-28,25,Hokkaido / Tohoku,75.0,10599.2,6042.05,4557.150000000001,JEPX processed sampled bidding curve
+2026-06-28,25,Hokkaido / Tohoku,75.0,10599.2,6042.049999999999,4557.1500000000015,JEPX processed sampled bidding curve
 2026-06-28,25,Hokkaido / Tohoku,100.0,10599.2,5855.0,4744.200000000001,JEPX processed sampled bidding curve
 2026-06-28,25,Hokkaido / Tohoku,150.0,10599.2,5845.6,4753.6,JEPX processed sampled bidding curve
 2026-06-28,25,Hokkaido / Tohoku,200.0,10599.2,5844.2,4755.000000000001,JEPX processed sampled bidding curve
@@ -6885,7 +6885,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-28,26,Hokkaido / Tohoku,30.0,10283.2,6398.9,3884.300000000001,JEPX processed sampled bidding curve
 2026-06-28,26,Hokkaido / Tohoku,40.0,10340.7,6365.6,3975.1000000000004,JEPX processed sampled bidding curve
 2026-06-28,26,Hokkaido / Tohoku,50.0,10392.2,6279.0,4113.200000000001,JEPX processed sampled bidding curve
-2026-06-28,26,Hokkaido / Tohoku,75.0,10429.5,5961.650000000001,4467.849999999999,JEPX processed sampled bidding curve
+2026-06-28,26,Hokkaido / Tohoku,75.0,10429.5,5961.65,4467.85,JEPX processed sampled bidding curve
 2026-06-28,26,Hokkaido / Tohoku,100.0,10429.5,5808.1,4621.4,JEPX processed sampled bidding curve
 2026-06-28,26,Hokkaido / Tohoku,150.0,10429.5,5798.6,4630.9,JEPX processed sampled bidding curve
 2026-06-28,26,Hokkaido / Tohoku,200.0,10429.5,5797.1,4632.4,JEPX processed sampled bidding curve
@@ -7773,7 +7773,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-28,42,Tohoku / Tokyo,200.0,20456.0,10924.5,9531.5,JEPX processed sampled bidding curve
 2026-06-28,42,Tohoku / Tokyo,300.0,20456.1,8221.8,12234.3,JEPX processed sampled bidding curve
 2026-06-28,42,Tohoku / Tokyo,500.0,20456.1,7664.57539341917,12791.524606580828,JEPX processed sampled bidding curve
-2026-06-28,42,Tohoku / Tokyo,800.0,20456.1,6828.738483547925,13627.361516452074,JEPX processed sampled bidding curve
+2026-06-28,42,Tohoku / Tokyo,800.0,20456.1,6828.738483547926,13627.361516452072,JEPX processed sampled bidding curve
 2026-06-28,42,Tohoku / Tokyo,1000.0,20456.1,0.0,20456.1,JEPX processed sampled bidding curve
 2026-06-28,43,Hokuriku / Kansai / Chugoku / Shikoku / Kyushu,0.0,4198.1,15867.0,-11668.9,JEPX processed sampled bidding curve
 2026-06-28,43,Hokuriku / Kansai / Chugoku / Shikoku / Kyushu,1.0,11921.5,15802.0,-3880.5,JEPX processed sampled bidding curve
@@ -9987,7 +9987,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-29,34,Tokyo / Chubu,200.0,29453.0,12534.1,16918.9,JEPX processed sampled bidding curve
 2026-06-29,34,Tokyo / Chubu,300.0,29453.0,8137.0,21316.0,JEPX processed sampled bidding curve
 2026-06-29,34,Tokyo / Chubu,500.0,29453.0,7537.228898426323,21915.77110157368,JEPX processed sampled bidding curve
-2026-06-29,34,Tokyo / Chubu,800.0,29453.0,6637.572246065808,22815.427753934193,JEPX processed sampled bidding curve
+2026-06-29,34,Tokyo / Chubu,800.0,29453.0,6637.572246065809,22815.427753934193,JEPX processed sampled bidding curve
 2026-06-29,34,Tokyo / Chubu,1000.0,29453.0,0.0,29453.0,JEPX processed sampled bidding curve
 2026-06-29,35,Hokuriku / Kansai / Chugoku / Kyushu,0.0,5120.1,16073.3,-10953.199999999999,JEPX processed sampled bidding curve
 2026-06-29,35,Hokuriku / Kansai / Chugoku / Kyushu,1.0,12852.3,15950.3,-3098.0,JEPX processed sampled bidding curve
@@ -12309,7 +12309,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-30,24,Tokyo / Chubu,200.0,33200.4,12375.9,20824.5,JEPX processed sampled bidding curve
 2026-06-30,24,Tokyo / Chubu,300.0,33200.4,7884.6,25315.800000000003,JEPX processed sampled bidding curve
 2026-06-30,24,Tokyo / Chubu,500.0,33200.4,7284.771673819742,25915.62832618026,JEPX processed sampled bidding curve
-2026-06-30,24,Tokyo / Chubu,800.0,33200.4,6385.029184549357,26815.370815450646,JEPX processed sampled bidding curve
+2026-06-30,24,Tokyo / Chubu,800.0,33200.4,6385.029184549356,26815.370815450646,JEPX processed sampled bidding curve
 2026-06-30,24,Tokyo / Chubu,1000.0,33200.4,0.0,33200.4,JEPX processed sampled bidding curve
 2026-06-30,25,Chugoku / Kyushu,0.0,4220.9,9110.4,-4889.5,JEPX processed sampled bidding curve
 2026-06-30,25,Chugoku / Kyushu,1.0,7151.5,8920.3,-1768.7999999999993,JEPX processed sampled bidding curve
@@ -12399,7 +12399,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-30,25,Tokyo / Chubu,200.0,33056.3,12145.1,20911.200000000004,JEPX processed sampled bidding curve
 2026-06-30,25,Tokyo / Chubu,300.0,33056.3,7802.9,25253.4,JEPX processed sampled bidding curve
 2026-06-30,25,Tokyo / Chubu,500.0,33056.3,7203.128898426323,25853.17110157368,JEPX processed sampled bidding curve
-2026-06-30,25,Tokyo / Chubu,800.0,33056.3,6303.472246065808,26752.827753934194,JEPX processed sampled bidding curve
+2026-06-30,25,Tokyo / Chubu,800.0,33056.3,6303.472246065809,26752.827753934194,JEPX processed sampled bidding curve
 2026-06-30,25,Tokyo / Chubu,1000.0,33056.3,0.0,33056.3,JEPX processed sampled bidding curve
 2026-06-30,26,Chugoku / Kyushu,0.0,4097.0,9105.7,-5008.700000000001,JEPX processed sampled bidding curve
 2026-06-30,26,Chugoku / Kyushu,1.0,7037.3,8915.9,-1878.5999999999995,JEPX processed sampled bidding curve
@@ -13137,7 +13137,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-06-30,35,Tokyo / Chubu,200.0,28304.0,12668.6,15635.4,JEPX processed sampled bidding curve
 2026-06-30,35,Tokyo / Chubu,300.0,28304.0,8038.5,20265.5,JEPX processed sampled bidding curve
 2026-06-30,35,Tokyo / Chubu,500.0,28304.0,7438.728898426323,20865.27110157368,JEPX processed sampled bidding curve
-2026-06-30,35,Tokyo / Chubu,800.0,28304.0,6539.072246065808,21764.927753934193,JEPX processed sampled bidding curve
+2026-06-30,35,Tokyo / Chubu,800.0,28304.0,6539.072246065809,21764.927753934193,JEPX processed sampled bidding curve
 2026-06-30,35,Tokyo / Chubu,1000.0,28304.0,0.0,28304.0,JEPX processed sampled bidding curve
 2026-06-30,36,Hokuriku / Kansai / Chugoku / Kyushu,0.0,4396.2,16903.9,-12507.7,JEPX processed sampled bidding curve
 2026-06-30,36,Hokuriku / Kansai / Chugoku / Kyushu,1.0,11890.9,16793.8,-4902.9,JEPX processed sampled bidding curve
@@ -14846,7 +14846,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-01,17,Tokyo / Chubu,150.0,32867.4,13589.692307692309,19277.707692307693,JEPX processed sampled bidding curve
 2026-07-01,17,Tokyo / Chubu,200.0,32867.4,13577.4,19290.0,JEPX processed sampled bidding curve
 2026-07-01,17,Tokyo / Chubu,300.0,32867.4,9733.4,23134.0,JEPX processed sampled bidding curve
-2026-07-01,17,Tokyo / Chubu,500.0,32867.4,8793.285550786839,24074.114449213164,JEPX processed sampled bidding curve
+2026-07-01,17,Tokyo / Chubu,500.0,32867.4,8793.285550786837,24074.114449213164,JEPX processed sampled bidding curve
 2026-07-01,17,Tokyo / Chubu,800.0,32867.4,7383.113876967096,25484.286123032907,JEPX processed sampled bidding curve
 2026-07-01,17,Tokyo / Chubu,1000.0,32867.4,0.0,32867.4,JEPX processed sampled bidding curve
 2026-07-01,18,Hokuriku / Kansai / Chugoku / Kyushu,0.0,4728.7,17235.6,-12506.899999999998,JEPX processed sampled bidding curve
@@ -14955,7 +14955,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-01,19,Tokyo / Chubu,200.0,34172.2,14103.3,20068.899999999998,JEPX processed sampled bidding curve
 2026-07-01,19,Tokyo / Chubu,300.0,34172.2,10029.1,24143.1,JEPX processed sampled bidding curve
 2026-07-01,19,Tokyo / Chubu,500.0,34172.2,9088.985550786838,25083.21444921316,JEPX processed sampled bidding curve
-2026-07-01,19,Tokyo / Chubu,800.0,34172.2,7678.813876967096,26493.386123032902,JEPX processed sampled bidding curve
+2026-07-01,19,Tokyo / Chubu,800.0,34172.2,7678.813876967095,26493.386123032902,JEPX processed sampled bidding curve
 2026-07-01,19,Tokyo / Chubu,1000.0,34172.2,0.0,34172.2,JEPX processed sampled bidding curve
 2026-07-01,20,Hokkaido / Tohoku,0.0,4730.1,11405.7,-6675.6,JEPX processed sampled bidding curve
 2026-07-01,20,Hokkaido / Tohoku,1.0,10721.8,11337.6,-615.8000000000011,JEPX processed sampled bidding curve
@@ -15027,7 +15027,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-01,20,Tokyo / Chubu,200.0,34800.4,14265.1,20535.300000000003,JEPX processed sampled bidding curve
 2026-07-01,20,Tokyo / Chubu,300.0,34800.4,10098.7,24701.7,JEPX processed sampled bidding curve
 2026-07-01,20,Tokyo / Chubu,500.0,34800.4,9158.585550786838,25641.81444921316,JEPX processed sampled bidding curve
-2026-07-01,20,Tokyo / Chubu,800.0,34800.4,7748.413876967096,27051.986123032904,JEPX processed sampled bidding curve
+2026-07-01,20,Tokyo / Chubu,800.0,34800.4,7748.413876967095,27051.986123032904,JEPX processed sampled bidding curve
 2026-07-01,20,Tokyo / Chubu,1000.0,34800.4,0.0,34800.4,JEPX processed sampled bidding curve
 2026-07-01,21,Hokkaido / Tohoku,0.0,4912.7,11460.8,-6548.099999999999,JEPX processed sampled bidding curve
 2026-07-01,21,Hokkaido / Tohoku,1.0,10875.2,11391.8,-516.5999999999985,JEPX processed sampled bidding curve
@@ -15170,14 +15170,14 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-01,22,Tokyo / Chubu,150.0,35844.9,14594.576923076924,21250.32307692308,JEPX processed sampled bidding curve
 2026-07-01,22,Tokyo / Chubu,200.0,35844.9,14553.5,21291.4,JEPX processed sampled bidding curve
 2026-07-01,22,Tokyo / Chubu,300.0,35844.9,10157.4,25687.5,JEPX processed sampled bidding curve
-2026-07-01,22,Tokyo / Chubu,500.0,35844.9,9217.285550786839,26627.614449213164,JEPX processed sampled bidding curve
+2026-07-01,22,Tokyo / Chubu,500.0,35844.9,9217.285550786837,26627.614449213164,JEPX processed sampled bidding curve
 2026-07-01,22,Tokyo / Chubu,800.0,35844.9,7807.113876967096,28037.786123032907,JEPX processed sampled bidding curve
 2026-07-01,22,Tokyo / Chubu,1000.0,35844.9,0.0,35844.9,JEPX processed sampled bidding curve
 2026-07-01,23,Hokkaido / Tohoku,0.0,5080.2,11658.6,-6578.400000000001,JEPX processed sampled bidding curve
 2026-07-01,23,Hokkaido / Tohoku,1.0,11151.7,11587.4,-435.6999999999989,JEPX processed sampled bidding curve
 2026-07-01,23,Hokkaido / Tohoku,5.0,11471.4,11269.8,201.60000000000036,JEPX processed sampled bidding curve
 2026-07-01,23,Hokkaido / Tohoku,10.0,11678.6,10485.3,1193.300000000001,JEPX processed sampled bidding curve
-2026-07-01,23,Hokkaido / Tohoku,15.0,12236.35,10389.1,1847.25,JEPX processed sampled bidding curve
+2026-07-01,23,Hokkaido / Tohoku,15.0,12236.349999999999,10389.1,1847.2499999999982,JEPX processed sampled bidding curve
 2026-07-01,23,Hokkaido / Tohoku,20.0,12631.8,10045.2,2586.5999999999985,JEPX processed sampled bidding curve
 2026-07-01,23,Hokkaido / Tohoku,25.0,12654.8,9906.3,2748.5,JEPX processed sampled bidding curve
 2026-07-01,23,Hokkaido / Tohoku,30.0,12679.8,9862.8,2817.0,JEPX processed sampled bidding curve
@@ -15242,7 +15242,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-01,23,Tokyo / Chubu,150.0,35893.0,14525.815384615385,21367.184615384613,JEPX processed sampled bidding curve
 2026-07-01,23,Tokyo / Chubu,200.0,35893.0,14482.2,21410.8,JEPX processed sampled bidding curve
 2026-07-01,23,Tokyo / Chubu,300.0,35893.0,10164.4,25728.6,JEPX processed sampled bidding curve
-2026-07-01,23,Tokyo / Chubu,500.0,35893.0,9224.285550786839,26668.714449213163,JEPX processed sampled bidding curve
+2026-07-01,23,Tokyo / Chubu,500.0,35893.0,9224.285550786837,26668.714449213163,JEPX processed sampled bidding curve
 2026-07-01,23,Tokyo / Chubu,800.0,35893.0,7814.113876967096,28078.886123032906,JEPX processed sampled bidding curve
 2026-07-01,23,Tokyo / Chubu,1000.0,35893.0,0.0,35893.0,JEPX processed sampled bidding curve
 2026-07-01,24,Hokkaido / Tohoku,0.0,5063.9,11621.8,-6557.9,JEPX processed sampled bidding curve
@@ -15369,7 +15369,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-01,25,Tokyo / Chubu,200.0,35627.1,14198.0,21429.1,JEPX processed sampled bidding curve
 2026-07-01,25,Tokyo / Chubu,300.0,35627.1,10049.8,25577.3,JEPX processed sampled bidding curve
 2026-07-01,25,Tokyo / Chubu,500.0,35627.1,9109.771387696708,26517.32861230329,JEPX processed sampled bidding curve
-2026-07-01,25,Tokyo / Chubu,800.0,35627.1,7699.728469241773,27927.371530758224,JEPX processed sampled bidding curve
+2026-07-01,25,Tokyo / Chubu,800.0,35627.1,7699.728469241774,27927.371530758224,JEPX processed sampled bidding curve
 2026-07-01,25,Tokyo / Chubu,1000.0,35627.1,0.0,35627.1,JEPX processed sampled bidding curve
 2026-07-01,26,Hokkaido / Tohoku,0.0,4842.6,11355.9,-6513.299999999999,JEPX processed sampled bidding curve
 2026-07-01,26,Hokkaido / Tohoku,1.0,10830.9,11319.1,-488.2000000000007,JEPX processed sampled bidding curve
@@ -15441,7 +15441,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-01,26,Tokyo / Chubu,200.0,35138.9,14193.0,20945.9,JEPX processed sampled bidding curve
 2026-07-01,26,Tokyo / Chubu,300.0,35138.9,10043.4,25095.5,JEPX processed sampled bidding curve
 2026-07-01,26,Tokyo / Chubu,500.0,35138.9,9103.371387696709,26035.528612303293,JEPX processed sampled bidding curve
-2026-07-01,26,Tokyo / Chubu,800.0,35138.9,7693.328469241774,27445.57153075823,JEPX processed sampled bidding curve
+2026-07-01,26,Tokyo / Chubu,800.0,35138.9,7693.328469241775,27445.57153075823,JEPX processed sampled bidding curve
 2026-07-01,26,Tokyo / Chubu,1000.0,35138.9,0.0,35138.9,JEPX processed sampled bidding curve
 2026-07-01,27,System Price,0.0,21271.3,62040.2,-40768.899999999994,JEPX processed sampled bidding curve
 2026-07-01,27,System Price,1.0,45464.5,61654.5,-16190.0,JEPX processed sampled bidding curve
@@ -17601,7 +17601,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-02,19,Tokyo / Chubu,200.0,31113.9,13996.8,17117.100000000002,JEPX processed sampled bidding curve
 2026-07-02,19,Tokyo / Chubu,300.0,31113.9,10003.7,21110.2,JEPX processed sampled bidding curve
 2026-07-02,19,Tokyo / Chubu,500.0,31113.9,9063.585550786838,22050.31444921316,JEPX processed sampled bidding curve
-2026-07-02,19,Tokyo / Chubu,800.0,31113.9,7653.413876967096,23460.486123032904,JEPX processed sampled bidding curve
+2026-07-02,19,Tokyo / Chubu,800.0,31113.9,7653.413876967095,23460.486123032904,JEPX processed sampled bidding curve
 2026-07-02,19,Tokyo / Chubu,1000.0,31113.9,0.0,31113.9,JEPX processed sampled bidding curve
 2026-07-02,20,Hokuriku / Kansai / Chugoku / Kyushu,0.0,5342.1,18740.7,-13398.6,JEPX processed sampled bidding curve
 2026-07-02,20,Hokuriku / Kansai / Chugoku / Kyushu,1.0,13343.9,18532.6,-5188.699999999999,JEPX processed sampled bidding curve
@@ -18069,7 +18069,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-02,29,Tohoku / Tokyo,200.0,27930.3,14874.8,13055.5,JEPX processed sampled bidding curve
 2026-07-02,29,Tohoku / Tokyo,300.0,27930.3,11675.8,16254.5,JEPX processed sampled bidding curve
 2026-07-02,29,Tohoku / Tokyo,500.0,27930.3,10768.532474964233,17161.767525035764,JEPX processed sampled bidding curve
-2026-07-02,29,Tohoku / Tokyo,800.0,27930.3,9407.631187410587,18522.668812589414,JEPX processed sampled bidding curve
+2026-07-02,29,Tohoku / Tokyo,800.0,27930.3,9407.631187410585,18522.668812589414,JEPX processed sampled bidding curve
 2026-07-02,29,Tohoku / Tokyo,1000.0,27930.3,0.0,27930.3,JEPX processed sampled bidding curve
 2026-07-02,30,Hokuriku / Kansai / Chugoku / Kyushu,0.0,5719.7,18193.2,-12473.5,JEPX processed sampled bidding curve
 2026-07-02,30,Hokuriku / Kansai / Chugoku / Kyushu,1.0,13752.1,17993.3,-4241.199999999999,JEPX processed sampled bidding curve
@@ -18879,7 +18879,7 @@ delivery_date,time_code,area_group,bid_price_jpy_kwh,sell_cumulative_mw,buy_cumu
 2026-07-02,44,Tohoku / Tokyo / Chubu,200.0,31738.7,16192.9,15545.800000000001,JEPX processed sampled bidding curve
 2026-07-02,44,Tohoku / Tokyo / Chubu,300.0,31738.8,11711.7,20027.1,JEPX processed sampled bidding curve
 2026-07-02,44,Tohoku / Tokyo / Chubu,500.0,31738.8,10828.094849785408,20910.70515021459,JEPX processed sampled bidding curve
-2026-07-02,44,Tohoku / Tokyo / Chubu,800.0,31738.8,9502.68712446352,22236.112875536477,JEPX processed sampled bidding curve
+2026-07-02,44,Tohoku / Tokyo / Chubu,800.0,31738.8,9502.687124463519,22236.11287553648,JEPX processed sampled bidding curve
 2026-07-02,44,Tohoku / Tokyo / Chubu,1000.0,31738.8,0.0,31738.8,JEPX processed sampled bidding curve
 2026-07-02,45,Hokuriku / Kansai / Chugoku / Kyushu,0.0,3038.5,14671.9,-11633.4,JEPX processed sampled bidding curve
 2026-07-02,45,Hokuriku / Kansai / Chugoku / Kyushu,1.0,10447.7,14585.8,-4138.0999999999985,JEPX processed sampled bidding curve

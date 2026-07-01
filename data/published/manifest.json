@@ -3,7 +3,7 @@
     {
       "artifact": "jepx_baseload.csv",
       "dataset_id": "jepx_baseload",
-      "fetched_at": "2026-07-01T14:48:52.139812+00:00",
+      "fetched_at": "2026-07-01T23:51:45.572239+00:00",
       "label": "JEPX baseload",
       "observation_end": "2026-01-30",
       "observation_start": "2024-08-30",
@@ -15,11 +15,11 @@
     {
       "artifact": "jepx_intraday.csv",
       "dataset_id": "jepx_intraday",
-      "fetched_at": "2026-07-01T14:48:52.139812+00:00",
+      "fetched_at": "2026-07-01T23:51:45.572239+00:00",
       "label": "JEPX intraday",
       "observation_end": "2026-07-02",
       "observation_start": "2026-04-01",
-      "row_count": 4418,
+      "row_count": 4436,
       "source": "JEPX public intraday CSV",
       "stale_after_days": 4,
       "status": "current"
@@ -27,7 +27,7 @@
     {
       "artifact": "jepx_offer_stack_curves.csv",
       "dataset_id": "jepx_offer_stack_curves",
-      "fetched_at": "2026-07-01T14:47:50.668145+00:00",
+      "fetched_at": "2026-07-01T23:51:45.572239+00:00",
       "label": "JEPX compact offer-stack curves",
       "observation_end": "2026-07-02",
       "observation_start": "2026-06-26",
@@ -39,7 +39,7 @@
     {
       "artifact": "jepx_offer_stack_depth.csv",
       "dataset_id": "jepx_offer_stack_depth",
-      "fetched_at": "2026-07-01T14:47:50.668145+00:00",
+      "fetched_at": "2026-07-01T23:51:45.572239+00:00",
       "label": "JEPX offer-stack depth",
       "observation_end": "2026-07-02",
       "observation_start": "2026-06-26",
@@ -51,11 +51,11 @@
     {
       "artifact": "power_news.csv",
       "dataset_id": "news",
-      "fetched_at": "2026-07-01T14:48:52.139812+00:00",
+      "fetched_at": "2026-07-01T23:51:45.572239+00:00",
       "label": "Japan power news",
       "observation_end": "2026-06-25",
       "observation_start": "2025-11-10",
-      "row_count": 10,
+      "row_count": 11,
       "source": "Public feeds: Google News RSS, JEPX notices, OCCTO releases",
       "stale_after_days": 7,
       "status": "current"
@@ -63,17 +63,17 @@
     {
       "artifact": "weather_temperatures.csv",
       "dataset_id": "weather",
-      "fetched_at": "2026-07-01T14:47:50.668145+00:00",
+      "fetched_at": "2026-07-01T23:51:45.572239+00:00",
       "label": "Tokyo/Kansai weather",
       "observation_end": "2026-06-26",
       "observation_start": "2023-06-26",
-      "row_count": 2150,
+      "row_count": 2194,
       "source": "Open-Meteo Historical Weather API",
       "stale_after_days": 7,
       "status": "current"
     }
   ],
-  "generated_at": "2026-07-01T14:48:52.139812+00:00",
+  "generated_at": "2026-07-01T23:51:45.572239+00:00",
   "overall_status": "current",
   "version": 1,
   "warnings": []
