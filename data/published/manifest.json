@@ -3,7 +3,7 @@
     {
       "artifact": "jepx_baseload.csv",
       "dataset_id": "jepx_baseload",
-      "fetched_at": "2026-07-01T23:51:45.572239+00:00",
+      "fetched_at": "2026-07-02T02:26:31.842497+00:00",
       "label": "JEPX baseload",
       "observation_end": "2026-01-30",
       "observation_start": "2024-08-30",
@@ -15,11 +15,11 @@
     {
       "artifact": "jepx_intraday.csv",
       "dataset_id": "jepx_intraday",
-      "fetched_at": "2026-07-01T23:51:45.572239+00:00",
+      "fetched_at": "2026-07-02T02:26:31.842497+00:00",
       "label": "JEPX intraday",
       "observation_end": "2026-07-02",
       "observation_start": "2026-04-01",
-      "row_count": 4436,
+      "row_count": 4441,
       "source": "JEPX public intraday CSV",
       "stale_after_days": 4,
       "status": "current"
@@ -49,6 +49,18 @@
       "status": "current"
     },
     {
+      "artifact": "jepx_spot_daily.csv",
+      "dataset_id": "jepx_spot_daily",
+      "fetched_at": "2026-07-02T02:26:31.842497+00:00",
+      "label": "JEPX day-ahead spot prices",
+      "observation_end": "2026-07-03",
+      "observation_start": "2025-04-01",
+      "row_count": 1377,
+      "source": "JEPX public day-ahead spot summary CSV",
+      "stale_after_days": 4,
+      "status": "current"
+    },
+    {
       "artifact": "power_news.csv",
       "dataset_id": "news",
       "fetched_at": "2026-07-01T23:51:45.572239+00:00",
@@ -73,7 +85,7 @@
       "status": "current"
     }
   ],
-  "generated_at": "2026-07-01T23:51:45.572239+00:00",
+  "generated_at": "2026-07-02T02:26:31.842497+00:00",
   "overall_status": "current",
   "version": 1,
   "warnings": []
