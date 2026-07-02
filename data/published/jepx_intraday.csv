@@ -4440,3 +4440,5 @@ delivery_date,time_code,opening_price_jpy_kwh,highest_price_jpy_kwh,lowest_price
 2026-07-02,23,17.22,24.0,0.01,11.2,15.02,532250,210,JEPX public intraday CSV
 2026-07-02,24,16.69,24.59,0.01,11.2,14.79,537400,238,JEPX public intraday CSV
 2026-07-02,25,9.54,30.0,0.01,9.99,11.37,636050,310,JEPX public intraday CSV
+2026-07-02,26,9.4,30.0,6.82,18.99,11.81,527200,272,JEPX public intraday CSV
+2026-07-02,27,13.13,40.0,8.5,14.7,13.45,552350,299,JEPX public intraday CSV
