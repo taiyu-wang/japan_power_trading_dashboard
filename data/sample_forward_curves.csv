@@ -1,0 +1,793 @@
+curve_date,contract_month,market,region,price,currency,unit,contract_type,source_note
+2026-04-09,2026-07-01,JKM,Japan/Korea,13.2226,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2026-08-01,JKM,Japan/Korea,13.1492,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2026-09-01,JKM,Japan/Korea,13.0135,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2026-10-01,JKM,Japan/Korea,12.9182,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2026-11-01,JKM,Japan/Korea,12.8296,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2026-12-01,JKM,Japan/Korea,12.7798,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-01-01,JKM,Japan/Korea,12.5219,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-02-01,JKM,Japan/Korea,11.8201,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-03-01,JKM,Japan/Korea,10.983,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-04-01,JKM,Japan/Korea,10.1273,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-05-01,JKM,Japan/Korea,9.3024,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-06-01,JKM,Japan/Korea,8.7348,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-07-01,JKM,Japan/Korea,8.4009,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-08-01,JKM,Japan/Korea,8.2771,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-09-01,JKM,Japan/Korea,8.0982,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-10-01,JKM,Japan/Korea,7.7491,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-11-01,JKM,Japan/Korea,7.5884,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2027-12-01,JKM,Japan/Korea,7.2609,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2028-01-01,JKM,Japan/Korea,6.9124,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2028-02-01,JKM,Japan/Korea,6.3474,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2028-03-01,JKM,Japan/Korea,5.7858,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2028-04-01,JKM,Japan/Korea,5.0499,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2028-05-01,JKM,Japan/Korea,4.5239,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2028-06-01,JKM,Japan/Korea,4.0476,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-04-09,2026-07-01,DES_JAPAN_LNG,Japan,13.5796,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2026-08-01,DES_JAPAN_LNG,Japan,13.5037,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2026-09-01,DES_JAPAN_LNG,Japan,13.5857,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2026-10-01,DES_JAPAN_LNG,Japan,13.5793,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2026-11-01,DES_JAPAN_LNG,Japan,13.6248,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2026-12-01,DES_JAPAN_LNG,Japan,13.5343,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-01-01,DES_JAPAN_LNG,Japan,13.3474,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-02-01,DES_JAPAN_LNG,Japan,12.7897,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-03-01,DES_JAPAN_LNG,Japan,12.0119,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-04-01,DES_JAPAN_LNG,Japan,11.2149,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-05-01,DES_JAPAN_LNG,Japan,10.3302,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-06-01,DES_JAPAN_LNG,Japan,9.8651,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-07-01,DES_JAPAN_LNG,Japan,9.7197,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-08-01,DES_JAPAN_LNG,Japan,9.5787,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-09-01,DES_JAPAN_LNG,Japan,9.4891,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-10-01,DES_JAPAN_LNG,Japan,9.3724,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-11-01,DES_JAPAN_LNG,Japan,9.2836,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2027-12-01,DES_JAPAN_LNG,Japan,9.0953,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2028-01-01,DES_JAPAN_LNG,Japan,8.8765,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2028-02-01,DES_JAPAN_LNG,Japan,8.4626,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2028-03-01,DES_JAPAN_LNG,Japan,7.6793,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2028-04-01,DES_JAPAN_LNG,Japan,7.1047,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2028-05-01,DES_JAPAN_LNG,Japan,6.4468,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2028-06-01,DES_JAPAN_LNG,Japan,5.9739,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-04-09,2026-07-01,JCC,Japan,73.1402,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2026-08-01,JCC,Japan,73.3455,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2026-09-01,JCC,Japan,73.5002,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2026-10-01,JCC,Japan,73.8814,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2026-11-01,JCC,Japan,74.2085,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2026-12-01,JCC,Japan,74.447,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-01-01,JCC,Japan,74.8,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-02-01,JCC,Japan,75.0395,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-03-01,JCC,Japan,75.3829,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-04-01,JCC,Japan,75.7289,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-05-01,JCC,Japan,75.8729,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-06-01,JCC,Japan,76.2264,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-07-01,JCC,Japan,76.4717,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-08-01,JCC,Japan,76.8051,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-09-01,JCC,Japan,77.0051,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-10-01,JCC,Japan,77.3396,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-11-01,JCC,Japan,77.6584,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2027-12-01,JCC,Japan,78.0271,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2028-01-01,JCC,Japan,78.3363,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2028-02-01,JCC,Japan,78.4555,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2028-03-01,JCC,Japan,78.7845,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2028-04-01,JCC,Japan,79.1775,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2028-05-01,JCC,Japan,79.2847,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2028-06-01,JCC,Japan,79.6838,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-04-09,2026-07-01,JCC_LINKED_LNG,Japan,11.0729,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2026-08-01,JCC_LINKED_LNG,Japan,11.1645,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2026-09-01,JCC_LINKED_LNG,Japan,11.2852,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2026-10-01,JCC_LINKED_LNG,Japan,11.4316,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2026-11-01,JCC_LINKED_LNG,Japan,11.5911,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2026-12-01,JCC_LINKED_LNG,Japan,11.7226,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-01-01,JCC_LINKED_LNG,Japan,11.8218,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-02-01,JCC_LINKED_LNG,Japan,11.8124,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-03-01,JCC_LINKED_LNG,Japan,11.7745,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-04-01,JCC_LINKED_LNG,Japan,11.7113,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-05-01,JCC_LINKED_LNG,Japan,11.6331,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-06-01,JCC_LINKED_LNG,Japan,11.5905,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-07-01,JCC_LINKED_LNG,Japan,11.5917,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-08-01,JCC_LINKED_LNG,Japan,11.6817,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-09-01,JCC_LINKED_LNG,Japan,11.808,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-10-01,JCC_LINKED_LNG,Japan,11.9927,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-11-01,JCC_LINKED_LNG,Japan,12.1517,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2027-12-01,JCC_LINKED_LNG,Japan,12.2772,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2028-01-01,JCC_LINKED_LNG,Japan,12.3643,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2028-02-01,JCC_LINKED_LNG,Japan,12.3652,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2028-03-01,JCC_LINKED_LNG,Japan,12.3393,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2028-04-01,JCC_LINKED_LNG,Japan,12.2492,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2028-05-01,JCC_LINKED_LNG,Japan,12.1788,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2028-06-01,JCC_LINKED_LNG,Japan,12.1098,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-04-09,2026-07-01,NEWCASTLE_COAL,Australia,137.1696,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2026-08-01,NEWCASTLE_COAL,Australia,138.3985,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2026-09-01,NEWCASTLE_COAL,Australia,141.4921,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2026-10-01,NEWCASTLE_COAL,Australia,146.1392,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2026-11-01,NEWCASTLE_COAL,Australia,149.9054,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2026-12-01,NEWCASTLE_COAL,Australia,153.686,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-01-01,NEWCASTLE_COAL,Australia,156.6871,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-02-01,NEWCASTLE_COAL,Australia,156.2138,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-03-01,NEWCASTLE_COAL,Australia,155.7952,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-04-01,NEWCASTLE_COAL,Australia,154.8631,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-05-01,NEWCASTLE_COAL,Australia,153.6647,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-06-01,NEWCASTLE_COAL,Australia,152.7728,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-07-01,NEWCASTLE_COAL,Australia,153.3922,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-08-01,NEWCASTLE_COAL,Australia,155.8783,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-09-01,NEWCASTLE_COAL,Australia,159.256,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-10-01,NEWCASTLE_COAL,Australia,162.8875,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-11-01,NEWCASTLE_COAL,Australia,167.5719,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2027-12-01,NEWCASTLE_COAL,Australia,171.191,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2028-01-01,NEWCASTLE_COAL,Australia,173.0038,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2028-02-01,NEWCASTLE_COAL,Australia,174.2069,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2028-03-01,NEWCASTLE_COAL,Australia,173.0398,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2028-04-01,NEWCASTLE_COAL,Australia,172.2098,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2028-05-01,NEWCASTLE_COAL,Australia,170.2864,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2028-06-01,NEWCASTLE_COAL,Australia,169.4026,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-04-09,2026-07-01,CFR_JAPAN_COAL,Japan,145.4648,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2026-08-01,CFR_JAPAN_COAL,Japan,147.6914,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2026-09-01,CFR_JAPAN_COAL,Japan,150.1799,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2026-10-01,CFR_JAPAN_COAL,Japan,154.5971,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2026-11-01,CFR_JAPAN_COAL,Japan,159.3288,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2026-12-01,CFR_JAPAN_COAL,Japan,161.6743,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-01-01,CFR_JAPAN_COAL,Japan,165.0852,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-02-01,CFR_JAPAN_COAL,Japan,164.6372,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-03-01,CFR_JAPAN_COAL,Japan,165.0274,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-04-01,CFR_JAPAN_COAL,Japan,162.8726,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-05-01,CFR_JAPAN_COAL,Japan,162.0417,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-06-01,CFR_JAPAN_COAL,Japan,160.9755,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-07-01,CFR_JAPAN_COAL,Japan,160.8,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-08-01,CFR_JAPAN_COAL,Japan,164.0864,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-09-01,CFR_JAPAN_COAL,Japan,167.6642,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-10-01,CFR_JAPAN_COAL,Japan,171.358,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-11-01,CFR_JAPAN_COAL,Japan,175.6516,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2027-12-01,CFR_JAPAN_COAL,Japan,179.3133,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2028-01-01,CFR_JAPAN_COAL,Japan,181.1897,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2028-02-01,CFR_JAPAN_COAL,Japan,182.6485,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2028-03-01,CFR_JAPAN_COAL,Japan,181.0684,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2028-04-01,CFR_JAPAN_COAL,Japan,179.5182,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2028-05-01,CFR_JAPAN_COAL,Japan,177.3961,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2028-06-01,CFR_JAPAN_COAL,Japan,176.4675,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-04-09,2026-07-01,BRENT,Global,78.8852,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2026-08-01,BRENT,Global,79.2713,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2026-09-01,BRENT,Global,79.3023,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2026-10-01,BRENT,Global,79.5611,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2026-11-01,BRENT,Global,79.6334,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2026-12-01,BRENT,Global,79.7277,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-01-01,BRENT,Global,79.9188,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-02-01,BRENT,Global,80.0558,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-03-01,BRENT,Global,80.2649,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-04-01,BRENT,Global,80.3884,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-05-01,BRENT,Global,80.5532,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-06-01,BRENT,Global,80.6141,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-07-01,BRENT,Global,80.8236,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-08-01,BRENT,Global,81.203,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-09-01,BRENT,Global,81.1518,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-10-01,BRENT,Global,81.2753,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-11-01,BRENT,Global,81.5585,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2027-12-01,BRENT,Global,81.8128,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2028-01-01,BRENT,Global,81.7133,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2028-02-01,BRENT,Global,81.9834,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2028-03-01,BRENT,Global,82.1033,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2028-04-01,BRENT,Global,82.1597,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2028-05-01,BRENT,Global,82.5423,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2028-06-01,BRENT,Global,82.6321,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-04-09,2026-07-01,JAPAN_POWER_FUTURES,Japan,16.4647,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2026-08-01,JAPAN_POWER_FUTURES,Japan,16.7946,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2026-09-01,JAPAN_POWER_FUTURES,Japan,17.213,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2026-10-01,JAPAN_POWER_FUTURES,Japan,17.4769,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2026-11-01,JAPAN_POWER_FUTURES,Japan,17.9461,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2026-12-01,JAPAN_POWER_FUTURES,Japan,18.282,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-01-01,JAPAN_POWER_FUTURES,Japan,18.3814,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-02-01,JAPAN_POWER_FUTURES,Japan,18.261,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-03-01,JAPAN_POWER_FUTURES,Japan,17.4538,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-04-01,JAPAN_POWER_FUTURES,Japan,16.6443,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-05-01,JAPAN_POWER_FUTURES,Japan,15.8645,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-06-01,JAPAN_POWER_FUTURES,Japan,15.4925,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-07-01,JAPAN_POWER_FUTURES,Japan,15.6341,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-08-01,JAPAN_POWER_FUTURES,Japan,16.0795,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-09-01,JAPAN_POWER_FUTURES,Japan,16.3287,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-10-01,JAPAN_POWER_FUTURES,Japan,16.6532,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-11-01,JAPAN_POWER_FUTURES,Japan,17.0818,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2027-12-01,JAPAN_POWER_FUTURES,Japan,17.5427,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2028-01-01,JAPAN_POWER_FUTURES,Japan,17.606,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2028-02-01,JAPAN_POWER_FUTURES,Japan,17.2971,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2028-03-01,JAPAN_POWER_FUTURES,Japan,16.5826,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2028-04-01,JAPAN_POWER_FUTURES,Japan,15.6994,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2028-05-01,JAPAN_POWER_FUTURES,Japan,15.14,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2028-06-01,JAPAN_POWER_FUTURES,Japan,14.8116,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-04-09,2026-07-01,JEPX_SYSTEM,Japan,15.7744,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2026-08-01,JEPX_SYSTEM,Japan,16.1888,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2026-09-01,JEPX_SYSTEM,Japan,16.5015,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2026-10-01,JEPX_SYSTEM,Japan,16.7913,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2026-11-01,JEPX_SYSTEM,Japan,17.1866,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2026-12-01,JEPX_SYSTEM,Japan,17.3826,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-01-01,JEPX_SYSTEM,Japan,17.6638,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-02-01,JEPX_SYSTEM,Japan,17.04,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-03-01,JEPX_SYSTEM,Japan,16.595,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-04-01,JEPX_SYSTEM,Japan,15.7039,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-05-01,JEPX_SYSTEM,Japan,15.0002,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-06-01,JEPX_SYSTEM,Japan,14.7556,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-07-01,JEPX_SYSTEM,Japan,14.8163,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-08-01,JEPX_SYSTEM,Japan,14.8349,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-09-01,JEPX_SYSTEM,Japan,15.0335,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-10-01,JEPX_SYSTEM,Japan,15.5653,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-11-01,JEPX_SYSTEM,Japan,15.7133,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2027-12-01,JEPX_SYSTEM,Japan,16.1374,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2028-01-01,JEPX_SYSTEM,Japan,16.2828,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2028-02-01,JEPX_SYSTEM,Japan,15.7054,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2028-03-01,JEPX_SYSTEM,Japan,15.0202,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2028-04-01,JEPX_SYSTEM,Japan,14.487,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2028-05-01,JEPX_SYSTEM,Japan,13.7674,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2028-06-01,JEPX_SYSTEM,Japan,13.4004,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-04-09,2026-07-01,JEPX_TOKYO,Tokyo,17.2299,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-08-01,JEPX_TOKYO,Tokyo,17.4745,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-09-01,JEPX_TOKYO,Tokyo,17.6899,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-10-01,JEPX_TOKYO,Tokyo,18.1423,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-11-01,JEPX_TOKYO,Tokyo,18.4455,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-12-01,JEPX_TOKYO,Tokyo,18.7222,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-01-01,JEPX_TOKYO,Tokyo,19.0297,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-02-01,JEPX_TOKYO,Tokyo,18.5943,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-03-01,JEPX_TOKYO,Tokyo,17.8977,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-04-01,JEPX_TOKYO,Tokyo,16.7911,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-05-01,JEPX_TOKYO,Tokyo,16.007,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-06-01,JEPX_TOKYO,Tokyo,15.5647,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-07-01,JEPX_TOKYO,Tokyo,15.672,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-08-01,JEPX_TOKYO,Tokyo,16.1143,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-09-01,JEPX_TOKYO,Tokyo,16.2551,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-10-01,JEPX_TOKYO,Tokyo,16.6467,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-11-01,JEPX_TOKYO,Tokyo,16.9988,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-12-01,JEPX_TOKYO,Tokyo,17.5156,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-01-01,JEPX_TOKYO,Tokyo,17.1387,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-02-01,JEPX_TOKYO,Tokyo,17.0652,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-03-01,JEPX_TOKYO,Tokyo,16.25,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-04-01,JEPX_TOKYO,Tokyo,15.3922,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-05-01,JEPX_TOKYO,Tokyo,14.4591,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-06-01,JEPX_TOKYO,Tokyo,14.202,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-07-01,JEPX_KANSAI,Kansai,15.003,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-08-01,JEPX_KANSAI,Kansai,15.2565,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-09-01,JEPX_KANSAI,Kansai,15.5597,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-10-01,JEPX_KANSAI,Kansai,15.8081,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-11-01,JEPX_KANSAI,Kansai,16.3351,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2026-12-01,JEPX_KANSAI,Kansai,16.5647,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-01-01,JEPX_KANSAI,Kansai,16.4257,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-02-01,JEPX_KANSAI,Kansai,16.2897,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-03-01,JEPX_KANSAI,Kansai,15.5344,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-04-01,JEPX_KANSAI,Kansai,14.6116,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-05-01,JEPX_KANSAI,Kansai,14.188,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-06-01,JEPX_KANSAI,Kansai,14.0507,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-07-01,JEPX_KANSAI,Kansai,14.0377,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-08-01,JEPX_KANSAI,Kansai,14.2271,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-09-01,JEPX_KANSAI,Kansai,14.515,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-10-01,JEPX_KANSAI,Kansai,14.9856,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-11-01,JEPX_KANSAI,Kansai,15.2424,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2027-12-01,JEPX_KANSAI,Kansai,15.5521,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-01-01,JEPX_KANSAI,Kansai,15.6108,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-02-01,JEPX_KANSAI,Kansai,15.3456,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-03-01,JEPX_KANSAI,Kansai,14.8287,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-04-01,JEPX_KANSAI,Kansai,14.0536,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-05-01,JEPX_KANSAI,Kansai,13.3632,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-04-09,2028-06-01,JEPX_KANSAI,Kansai,12.9294,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-07-01,JKM,Japan/Korea,13.3637,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2026-08-01,JKM,Japan/Korea,13.425,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2026-09-01,JKM,Japan/Korea,13.1979,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2026-10-01,JKM,Japan/Korea,13.1458,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2026-11-01,JKM,Japan/Korea,13.1001,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2026-12-01,JKM,Japan/Korea,12.9258,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-01-01,JKM,Japan/Korea,12.7672,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-02-01,JKM,Japan/Korea,12.1491,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-03-01,JKM,Japan/Korea,11.2058,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-04-01,JKM,Japan/Korea,10.3473,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-05-01,JKM,Japan/Korea,9.4996,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-06-01,JKM,Japan/Korea,8.7778,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-07-01,JKM,Japan/Korea,8.661,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-08-01,JKM,Japan/Korea,8.4759,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-09-01,JKM,Japan/Korea,8.2699,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-10-01,JKM,Japan/Korea,7.974,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-11-01,JKM,Japan/Korea,7.8151,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2027-12-01,JKM,Japan/Korea,7.5778,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2028-01-01,JKM,Japan/Korea,7.2731,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2028-02-01,JKM,Japan/Korea,6.6887,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2028-03-01,JKM,Japan/Korea,6.0126,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2028-04-01,JKM,Japan/Korea,5.4082,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2028-05-01,JKM,Japan/Korea,4.6745,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2028-06-01,JKM,Japan/Korea,4.2101,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-05-09,2026-07-01,DES_JAPAN_LNG,Japan,13.6933,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2026-08-01,DES_JAPAN_LNG,Japan,13.9086,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2026-09-01,DES_JAPAN_LNG,Japan,13.8662,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2026-10-01,DES_JAPAN_LNG,Japan,13.8378,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2026-11-01,DES_JAPAN_LNG,Japan,13.8689,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2026-12-01,DES_JAPAN_LNG,Japan,13.8384,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-01-01,DES_JAPAN_LNG,Japan,13.6064,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-02-01,DES_JAPAN_LNG,Japan,13.0476,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-03-01,DES_JAPAN_LNG,Japan,12.2564,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-04-01,DES_JAPAN_LNG,Japan,11.3691,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-05-01,DES_JAPAN_LNG,Japan,10.6421,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-06-01,DES_JAPAN_LNG,Japan,10.087,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-07-01,DES_JAPAN_LNG,Japan,9.8677,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-08-01,DES_JAPAN_LNG,Japan,9.7795,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-09-01,DES_JAPAN_LNG,Japan,9.6683,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-10-01,DES_JAPAN_LNG,Japan,9.6572,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-11-01,DES_JAPAN_LNG,Japan,9.5222,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2027-12-01,DES_JAPAN_LNG,Japan,9.382,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2028-01-01,DES_JAPAN_LNG,Japan,9.0798,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2028-02-01,DES_JAPAN_LNG,Japan,8.5608,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2028-03-01,DES_JAPAN_LNG,Japan,7.9676,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2028-04-01,DES_JAPAN_LNG,Japan,7.3099,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2028-05-01,DES_JAPAN_LNG,Japan,6.6172,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2028-06-01,DES_JAPAN_LNG,Japan,6.1872,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-05-09,2026-07-01,JCC,Japan,73.0561,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2026-08-01,JCC,Japan,73.3712,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2026-09-01,JCC,Japan,73.544,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2026-10-01,JCC,Japan,73.9311,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2026-11-01,JCC,Japan,74.1797,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2026-12-01,JCC,Japan,74.5935,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-01-01,JCC,Japan,74.7696,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-02-01,JCC,Japan,75.1559,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-03-01,JCC,Japan,75.5143,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-04-01,JCC,Japan,75.6776,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-05-01,JCC,Japan,75.9494,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-06-01,JCC,Japan,76.297,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-07-01,JCC,Japan,76.5754,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-08-01,JCC,Japan,76.798,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-09-01,JCC,Japan,77.1918,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-10-01,JCC,Japan,77.5926,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-11-01,JCC,Japan,77.7255,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2027-12-01,JCC,Japan,78.0214,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2028-01-01,JCC,Japan,78.2544,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2028-02-01,JCC,Japan,78.6419,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2028-03-01,JCC,Japan,78.8243,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2028-04-01,JCC,Japan,79.1261,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2028-05-01,JCC,Japan,79.5851,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2028-06-01,JCC,Japan,79.7242,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-05-09,2026-07-01,JCC_LINKED_LNG,Japan,11.1276,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2026-08-01,JCC_LINKED_LNG,Japan,11.2079,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2026-09-01,JCC_LINKED_LNG,Japan,11.3202,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2026-10-01,JCC_LINKED_LNG,Japan,11.4834,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2026-11-01,JCC_LINKED_LNG,Japan,11.6613,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2026-12-01,JCC_LINKED_LNG,Japan,11.7648,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-01-01,JCC_LINKED_LNG,Japan,11.8369,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-02-01,JCC_LINKED_LNG,Japan,11.8423,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-03-01,JCC_LINKED_LNG,Japan,11.82,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-04-01,JCC_LINKED_LNG,Japan,11.7662,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-05-01,JCC_LINKED_LNG,Japan,11.687,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-06-01,JCC_LINKED_LNG,Japan,11.6213,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-07-01,JCC_LINKED_LNG,Japan,11.6349,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-08-01,JCC_LINKED_LNG,Japan,11.7156,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-09-01,JCC_LINKED_LNG,Japan,11.8576,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-10-01,JCC_LINKED_LNG,Japan,12.0163,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-11-01,JCC_LINKED_LNG,Japan,12.1874,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2027-12-01,JCC_LINKED_LNG,Japan,12.3227,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2028-01-01,JCC_LINKED_LNG,Japan,12.3938,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2028-02-01,JCC_LINKED_LNG,Japan,12.4105,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2028-03-01,JCC_LINKED_LNG,Japan,12.3699,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2028-04-01,JCC_LINKED_LNG,Japan,12.289,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2028-05-01,JCC_LINKED_LNG,Japan,12.2182,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2028-06-01,JCC_LINKED_LNG,Japan,12.1894,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-05-09,2026-07-01,NEWCASTLE_COAL,Australia,137.6614,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2026-08-01,NEWCASTLE_COAL,Australia,139.4916,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2026-09-01,NEWCASTLE_COAL,Australia,142.0326,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2026-10-01,NEWCASTLE_COAL,Australia,146.8241,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2026-11-01,NEWCASTLE_COAL,Australia,149.9018,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2026-12-01,NEWCASTLE_COAL,Australia,153.477,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-01-01,NEWCASTLE_COAL,Australia,156.5533,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-02-01,NEWCASTLE_COAL,Australia,157.2492,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-03-01,NEWCASTLE_COAL,Australia,156.3999,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-04-01,NEWCASTLE_COAL,Australia,154.5049,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-05-01,NEWCASTLE_COAL,Australia,153.7197,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-06-01,NEWCASTLE_COAL,Australia,152.9674,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-07-01,NEWCASTLE_COAL,Australia,154.1229,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-08-01,NEWCASTLE_COAL,Australia,156.8959,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-09-01,NEWCASTLE_COAL,Australia,159.5356,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-10-01,NEWCASTLE_COAL,Australia,163.3972,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-11-01,NEWCASTLE_COAL,Australia,167.5504,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2027-12-01,NEWCASTLE_COAL,Australia,171.5747,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2028-01-01,NEWCASTLE_COAL,Australia,173.7771,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2028-02-01,NEWCASTLE_COAL,Australia,174.0626,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2028-03-01,NEWCASTLE_COAL,Australia,173.8446,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2028-04-01,NEWCASTLE_COAL,Australia,171.7685,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2028-05-01,NEWCASTLE_COAL,Australia,171.0549,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2028-06-01,NEWCASTLE_COAL,Australia,170.1875,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-05-09,2026-07-01,CFR_JAPAN_COAL,Japan,146.5706,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2026-08-01,CFR_JAPAN_COAL,Japan,147.9359,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2026-09-01,CFR_JAPAN_COAL,Japan,151.6483,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2026-10-01,CFR_JAPAN_COAL,Japan,155.4298,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2026-11-01,CFR_JAPAN_COAL,Japan,159.4244,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2026-12-01,CFR_JAPAN_COAL,Japan,162.8551,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-01-01,CFR_JAPAN_COAL,Japan,164.5952,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-02-01,CFR_JAPAN_COAL,Japan,165.1859,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-03-01,CFR_JAPAN_COAL,Japan,165.4584,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-04-01,CFR_JAPAN_COAL,Japan,163.5586,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-05-01,CFR_JAPAN_COAL,Japan,162.2034,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-06-01,CFR_JAPAN_COAL,Japan,161.7412,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-07-01,CFR_JAPAN_COAL,Japan,161.1102,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-08-01,CFR_JAPAN_COAL,Japan,163.6178,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-09-01,CFR_JAPAN_COAL,Japan,167.5268,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-10-01,CFR_JAPAN_COAL,Japan,171.9605,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-11-01,CFR_JAPAN_COAL,Japan,176.0228,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2027-12-01,CFR_JAPAN_COAL,Japan,180.2389,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2028-01-01,CFR_JAPAN_COAL,Japan,182.1158,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2028-02-01,CFR_JAPAN_COAL,Japan,182.0862,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2028-03-01,CFR_JAPAN_COAL,Japan,181.3186,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2028-04-01,CFR_JAPAN_COAL,Japan,180.2902,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2028-05-01,CFR_JAPAN_COAL,Japan,178.3311,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2028-06-01,CFR_JAPAN_COAL,Japan,176.322,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-05-09,2026-07-01,BRENT,Global,79.1928,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2026-08-01,BRENT,Global,79.2834,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2026-09-01,BRENT,Global,79.5085,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2026-10-01,BRENT,Global,79.511,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2026-11-01,BRENT,Global,79.6769,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2026-12-01,BRENT,Global,79.7602,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-01-01,BRENT,Global,80.2479,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-02-01,BRENT,Global,80.1618,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-03-01,BRENT,Global,80.4784,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-04-01,BRENT,Global,80.4353,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-05-01,BRENT,Global,80.6663,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-06-01,BRENT,Global,80.6591,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-07-01,BRENT,Global,80.9331,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-08-01,BRENT,Global,81.2141,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-09-01,BRENT,Global,81.1709,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-10-01,BRENT,Global,81.5381,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-11-01,BRENT,Global,81.6299,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2027-12-01,BRENT,Global,81.6636,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2028-01-01,BRENT,Global,81.8704,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2028-02-01,BRENT,Global,82.0322,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2028-03-01,BRENT,Global,82.2271,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2028-04-01,BRENT,Global,82.3413,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2028-05-01,BRENT,Global,82.4731,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2028-06-01,BRENT,Global,82.6781,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-05-09,2026-07-01,JAPAN_POWER_FUTURES,Japan,16.583,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2026-08-01,JAPAN_POWER_FUTURES,Japan,16.9576,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2026-09-01,JAPAN_POWER_FUTURES,Japan,17.3832,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2026-10-01,JAPAN_POWER_FUTURES,Japan,17.7867,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2026-11-01,JAPAN_POWER_FUTURES,Japan,18.0654,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2026-12-01,JAPAN_POWER_FUTURES,Japan,18.582,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-01-01,JAPAN_POWER_FUTURES,Japan,18.6454,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-02-01,JAPAN_POWER_FUTURES,Japan,18.3207,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-03-01,JAPAN_POWER_FUTURES,Japan,17.7632,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-04-01,JAPAN_POWER_FUTURES,Japan,16.7921,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-05-01,JAPAN_POWER_FUTURES,Japan,16.1678,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-06-01,JAPAN_POWER_FUTURES,Japan,15.6613,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-07-01,JAPAN_POWER_FUTURES,Japan,15.8919,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-08-01,JAPAN_POWER_FUTURES,Japan,16.22,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-09-01,JAPAN_POWER_FUTURES,Japan,16.5025,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-10-01,JAPAN_POWER_FUTURES,Japan,16.9151,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-11-01,JAPAN_POWER_FUTURES,Japan,17.2857,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2027-12-01,JAPAN_POWER_FUTURES,Japan,17.7247,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2028-01-01,JAPAN_POWER_FUTURES,Japan,17.7794,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2028-02-01,JAPAN_POWER_FUTURES,Japan,17.416,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2028-03-01,JAPAN_POWER_FUTURES,Japan,16.8291,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2028-04-01,JAPAN_POWER_FUTURES,Japan,16.0042,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2028-05-01,JAPAN_POWER_FUTURES,Japan,15.3366,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2028-06-01,JAPAN_POWER_FUTURES,Japan,14.873,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-05-09,2026-07-01,JEPX_SYSTEM,Japan,15.9807,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2026-08-01,JEPX_SYSTEM,Japan,16.1403,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2026-09-01,JEPX_SYSTEM,Japan,16.6926,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2026-10-01,JEPX_SYSTEM,Japan,16.7911,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2026-11-01,JEPX_SYSTEM,Japan,17.103,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2026-12-01,JEPX_SYSTEM,Japan,17.6483,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-01-01,JEPX_SYSTEM,Japan,17.8432,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-02-01,JEPX_SYSTEM,Japan,17.231,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-03-01,JEPX_SYSTEM,Japan,16.5947,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-04-01,JEPX_SYSTEM,Japan,15.7723,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-05-01,JEPX_SYSTEM,Japan,14.9758,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-06-01,JEPX_SYSTEM,Japan,14.7832,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-07-01,JEPX_SYSTEM,Japan,14.7594,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-08-01,JEPX_SYSTEM,Japan,15.0821,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-09-01,JEPX_SYSTEM,Japan,15.4888,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-10-01,JEPX_SYSTEM,Japan,15.6025,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-11-01,JEPX_SYSTEM,Japan,16.0889,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2027-12-01,JEPX_SYSTEM,Japan,16.254,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2028-01-01,JEPX_SYSTEM,Japan,16.2814,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2028-02-01,JEPX_SYSTEM,Japan,15.9059,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2028-03-01,JEPX_SYSTEM,Japan,15.6713,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2028-04-01,JEPX_SYSTEM,Japan,14.6278,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2028-05-01,JEPX_SYSTEM,Japan,13.9853,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2028-06-01,JEPX_SYSTEM,Japan,13.6165,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-05-09,2026-07-01,JEPX_TOKYO,Tokyo,17.4396,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-08-01,JEPX_TOKYO,Tokyo,17.7843,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-09-01,JEPX_TOKYO,Tokyo,18.3059,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-10-01,JEPX_TOKYO,Tokyo,18.2478,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-11-01,JEPX_TOKYO,Tokyo,18.5915,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-12-01,JEPX_TOKYO,Tokyo,19.0201,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-01-01,JEPX_TOKYO,Tokyo,19.0332,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-02-01,JEPX_TOKYO,Tokyo,18.913,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-03-01,JEPX_TOKYO,Tokyo,18.1616,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-04-01,JEPX_TOKYO,Tokyo,16.9989,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-05-01,JEPX_TOKYO,Tokyo,16.1151,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-06-01,JEPX_TOKYO,Tokyo,15.8345,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-07-01,JEPX_TOKYO,Tokyo,16.1405,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-08-01,JEPX_TOKYO,Tokyo,15.9531,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-09-01,JEPX_TOKYO,Tokyo,16.6176,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-10-01,JEPX_TOKYO,Tokyo,16.6851,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-11-01,JEPX_TOKYO,Tokyo,17.2992,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-12-01,JEPX_TOKYO,Tokyo,17.3654,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-01-01,JEPX_TOKYO,Tokyo,17.4959,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-02-01,JEPX_TOKYO,Tokyo,16.9996,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-03-01,JEPX_TOKYO,Tokyo,16.3577,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-04-01,JEPX_TOKYO,Tokyo,15.7647,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-05-01,JEPX_TOKYO,Tokyo,14.9275,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-06-01,JEPX_TOKYO,Tokyo,14.4015,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-07-01,JEPX_KANSAI,Kansai,15.0368,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-08-01,JEPX_KANSAI,Kansai,15.276,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-09-01,JEPX_KANSAI,Kansai,15.7176,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-10-01,JEPX_KANSAI,Kansai,16.0443,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-11-01,JEPX_KANSAI,Kansai,16.4276,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2026-12-01,JEPX_KANSAI,Kansai,16.7796,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-01-01,JEPX_KANSAI,Kansai,16.7579,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-02-01,JEPX_KANSAI,Kansai,16.5739,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-03-01,JEPX_KANSAI,Kansai,15.9417,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-04-01,JEPX_KANSAI,Kansai,15.2703,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-05-01,JEPX_KANSAI,Kansai,14.6237,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-06-01,JEPX_KANSAI,Kansai,14.0962,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-07-01,JEPX_KANSAI,Kansai,14.1515,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-08-01,JEPX_KANSAI,Kansai,14.5384,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-09-01,JEPX_KANSAI,Kansai,14.7537,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-10-01,JEPX_KANSAI,Kansai,15.0085,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-11-01,JEPX_KANSAI,Kansai,15.4371,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2027-12-01,JEPX_KANSAI,Kansai,15.6651,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-01-01,JEPX_KANSAI,Kansai,15.9011,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-02-01,JEPX_KANSAI,Kansai,15.553,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-03-01,JEPX_KANSAI,Kansai,14.9874,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-04-01,JEPX_KANSAI,Kansai,14.1845,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-05-01,JEPX_KANSAI,Kansai,13.4649,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-05-09,2028-06-01,JEPX_KANSAI,Kansai,13.1315,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-07-01,JKM,Japan/Korea,13.0847,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2026-08-01,JKM,Japan/Korea,13.0833,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2026-09-01,JKM,Japan/Korea,12.9661,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2026-10-01,JKM,Japan/Korea,12.7699,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2026-11-01,JKM,Japan/Korea,12.7866,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2026-12-01,JKM,Japan/Korea,12.5987,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-01-01,JKM,Japan/Korea,12.3093,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-02-01,JKM,Japan/Korea,11.7273,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-03-01,JKM,Japan/Korea,10.8028,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-04-01,JKM,Japan/Korea,10.0097,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-05-01,JKM,Japan/Korea,9.1994,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-06-01,JKM,Japan/Korea,8.6302,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-07-01,JKM,Japan/Korea,8.3375,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-08-01,JKM,Japan/Korea,8.1644,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-09-01,JKM,Japan/Korea,7.9102,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-10-01,JKM,Japan/Korea,7.7098,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-11-01,JKM,Japan/Korea,7.482,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2027-12-01,JKM,Japan/Korea,7.2666,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2028-01-01,JKM,Japan/Korea,6.8122,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2028-02-01,JKM,Japan/Korea,6.358,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2028-03-01,JKM,Japan/Korea,5.7064,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2028-04-01,JKM,Japan/Korea,5.0162,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2028-05-01,JKM,Japan/Korea,4.3932,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2028-06-01,JKM,Japan/Korea,3.9793,USD,MMBtu,financial_forward_proxy,Synthetic LNG forward proxy. Replace with licensed JKM forward assessments.
+2026-06-08,2026-07-01,DES_JAPAN_LNG,Japan,13.4144,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2026-08-01,DES_JAPAN_LNG,Japan,13.5588,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2026-09-01,DES_JAPAN_LNG,Japan,13.5287,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2026-10-01,DES_JAPAN_LNG,Japan,13.4976,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2026-11-01,DES_JAPAN_LNG,Japan,13.5371,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2026-12-01,DES_JAPAN_LNG,Japan,13.4742,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-01-01,DES_JAPAN_LNG,Japan,13.2534,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-02-01,DES_JAPAN_LNG,Japan,12.7668,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-03-01,DES_JAPAN_LNG,Japan,11.9737,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-04-01,DES_JAPAN_LNG,Japan,11.0766,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-05-01,DES_JAPAN_LNG,Japan,10.2031,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-06-01,DES_JAPAN_LNG,Japan,9.8035,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-07-01,DES_JAPAN_LNG,Japan,9.6426,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-08-01,DES_JAPAN_LNG,Japan,9.5645,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-09-01,DES_JAPAN_LNG,Japan,9.4103,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-10-01,DES_JAPAN_LNG,Japan,9.1907,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-11-01,DES_JAPAN_LNG,Japan,9.2264,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2027-12-01,DES_JAPAN_LNG,Japan,9.0453,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2028-01-01,DES_JAPAN_LNG,Japan,8.6412,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2028-02-01,DES_JAPAN_LNG,Japan,8.3098,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2028-03-01,DES_JAPAN_LNG,Japan,7.5818,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2028-04-01,DES_JAPAN_LNG,Japan,6.9013,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2028-05-01,DES_JAPAN_LNG,Japan,6.3174,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2028-06-01,DES_JAPAN_LNG,Japan,5.9796,USD,MMBtu,physical_forward_proxy,Synthetic DES Japan LNG delivered forward proxy.
+2026-06-08,2026-07-01,JCC,Japan,72.9408,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2026-08-01,JCC,Japan,73.2778,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2026-09-01,JCC,Japan,73.6731,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2026-10-01,JCC,Japan,73.9544,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2026-11-01,JCC,Japan,74.1275,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2026-12-01,JCC,Japan,74.4099,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-01-01,JCC,Japan,74.6305,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-02-01,JCC,Japan,74.9622,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-03-01,JCC,Japan,75.3326,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-04-01,JCC,Japan,75.6225,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-05-01,JCC,Japan,75.8945,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-06-01,JCC,Japan,76.2484,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-07-01,JCC,Japan,76.4167,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-08-01,JCC,Japan,76.7589,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-09-01,JCC,Japan,77.106,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-10-01,JCC,Japan,77.3877,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-11-01,JCC,Japan,77.7137,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2027-12-01,JCC,Japan,77.9586,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2028-01-01,JCC,Japan,78.2011,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2028-02-01,JCC,Japan,78.5401,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2028-03-01,JCC,Japan,78.7366,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2028-04-01,JCC,Japan,78.984,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2028-05-01,JCC,Japan,79.4314,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2028-06-01,JCC,Japan,79.6789,USD,bbl,monthly_customs_proxy,Synthetic monthly JCC customs-cleared crude proxy derived from Brent-style oil structure; not an exchange-traded future.
+2026-06-08,2026-07-01,JCC_LINKED_LNG,Japan,11.0593,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2026-08-01,JCC_LINKED_LNG,Japan,11.1088,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2026-09-01,JCC_LINKED_LNG,Japan,11.2531,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2026-10-01,JCC_LINKED_LNG,Japan,11.4091,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2026-11-01,JCC_LINKED_LNG,Japan,11.5656,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2026-12-01,JCC_LINKED_LNG,Japan,11.6781,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-01-01,JCC_LINKED_LNG,Japan,11.7791,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-02-01,JCC_LINKED_LNG,Japan,11.8095,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-03-01,JCC_LINKED_LNG,Japan,11.7638,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-04-01,JCC_LINKED_LNG,Japan,11.6803,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-05-01,JCC_LINKED_LNG,Japan,11.6155,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-06-01,JCC_LINKED_LNG,Japan,11.5837,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-07-01,JCC_LINKED_LNG,Japan,11.5524,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-08-01,JCC_LINKED_LNG,Japan,11.6615,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-09-01,JCC_LINKED_LNG,Japan,11.8015,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-10-01,JCC_LINKED_LNG,Japan,11.9675,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-11-01,JCC_LINKED_LNG,Japan,12.1455,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2027-12-01,JCC_LINKED_LNG,Japan,12.2723,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2028-01-01,JCC_LINKED_LNG,Japan,12.3404,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2028-02-01,JCC_LINKED_LNG,Japan,12.3539,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2028-03-01,JCC_LINKED_LNG,Japan,12.3167,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2028-04-01,JCC_LINKED_LNG,Japan,12.2235,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2028-05-01,JCC_LINKED_LNG,Japan,12.1522,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2028-06-01,JCC_LINKED_LNG,Japan,12.1185,USD,MMBtu,physical_contract_proxy,Synthetic 11-13.5% oil-linked LNG proxy. Replace with contract-specific slope and constant.
+2026-06-08,2026-07-01,NEWCASTLE_COAL,Australia,137.6298,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2026-08-01,NEWCASTLE_COAL,Australia,138.825,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2026-09-01,NEWCASTLE_COAL,Australia,142.0994,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2026-10-01,NEWCASTLE_COAL,Australia,146.1496,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2026-11-01,NEWCASTLE_COAL,Australia,150.6085,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2026-12-01,NEWCASTLE_COAL,Australia,153.4117,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-01-01,NEWCASTLE_COAL,Australia,156.1795,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-02-01,NEWCASTLE_COAL,Australia,155.9632,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-03-01,NEWCASTLE_COAL,Australia,155.7762,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-04-01,NEWCASTLE_COAL,Australia,154.5109,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-05-01,NEWCASTLE_COAL,Australia,153.5946,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-06-01,NEWCASTLE_COAL,Australia,153.0764,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-07-01,NEWCASTLE_COAL,Australia,152.6866,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-08-01,NEWCASTLE_COAL,Australia,155.0462,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-09-01,NEWCASTLE_COAL,Australia,158.9953,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-10-01,NEWCASTLE_COAL,Australia,162.8467,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-11-01,NEWCASTLE_COAL,Australia,166.8005,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2027-12-01,NEWCASTLE_COAL,Australia,171.3957,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2028-01-01,NEWCASTLE_COAL,Australia,173.4257,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2028-02-01,NEWCASTLE_COAL,Australia,174.1036,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2028-03-01,NEWCASTLE_COAL,Australia,172.9987,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2028-04-01,NEWCASTLE_COAL,Australia,172.0418,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2028-05-01,NEWCASTLE_COAL,Australia,169.9258,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2028-06-01,NEWCASTLE_COAL,Australia,169.6204,USD,tonne,financial_forward_proxy,Synthetic Newcastle coal forward proxy.
+2026-06-08,2026-07-01,CFR_JAPAN_COAL,Japan,145.1444,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2026-08-01,CFR_JAPAN_COAL,Japan,147.1938,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2026-09-01,CFR_JAPAN_COAL,Japan,150.9284,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2026-10-01,CFR_JAPAN_COAL,Japan,154.5887,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2026-11-01,CFR_JAPAN_COAL,Japan,159.2676,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2026-12-01,CFR_JAPAN_COAL,Japan,162.4929,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-01-01,CFR_JAPAN_COAL,Japan,164.1357,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-02-01,CFR_JAPAN_COAL,Japan,165.2137,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-03-01,CFR_JAPAN_COAL,Japan,164.3623,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-04-01,CFR_JAPAN_COAL,Japan,163.4304,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-05-01,CFR_JAPAN_COAL,Japan,161.2543,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-06-01,CFR_JAPAN_COAL,Japan,160.5482,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-07-01,CFR_JAPAN_COAL,Japan,161.7838,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-08-01,CFR_JAPAN_COAL,Japan,164.3219,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-09-01,CFR_JAPAN_COAL,Japan,167.7136,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-10-01,CFR_JAPAN_COAL,Japan,171.222,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-11-01,CFR_JAPAN_COAL,Japan,175.6669,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2027-12-01,CFR_JAPAN_COAL,Japan,179.8364,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2028-01-01,CFR_JAPAN_COAL,Japan,181.3538,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2028-02-01,CFR_JAPAN_COAL,Japan,181.5701,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2028-03-01,CFR_JAPAN_COAL,Japan,181.1547,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2028-04-01,CFR_JAPAN_COAL,Japan,179.5411,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2028-05-01,CFR_JAPAN_COAL,Japan,177.1934,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2028-06-01,CFR_JAPAN_COAL,Japan,175.8489,USD,tonne,physical_forward_proxy,Synthetic CFR Japan coal delivered forward proxy.
+2026-06-08,2026-07-01,BRENT,Global,78.8375,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2026-08-01,BRENT,Global,79.1847,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2026-09-01,BRENT,Global,79.2145,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2026-10-01,BRENT,Global,79.4281,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2026-11-01,BRENT,Global,79.6179,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2026-12-01,BRENT,Global,79.8125,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-01-01,BRENT,Global,79.8846,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-02-01,BRENT,Global,80.1177,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-03-01,BRENT,Global,80.1507,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-04-01,BRENT,Global,80.3562,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-05-01,BRENT,Global,80.4546,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-06-01,BRENT,Global,80.8066,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-07-01,BRENT,Global,80.8603,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-08-01,BRENT,Global,80.9542,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-09-01,BRENT,Global,81.1471,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-10-01,BRENT,Global,81.3168,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-11-01,BRENT,Global,81.5578,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2027-12-01,BRENT,Global,81.5092,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2028-01-01,BRENT,Global,81.7174,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2028-02-01,BRENT,Global,81.9348,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2028-03-01,BRENT,Global,82.3547,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2028-04-01,BRENT,Global,82.3708,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2028-05-01,BRENT,Global,82.4328,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2028-06-01,BRENT,Global,82.6649,USD,bbl,financial_futures,Synthetic Brent futures curve proxy. Production source should use ICE Brent futures settlements.
+2026-06-08,2026-07-01,JAPAN_POWER_FUTURES,Japan,16.5125,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2026-08-01,JAPAN_POWER_FUTURES,Japan,16.7371,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2026-09-01,JAPAN_POWER_FUTURES,Japan,17.0595,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2026-10-01,JAPAN_POWER_FUTURES,Japan,17.5012,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2026-11-01,JAPAN_POWER_FUTURES,Japan,17.8895,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2026-12-01,JAPAN_POWER_FUTURES,Japan,18.3027,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-01-01,JAPAN_POWER_FUTURES,Japan,18.326,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-02-01,JAPAN_POWER_FUTURES,Japan,18.1985,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-03-01,JAPAN_POWER_FUTURES,Japan,17.5087,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-04-01,JAPAN_POWER_FUTURES,Japan,16.5678,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-05-01,JAPAN_POWER_FUTURES,Japan,15.8231,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-06-01,JAPAN_POWER_FUTURES,Japan,15.2914,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-07-01,JAPAN_POWER_FUTURES,Japan,15.623,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-08-01,JAPAN_POWER_FUTURES,Japan,15.928,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-09-01,JAPAN_POWER_FUTURES,Japan,16.2842,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-10-01,JAPAN_POWER_FUTURES,Japan,16.6132,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-11-01,JAPAN_POWER_FUTURES,Japan,16.9551,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2027-12-01,JAPAN_POWER_FUTURES,Japan,17.2381,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2028-01-01,JAPAN_POWER_FUTURES,Japan,17.4792,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2028-02-01,JAPAN_POWER_FUTURES,Japan,17.1148,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2028-03-01,JAPAN_POWER_FUTURES,Japan,16.4987,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2028-04-01,JAPAN_POWER_FUTURES,Japan,15.6582,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2028-05-01,JAPAN_POWER_FUTURES,Japan,14.958,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2028-06-01,JAPAN_POWER_FUTURES,Japan,14.4922,JPY,kWh,prompt_month_cash_settled_futures,"Synthetic prompt-month Japan power futures proxy; cash-settled financial future, not physical delivery."
+2026-06-08,2026-07-01,JEPX_SYSTEM,Japan,15.8324,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2026-08-01,JEPX_SYSTEM,Japan,16.0632,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2026-09-01,JEPX_SYSTEM,Japan,16.4417,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2026-10-01,JEPX_SYSTEM,Japan,16.8193,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2026-11-01,JEPX_SYSTEM,Japan,16.9866,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2026-12-01,JEPX_SYSTEM,Japan,17.1305,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-01-01,JEPX_SYSTEM,Japan,17.2939,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-02-01,JEPX_SYSTEM,Japan,16.9407,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-03-01,JEPX_SYSTEM,Japan,16.3448,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-04-01,JEPX_SYSTEM,Japan,15.5627,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-05-01,JEPX_SYSTEM,Japan,14.5922,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-06-01,JEPX_SYSTEM,Japan,14.4965,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-07-01,JEPX_SYSTEM,Japan,14.3956,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-08-01,JEPX_SYSTEM,Japan,14.8998,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-09-01,JEPX_SYSTEM,Japan,15.1112,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-10-01,JEPX_SYSTEM,Japan,15.3426,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-11-01,JEPX_SYSTEM,Japan,15.7157,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2027-12-01,JEPX_SYSTEM,Japan,15.9755,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2028-01-01,JEPX_SYSTEM,Japan,16.0181,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2028-02-01,JEPX_SYSTEM,Japan,15.5974,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2028-03-01,JEPX_SYSTEM,Japan,15.1489,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2028-04-01,JEPX_SYSTEM,Japan,14.5659,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2028-05-01,JEPX_SYSTEM,Japan,13.8887,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2028-06-01,JEPX_SYSTEM,Japan,13.4827,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic JEPX day-ahead system price forward proxy; physical spot reference.
+2026-06-08,2026-07-01,JEPX_TOKYO,Tokyo,17.2187,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-08-01,JEPX_TOKYO,Tokyo,17.4027,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-09-01,JEPX_TOKYO,Tokyo,17.9486,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-10-01,JEPX_TOKYO,Tokyo,18.0572,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-11-01,JEPX_TOKYO,Tokyo,18.4526,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-12-01,JEPX_TOKYO,Tokyo,18.7806,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-01-01,JEPX_TOKYO,Tokyo,18.8751,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-02-01,JEPX_TOKYO,Tokyo,18.4458,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-03-01,JEPX_TOKYO,Tokyo,17.7386,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-04-01,JEPX_TOKYO,Tokyo,16.684,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-05-01,JEPX_TOKYO,Tokyo,15.9495,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-06-01,JEPX_TOKYO,Tokyo,15.8682,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-07-01,JEPX_TOKYO,Tokyo,15.6787,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-08-01,JEPX_TOKYO,Tokyo,15.9684,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-09-01,JEPX_TOKYO,Tokyo,16.3169,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-10-01,JEPX_TOKYO,Tokyo,16.5906,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-11-01,JEPX_TOKYO,Tokyo,16.7231,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-12-01,JEPX_TOKYO,Tokyo,17.1438,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-01-01,JEPX_TOKYO,Tokyo,17.311,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-02-01,JEPX_TOKYO,Tokyo,16.8874,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-03-01,JEPX_TOKYO,Tokyo,16.1751,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-04-01,JEPX_TOKYO,Tokyo,15.4847,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-05-01,JEPX_TOKYO,Tokyo,14.4601,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-06-01,JEPX_TOKYO,Tokyo,14.1771,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Tokyo area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-07-01,JEPX_KANSAI,Kansai,14.7853,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-08-01,JEPX_KANSAI,Kansai,15.32,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-09-01,JEPX_KANSAI,Kansai,15.2603,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-10-01,JEPX_KANSAI,Kansai,15.6719,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-11-01,JEPX_KANSAI,Kansai,16.0655,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2026-12-01,JEPX_KANSAI,Kansai,16.5292,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-01-01,JEPX_KANSAI,Kansai,16.6015,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-02-01,JEPX_KANSAI,Kansai,16.3947,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-03-01,JEPX_KANSAI,Kansai,15.4737,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-04-01,JEPX_KANSAI,Kansai,14.9161,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-05-01,JEPX_KANSAI,Kansai,14.12,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-06-01,JEPX_KANSAI,Kansai,13.7607,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-07-01,JEPX_KANSAI,Kansai,13.9956,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-08-01,JEPX_KANSAI,Kansai,14.1585,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-09-01,JEPX_KANSAI,Kansai,14.3053,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-10-01,JEPX_KANSAI,Kansai,14.7372,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-11-01,JEPX_KANSAI,Kansai,14.9756,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2027-12-01,JEPX_KANSAI,Kansai,15.3785,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-01-01,JEPX_KANSAI,Kansai,15.5484,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-02-01,JEPX_KANSAI,Kansai,15.2693,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-03-01,JEPX_KANSAI,Kansai,14.8066,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-04-01,JEPX_KANSAI,Kansai,13.8827,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-05-01,JEPX_KANSAI,Kansai,13.0966,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.
+2026-06-08,2028-06-01,JEPX_KANSAI,Kansai,12.8681,JPY,kWh,physical_day_ahead_forward_proxy,Synthetic Kansai area day-ahead forward proxy; physical spot reference.

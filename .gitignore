@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.streamlit/secrets.toml
+.DS_Store
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/processed/jepx_offer_stack_depth.csv
+!data/processed/jepx_offer_stack_curves_compact.csv
+!data/processed/jepx_intraday_latest.csv
+!data/processed/jepx_baseload_market.csv
+!data/processed/tokyo_kansai_generation_monthly.csv
+!data/processed/tokyo_kansai_generation_daily_shape.csv
+!data/processed/tokyo_kansai_residual_thermal.csv

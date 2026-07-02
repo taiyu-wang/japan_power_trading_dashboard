@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "generated_at": "2026-07-01T00:00:00+00:00",
+  "overall_status": "stale",
+  "warnings": [
+    "Historical fuel and power prices and forward curves are bundled snapshots pending licensed or official feed integration."
+  ],
+  "datasets": [
+    {
+      "dataset_id": "historical_prices",
+      "label": "Historical market prices",
+      "source": "Bundled synthetic and processed snapshot",
+      "artifact": "sample_historical_prices.csv",
+      "row_count": 14820,
+      "observation_start": "2023-04-26",
+      "observation_end": "2026-06-08",
+      "fetched_at": "2026-06-08T00:00:00+00:00",
+      "stale_after_days": 3,
+      "status": "stale"
+    },
+    {
+      "dataset_id": "forward_curves",
+      "label": "Forward curves",
+      "source": "Bundled fallback and synthetic proxy snapshot",
+      "artifact": "sample_forward_curves.csv",
+      "row_count": 792,
+      "observation_start": "2026-04-09",
+      "observation_end": "2026-06-08",
+      "fetched_at": "2026-06-08T00:00:00+00:00",
+      "stale_after_days": 3,
+      "status": "stale"
+    },
+    {
+      "dataset_id": "power_futures",
+      "label": "Japan power futures",
+      "source": "Bundled synthetic proxy snapshot",
+      "artifact": "sample_power_futures.csv",
+      "row_count": 144,
+      "observation_start": "2026-05-09",
+      "observation_end": "2026-06-08",
+      "fetched_at": "2026-06-08T00:00:00+00:00",
+      "stale_after_days": 3,
+      "status": "stale"
+    },
+    {
+      "dataset_id": "supply_mix",
+      "label": "Tokyo/Kansai generation mix",
+      "source": "Processed JapanesePower.org regional aggregates",
+      "artifact": "processed/tokyo_kansai_generation_monthly.csv",
+      "row_count": 495,
+      "observation_start": "2024-03-01",
+      "observation_end": "2026-06-01",
+      "fetched_at": "2026-06-08T00:00:00+00:00",
+      "stale_after_days": 45,
+      "status": "current"
+    }
+  ]
+}
