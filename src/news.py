@@ -7,8 +7,9 @@ from html import unescape
 from urllib.parse import urlencode, urljoin
 
 import pandas as pd
-import requests
 from lxml import html as lxml_html
+
+from .http_client import get_session
 
 
 NEWS_COLUMNS = ["published_at", "source", "category", "title", "summary", "url", "market_tag", "impact_hint"]
@@ -144,8 +145,8 @@ def _parse_feed_content(content: bytes, source: str, prefer_item_source: bool = 
     return rows
 
 
-def _feed_items(url: str, source: str, timeout: int = 8, prefer_item_source: bool = False) -> list[dict[str, str]]:
-    response = requests.get(url, timeout=(3.05, timeout), headers=HTTP_HEADERS)
+def _feed_items(url: str, source: str, timeout: int = 5, prefer_item_source: bool = False) -> list[dict[str, str]]:
+    response = get_session().get(url, timeout=(3.05, timeout), headers=HTTP_HEADERS)
     response.raise_for_status()
     return _parse_feed_content(response.content, source, prefer_item_source=prefer_item_source)
 
@@ -179,8 +180,8 @@ def _parse_dated_html_content(content: bytes, url: str, source: str) -> list[dic
     return rows[:40]
 
 
-def _dated_html_items(url: str, source: str, timeout: int = 8) -> list[dict[str, str]]:
-    response = requests.get(url, timeout=(3.05, timeout), headers=HTTP_HEADERS)
+def _dated_html_items(url: str, source: str, timeout: int = 5) -> list[dict[str, str]]:
+    response = get_session().get(url, timeout=(3.05, timeout), headers=HTTP_HEADERS)
     response.raise_for_status()
     return _parse_dated_html_content(response.content, url, source)
 
@@ -220,7 +221,7 @@ def _fetch_public_source(spec: dict[str, object], timeout: int) -> list[dict[str
     return fetch(spec["url"], spec["source"], timeout=timeout, **kwargs)
 
 
-def fetch_public_power_news_with_diagnostics(timeout: int = 8) -> tuple[pd.DataFrame, list[str], list[str]]:
+def fetch_public_power_news_with_diagnostics(timeout: int = 5) -> tuple[pd.DataFrame, list[str], list[str]]:
     rows: list[dict[str, str]] = []
     warnings: list[str] = []
     successful_sources: list[str] = []

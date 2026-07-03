@@ -4,14 +4,28 @@ import re
 from dataclasses import dataclass
 
 import pandas as pd
-import requests
 from lxml import html
+
+from .http_client import get_session
 
 
 OILPRICE_BRENT_URL = "https://oilprice.com/futures/brent"
 JPX_ELECTRICITY_REFERENCE_URL = "https://www.jpx.co.jp/english/markets/derivatives/reference/electricity/"
 CURVE_END_DATE = pd.Timestamp("2027-12-31")
 QUARTERLY_FROM = pd.Timestamp("2027-01-01")
+LIVE_CURVE_COLUMNS = [
+    "curve_date",
+    "contract_month",
+    "market",
+    "region",
+    "price",
+    "currency",
+    "unit",
+    "contract_type",
+    "source_note",
+    "source_url",
+    "tenor_label",
+]
 
 
 @dataclass(frozen=True)
@@ -37,7 +51,7 @@ def _clean_number(value) -> float | None:
 
 
 def fetch_brent_curve_oilprice() -> pd.DataFrame:
-    response = requests.get(
+    response = get_session().get(
         OILPRICE_BRENT_URL,
         headers={"User-Agent": "Mozilla/5.0 market-dashboard"},
         timeout=8,
@@ -150,6 +164,11 @@ def fetch_live_forward_curves() -> LiveCurveResult:
         "JCC is not exchange-traded; live forward values are shown as Brent-derived proxy until official customs data or a licensed vendor feed is connected.",
     ]
     brent = fetch_brent_curve_oilprice()
+    if brent.empty:
+        warnings.append(
+            "Brent fetch returned no contract rows; skipping derived JCC and JCC-linked LNG curves. Retry later or use the bundled fallback CSV."
+        )
+        return LiveCurveResult(pd.DataFrame(columns=LIVE_CURVE_COLUMNS), warnings)
     jcc = derive_jcc_from_brent(brent)
     jcc_linked = derive_jcc_linked_lng_from_jcc(jcc)
     curves = pd.concat([brent, jcc, jcc_linked], ignore_index=True)

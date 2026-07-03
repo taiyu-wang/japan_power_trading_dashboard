@@ -4,7 +4,8 @@ from io import StringIO
 from pathlib import Path
 
 import pandas as pd
-import requests
+
+from .http_client import get_session
 
 
 JEPX_BASE_URL = "https://www.jepx.jp"
@@ -43,7 +44,7 @@ def _public_csv_url(directory: str, year: int) -> str:
 
 
 def _fetch_jepx_csv(directory: str, year: int, timeout: int = 20) -> pd.DataFrame:
-    response = requests.get(_public_csv_url(directory, year), headers=JEPX_HEADERS, timeout=timeout)
+    response = get_session().get(_public_csv_url(directory, year), headers=JEPX_HEADERS, timeout=timeout)
     response.raise_for_status()
     if not response.text.strip():
         return pd.DataFrame()

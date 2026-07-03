@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import pandas as pd
-import requests
 
 from .config import WEATHER_LOCATIONS
+from .http_client import get_session
 
 
 WEATHER_REQUIRED_COLUMNS = {"date", "region", "temperature_mean_c"}
@@ -78,7 +78,7 @@ def normalize_weather_data(df: pd.DataFrame) -> pd.DataFrame:
 def fetch_open_meteo_daily_temperatures(start_date, end_date, timeout: int = 8) -> pd.DataFrame:
     rows = []
     for code, meta in WEATHER_LOCATIONS.items():
-        response = requests.get(
+        response = get_session().get(
             "https://archive-api.open-meteo.com/v1/archive",
             params={
                 "latitude": meta["latitude"],
