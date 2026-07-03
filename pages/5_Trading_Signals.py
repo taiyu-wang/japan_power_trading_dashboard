@@ -17,7 +17,7 @@ from src.data_loader import (
     load_uploaded_power_news,
 )
 from src.signals import generate_trading_signals, signal_methodology
-from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
+from src.utils import configure_page, dataframe_with_dates, download_button, live_fetch_spinner, page_header, sample_data_notice
 
 
 configure_page("Trading Signals")
@@ -33,7 +33,8 @@ with st.sidebar:
     )
     uploaded_news = st.file_uploader("Upload power news CSV", type=["csv"])
 
-curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
+with live_fetch_spinner("Refreshing live public forward curves...", use_live_curves):
+    curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
 weather, weather_warnings, weather_source_label = get_weather_temperatures(False)
 signals = generate_trading_signals(df, curves, weather)
 offer_stack_curves = load_jepx_offer_stack_compact_curves()
@@ -49,7 +50,8 @@ if not offer_stack_depth.empty:
     stack_signal_payload = cached_offer_stack_signal_payload(latest_offer_stack_curves, depth=latest_offer_stack_depth)
 else:
     stack_signal_payload = pd.DataFrame()
-news, news_warnings, news_source_label = get_power_news(use_live_news)
+with live_fetch_spinner("Refreshing JEPX/OCCTO notices and public news feeds...", use_live_news):
+    news, news_warnings, news_source_label = get_power_news(use_live_news)
 if uploaded_news is not None:
     try:
         news = load_uploaded_power_news(uploaded_news)

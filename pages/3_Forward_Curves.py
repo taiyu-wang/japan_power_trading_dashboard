@@ -11,7 +11,7 @@ from src.data_loader import get_forward_curves, load_jepx_baseload, load_power_f
 from src.indicators import forward_curve_metrics
 from src.live_forward_curves import required_vendor_curve_sources
 from src.power_futures import power_futures_front_snapshot, power_futures_peak_premium, power_futures_source_notes
-from src.utils import configure_page, dataframe_with_dates, download_button, page_header, source_status_panel
+from src.utils import configure_page, dataframe_with_dates, download_button, live_fetch_spinner, page_header, render_chart, source_status_panel
 
 
 configure_page("Forward Curves")
@@ -22,7 +22,8 @@ with st.sidebar:
     uploaded = st.file_uploader("Upload forward curve CSV", type=["csv"])
     uploaded_power_futures = st.file_uploader("Upload monthly power futures CSV", type=["csv"], key="power_futures_upload")
 
-curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
+with live_fetch_spinner("Refreshing live public forward curves...", use_live_curves):
+    curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
 if uploaded is not None:
     try:
         curves = load_uploaded_curve(uploaded)
@@ -48,7 +49,7 @@ for warning in curve_warnings:
     st.caption(warning)
 
 if curves.empty:
-    st.warning("No forward curve data is available. Upload a valid CSV or use bundled fallback data.")
+    st.info("No forward curve data is available. Enable the live curve refresh in the sidebar or upload a forward curve CSV to populate this page; bundled fallback data is used otherwise.")
     st.stop()
 
 try:
@@ -102,7 +103,7 @@ if "contract_type" in filtered.columns and not filtered.empty:
     contract_type = filtered["contract_type"].dropna().astype(str).unique()
     if len(contract_type):
         st.caption(f"Contract classification: {', '.join(contract_type)}")
-st.plotly_chart(forward_curve_chart(filtered, f"{market} Forward Curve Comparison"), width="stretch")
+render_chart(forward_curve_chart(filtered, f"{market} Forward Curve Comparison"))
 
 metrics = forward_curve_metrics(curves[curves["market"] == market])
 latest_metrics = metrics.sort_values("curve_date").tail(1)
@@ -116,7 +117,7 @@ if not latest_metrics.empty:
     cols[4].metric("M1-M2 carry", f"{row['rolling_carry']:.2f}")
 
 strips = filtered.assign(quarter=filtered["contract_month"].dt.to_period("Q").astype(str)).groupby(["curve_date", "quarter"], as_index=False)["price"].mean()
-st.plotly_chart(bar_chart(strips, "quarter", "price", "curve_date", "Quarterly Strip Analysis"), width="stretch")
+render_chart(bar_chart(strips, "quarter", "price", "curve_date", "Quarterly Strip Analysis"))
 
 if "source_note" in filtered.columns:
     with st.expander("Source / contract notes", expanded=False):
@@ -150,17 +151,17 @@ with futures_tab:
     ].copy()
 
     if futures_filtered.empty:
-        st.warning("No monthly power futures data for the selected filters.")
+        st.info("No monthly power futures rows match the sidebar filters. Broaden the areas, load types, or curve dates, or upload a monthly power futures CSV.")
     else:
         snapshot = power_futures_front_snapshot(futures_filtered)
         cards = st.columns(min(len(snapshot), 4) or 1)
         for col, (_, row) in zip(cards, snapshot.iterrows()):
             col.metric(f"{row['area']} {row['load_type']}", f"{row['settlement_price']:.2f}", f"{row['contract_month']:%b %Y}")
 
-        st.plotly_chart(power_futures_curve_chart(futures_filtered, "Monthly Baseload / Peakload Futures Curve"), width="stretch")
+        render_chart(power_futures_curve_chart(futures_filtered, "Monthly Baseload / Peakload Futures Curve"))
         premium = power_futures_peak_premium(futures_filtered)
         if not premium.empty:
-            st.plotly_chart(power_futures_peak_premium_chart(premium), width="stretch")
+            render_chart(power_futures_peak_premium_chart(premium))
         with st.expander("Monthly power futures table", expanded=False):
             table_cols = ["curve_date", "contract_month", "area", "load_type", "settlement_price", "currency", "unit", "contract_type", "source"]
             dataframe_with_dates(futures_filtered[table_cols], width="stretch", hide_index=True)
@@ -174,7 +175,7 @@ with baseload_tab:
     source_status_panel({"JEPX baseload": "Processed public JEPX baseload CSV"})
     baseload = load_jepx_baseload()
     if baseload.empty:
-        st.info("No processed JEPX baseload dataset is available.")
+        st.info("No processed JEPX baseload dataset is available. Rebuild the processed JEPX market-data CSVs (data/processed) to populate this tracker.")
     else:
         with st.sidebar:
             baseload_areas = st.multiselect("Baseload areas", sorted(baseload["area"].dropna().unique()), default=sorted(baseload["area"].dropna().unique()))
@@ -188,7 +189,7 @@ with baseload_tab:
             & baseload["fiscal_year"].astype(int).isin(baseload_years)
         ].copy()
         if baseload_filtered.empty:
-            st.info("No baseload market records for the selected filters.")
+            st.info("No baseload market records for the selected filters. Broaden the areas or fiscal years in the sidebar to populate this view.")
         else:
             clean = baseload_filtered.dropna(subset=["clearing_price_jpy_kwh", "volume_mw"])
             b1, b2, b3, b4 = st.columns(4)
@@ -197,7 +198,7 @@ with baseload_tab:
             b3.metric("Avg Price", f"{clean['clearing_price_jpy_kwh'].mean():.2f} JPY/kWh")
             latest_trade = clean.sort_values("trade_date").tail(1)
             b4.metric("Latest Trade", f"{latest_trade.iloc[0]['trade_date']:%Y-%m-%d}" if not latest_trade.empty else "n/a")
-            st.plotly_chart(baseload_price_volume_chart(baseload_filtered), width="stretch")
+            render_chart(baseload_price_volume_chart(baseload_filtered))
             summary = clean.groupby(["fiscal_year", "area"], as_index=False).agg(
                 avg_price=("clearing_price_jpy_kwh", "mean"),
                 total_volume_mw=("volume_mw", "sum"),

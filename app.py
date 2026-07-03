@@ -6,7 +6,7 @@ from src.data_loader import cached_market_commentary, cached_srmc_comparison, ge
 from src.indicators import latest_snapshot
 from src.transformations import normalize_to_100
 from src.charts import line_chart, srmc_comparison_chart
-from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
+from src.utils import configure_page, dataframe_with_dates, download_button, live_fetch_spinner, page_header, render_chart, sample_data_notice
 
 
 configure_page("Overview")
@@ -33,7 +33,8 @@ with st.sidebar:
     with st.expander("Data source notes"):
         st.caption("Curve source defaults to bundled CSV for fast deployed startup. Live mode pulls public Brent where available; JCC/JCC-linked LNG are Brent-derived proxies. JKM, coal, and Japan power forwards require vendor settlement or upload.")
 
-curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
+with live_fetch_spinner("Refreshing live public forward curves...", use_live_curves):
+    curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
 for warning in curve_warnings:
     st.sidebar.warning(warning)
 
@@ -52,18 +53,22 @@ filtered = hist[(hist["market"].isin(markets)) & (hist["date"].dt.date.between(s
 srmc_filtered = hist[hist["date"].dt.date.between(start, end)]
 
 snapshot = latest_snapshot(hist[hist["market"].isin(DEFAULT_MARKETS)])
-cards = st.columns(7)
-for col, market in zip(cards, DEFAULT_MARKETS):
-    row = snapshot[snapshot["market"] == market]
-    if row.empty:
-        col.metric(market, "n/a")
-    else:
-        r = row.iloc[0]
-        col.metric(market, f"{r['price']:,.2f}", f"{r['change_30d_pct']:.1f}% 30d")
+for row_markets in (DEFAULT_MARKETS[:4], DEFAULT_MARKETS[4:]):
+    if not row_markets:
+        continue
+    cards = st.columns(4)
+    for col, market in zip(cards, row_markets):
+        row = snapshot[snapshot["market"] == market]
+        with col.container(border=True, key=f"kpi-card-{market}"):
+            if row.empty:
+                st.metric(market, "n/a")
+            else:
+                r = row.iloc[0]
+                st.metric(market, f"{r['price']:,.2f}", f"{r['change_30d_pct']:.1f}% 30d")
 
 left, right = st.columns([2, 1])
 with left:
-    st.plotly_chart(line_chart(normalize_to_100(filtered), "date", "normalized", "market", "Cross-Asset Repricing Since Window Start", "Index = 100"), width="stretch")
+    render_chart(line_chart(normalize_to_100(filtered), "date", "normalized", "market", "Cross-Asset Repricing Since Window Start", "Index = 100"))
 with right:
     st.markdown("### Desk Commentary")
     for item in cached_market_commentary(filtered):
@@ -82,7 +87,7 @@ st.caption("Fuel SRMC lines are shown in JPY/kWh. Coal SRMC uses CFR Japan deliv
 if srmc.empty:
     st.warning("SRMC view needs JKM, JCC, USDJPY, JEPX system price, and either CFR Japan coal or Newcastle coal data in the selected date range.")
 else:
-    st.plotly_chart(srmc_comparison_chart(srmc, "Coal SRMC, JKM Gas SRMC, JCC 11-13% Gas SRMC Band, and JEPX System"), width="stretch")
+    render_chart(srmc_comparison_chart(srmc, "Coal SRMC, JKM Gas SRMC, JCC 11-13% Gas SRMC Band, and JEPX System"))
 
 st.markdown("### Forward Curve Monitor")
 st.caption(f"Curve source: {curve_source_label}. Public/derived marks are screening inputs, not licensed settlement data.")

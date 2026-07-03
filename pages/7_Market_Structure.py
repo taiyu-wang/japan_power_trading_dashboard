@@ -34,7 +34,7 @@ from src.offer_stack import (
     offer_stack_time_period,
     prepare_offer_stack_curve,
 )
-from src.utils import configure_page, dataframe_with_dates, download_button, page_header
+from src.utils import configure_page, dataframe_with_dates, download_button, live_fetch_spinner, page_header, render_chart
 
 
 def _time_block(time_code: int) -> str:
@@ -126,7 +126,8 @@ raw_data = pd.DataFrame()
 warnings: list[str] = []
 source_label = "Processed compact JEPX offer-stack analytics"
 if use_live or use_full_raw:
-    raw_data, warnings, source_label = get_jepx_offer_stack(use_live=use_live)
+    with live_fetch_spinner("Refreshing latest-month JEPX offer stack (large public download)...", use_live):
+        raw_data, warnings, source_label = get_jepx_offer_stack(use_live=use_live)
 for warning in warnings:
     st.warning(warning)
 
@@ -197,7 +198,7 @@ st.info(
 )
 
 if filtered_curves.empty:
-    st.warning("No offer-stack rows for the selected date range and area group.")
+    st.info("No offer-stack rows for the selected date range and area group. Widen the delivery date range, switch area group, or enable the live JEPX refresh in the sidebar.")
     st.stop()
 
 selected_date = pd.Timestamp(end)
@@ -210,6 +211,7 @@ if curve.empty:
 depth = filtered_depth_source
 if depth.empty:
     st.warning("Stack depth metrics could not be calculated for the selected view.")
+    st.info("Adjust the depth band or date range, or enable the live JEPX refresh in the sidebar to rebuild depth analytics.")
     st.stop()
 
 latest_depth = depth[(depth["delivery_date"].eq(selected_date.normalize())) & (depth["time_code"].eq(time_code))]
@@ -253,29 +255,25 @@ with read_tab:
     st.caption(
         "Sell and buy curves are cumulative public bidding curves. The clearing marker is an estimated curve crossing and should be reconciled with official JEPX price data."
     )
-    st.plotly_chart(
-        offer_stack_curve_chart(curve, f"{area_group} Bidding Curve | {selected_date.date()} | Product {time_code}"),
-        width="stretch",
-    )
+    render_chart(offer_stack_curve_chart(curve, f"{area_group} Bidding Curve | {selected_date.date()} | Product {time_code}"))
 
     st.markdown("### Stack Tightness Map")
     st.caption("Lower values are thinner depth near clearing. Use this first to find blocks where small shocks can move price.")
-    st.plotly_chart(offer_stack_depth_heatmap(depth, f"{area_group} Tightest Depth Around Clearing"), width="stretch")
+    render_chart(offer_stack_depth_heatmap(depth, f"{area_group} Tightest Depth Around Clearing"))
 
     st.markdown("### Price Sensitivity")
     st.caption("Ex-post repricing estimate from shifting net demand across every delivery block on the selected day.")
-    st.plotly_chart(
+    render_chart(
         offer_stack_daily_price_sensitivity_chart(
             day_sensitivity,
             shock_mw=int(sensitivity_shock),
             title=f"{area_group} Price Impact From +{sensitivity_shock:,} MW Net Demand | {selected_date.date()}",
-        ),
-        width="stretch",
+        )
     )
     if scenarios.empty:
         st.info("Selected-block sensitivity could not be calculated for this view.")
     else:
-        st.plotly_chart(offer_stack_scenario_bar(scenarios, "Selected Block Price Impact From Net Demand Shift"), width="stretch")
+        render_chart(offer_stack_scenario_bar(scenarios, "Selected Block Price Impact From Net Demand Shift"))
 
 with shift_tab:
     st.markdown("### Curve Shift")
@@ -306,10 +304,7 @@ with shift_tab:
         s2.metric("Buy Shift at Clearing", f"{shift_summary.get('buy_shift_at_clearing_mw', 0):+,.0f} MW")
         s3.metric("Net Depth Shift", f"{shift_summary.get('net_depth_shift_at_clearing_mw', 0):+,.0f} MW")
         st.markdown(f"<div class='desk-panel'><b>Curve shift read:</b> {_shift_takeaway(shift_summary)}</div>", unsafe_allow_html=True)
-        st.plotly_chart(
-            offer_stack_shift_chart(shift, f"{area_group} Curve Shift | {pd.Timestamp(prior_date).date()} to {current_date.date()}"),
-            width="stretch",
-        )
+        render_chart(offer_stack_shift_chart(shift, f"{area_group} Curve Shift | {pd.Timestamp(prior_date).date()} to {current_date.date()}"))
 
         with st.expander("Benchmark and block-level diagnostics", expanded=False):
             st.markdown("#### Benchmark Curve Shift")
@@ -337,10 +332,7 @@ with shift_tab:
                     }.get(value, value),
                 )
                 benchmark_view = benchmarks[benchmarks["benchmark_label"].eq(benchmark_label)]
-                st.plotly_chart(
-                    offer_stack_shift_chart(benchmark_view, f"{area_group} Latest vs {benchmark_label.replace('_', ' ')}"),
-                    width="stretch",
-                )
+                render_chart(offer_stack_shift_chart(benchmark_view, f"{area_group} Latest vs {benchmark_label.replace('_', ' ')}"))
 
             st.markdown("#### Curve Shift by Delivery Block")
             block_shift = _build_shift_by_block(filtered_curves, prior_date, current_date, area_group)
@@ -391,14 +383,8 @@ with shift_tab:
             p1.metric("Tightest Shift Period", str(lead_period["delivery_period"]))
             p2.metric("Net Tightening Pressure", f"{lead_period['avg_net_tightening_pressure_mw']:+,.0f} MW")
             p3.metric("Largest Price Move Period", f"{price_period['delivery_period']} ({price_period['avg_price_change_jpy_kwh']:+.2f})")
-            st.plotly_chart(
-                offer_stack_period_shift_chart(period_shift, f"{area_group} Supply/Demand Shift by Time of Day"),
-                width="stretch",
-            )
-            st.plotly_chart(
-                offer_stack_price_attribution_chart(period_shift, f"{area_group} Counterfactual Price Attribution by Time of Day"),
-                width="stretch",
-            )
+            render_chart(offer_stack_period_shift_chart(period_shift, f"{area_group} Supply/Demand Shift by Time of Day"))
+            render_chart(offer_stack_price_attribution_chart(period_shift, f"{area_group} Counterfactual Price Attribution by Time of Day"))
             dataframe_with_dates(period_summary, width="stretch", hide_index=True)
 
 with spread_tab:
@@ -412,7 +398,7 @@ with spread_tab:
         s1.metric("Selected Block Spread", _format_signed(latest_spread["tightness_spread_mw"]))
         s2.metric("Thinner Side", latest_spread["tighter_area"])
         s3.metric("Selected Block", _time_block(int(latest_spread["time_code"])))
-        st.plotly_chart(offer_stack_tightness_spread_chart(area_spread, f"Tokyo/Kansai Stack Tightness | {selected_date.date()}"), width="stretch")
+        render_chart(offer_stack_tightness_spread_chart(area_spread, f"Tokyo/Kansai Stack Tightness | {selected_date.date()}"))
 
     st.markdown("### Stack-Derived Desk Prompts")
     signal_payload = cached_offer_stack_signal_payload(filtered_curves, depth=depth)

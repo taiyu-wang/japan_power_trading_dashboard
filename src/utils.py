@@ -1,8 +1,24 @@
+from contextlib import nullcontext
+
 import pandas as pd
 import streamlit as st
 
 from .config import APP_TITLE
 from .source_quality import source_status_table
+
+
+# Shared Plotly config: mode bar only on hover, no logo, responsive resize.
+CHART_CONFIG = {"displayModeBar": "hover", "displaylogo": False, "responsive": True}
+
+
+def render_chart(fig, **kwargs) -> None:
+    """Render a Plotly figure with the shared desk defaults (stretch width, lean mode bar)."""
+    st.plotly_chart(fig, width="stretch", config=CHART_CONFIG, **kwargs)
+
+
+def live_fetch_spinner(label: str, active: bool = True):
+    """Return st.spinner(label) while a live fetch is enabled, else a no-op context manager."""
+    return st.spinner(label) if active else nullcontext()
 
 
 def configure_page(page_title: str = APP_TITLE) -> None:
@@ -116,6 +132,12 @@ def inject_trading_css() -> None:
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(31, 41, 51, 0.06);
             padding: 13px 15px;
+        }
+        div[class*="st-key-kpi-card-"] div[data-testid="stMetric"] {
+            border: none;
+            box-shadow: none;
+            background: transparent;
+            padding: 2px 4px;
         }
         div[data-testid="stMetric"] label {
             color: var(--oe-muted);

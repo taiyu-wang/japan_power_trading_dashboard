@@ -14,7 +14,7 @@ from src.data_loader import (
     load_uploaded_generation_mix,
 )
 from src.supply_mix import add_generation_share, latest_generation_snapshot, residual_thermal_summary, source_catalog, thermal_share_summary
-from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
+from src.utils import configure_page, dataframe_with_dates, download_button, page_header, render_chart, sample_data_notice
 
 
 configure_page("Supply Mix")
@@ -87,10 +87,10 @@ with mix_tab:
                 col.metric(f"{area} {row['generation_type']}", f"{row['share_pct']:.1f}%", f"{row['generation_gwh']:,.0f} GWh")
 
     st.markdown("### Monthly Market Share")
-    st.plotly_chart(generation_share_area_chart(filtered, "Tokyo/Kansai Monthly Generation Share"), width="stretch")
+    render_chart(generation_share_area_chart(filtered, "Tokyo/Kansai Monthly Generation Share"))
 
     st.markdown("### Monthly Generation Volume")
-    st.plotly_chart(generation_volume_bar_chart(filtered, "Tokyo/Kansai Monthly Generation by Source"), width="stretch")
+    render_chart(generation_volume_bar_chart(filtered, "Tokyo/Kansai Monthly Generation by Source"))
 
 with thermal_tab:
     st.markdown("### Thermal Dependence")
@@ -98,7 +98,7 @@ with thermal_tab:
     thermal_view = thermal[thermal["bucket"] == "Thermal"].copy()
     thermal_fig = line_chart(thermal_view, "month", "share_pct", "area", "Thermal Share of Generation", "%")
     thermal_fig.update_xaxes(tickformat="%b %Y", hoverformat="%b %Y")
-    st.plotly_chart(thermal_fig, width="stretch")
+    render_chart(thermal_fig)
 
     st.markdown("### Residual Thermal and Solar Shape")
     if processed_residual.empty:
@@ -111,10 +111,13 @@ with thermal_tab:
     if not residual.empty:
         residual_fig = line_chart(residual, "month", "residual_thermal_share_pct", "area", "Residual Thermal Share", "% of demand / generation")
         residual_fig.update_xaxes(tickformat="%b %Y", hoverformat="%b %Y")
-        st.plotly_chart(residual_fig, width="stretch")
+        render_chart(residual_fig)
 
     if daily_shape.empty:
-        st.info("Daily solar-shape and curtailment metrics are available when processed public half-hourly data is present.")
+        st.info(
+            "Daily solar-shape and curtailment metrics appear when processed public half-hourly data is present. "
+            "Keep 'Use processed public supply data' enabled and run `PYTHONPATH=. python -m src.supply_mix_pipeline` to build it."
+        )
     else:
         shape = daily_shape[daily_shape["area"].isin(areas)].copy()
         if not shape.empty:
@@ -123,15 +126,12 @@ with thermal_tab:
             shape = shape[shape["date"].between(shape_start, latest_shape_date)]
             c1, c2 = st.columns(2)
             with c1:
-                st.plotly_chart(line_chart(shape, "date", "thermal_ramp_mw", "area", "Evening Thermal Ramp", "MW"), width="stretch")
+                render_chart(line_chart(shape, "date", "thermal_ramp_mw", "area", "Evening Thermal Ramp", "MW"))
             with c2:
-                st.plotly_chart(line_chart(shape, "date", "solar_share_midday_pct", "area", "Midday Solar Share", "% of demand"), width="stretch")
+                render_chart(line_chart(shape, "date", "solar_share_midday_pct", "area", "Midday Solar Share", "% of demand"))
             curtailment = shape[shape["renewable_curtailment_mwh"].gt(0)].copy()
             if not curtailment.empty:
-                st.plotly_chart(
-                    line_chart(curtailment, "date", "renewable_curtailment_mwh", "area", "Renewable Curtailment Watch", "MWh/day"),
-                    width="stretch",
-                )
+                render_chart(line_chart(curtailment, "date", "renewable_curtailment_mwh", "area", "Renewable Curtailment Watch", "MWh/day"))
 
 with source_tab:
     st.markdown("### Data Source Status")

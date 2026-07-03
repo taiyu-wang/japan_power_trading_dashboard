@@ -14,6 +14,11 @@ REFERENCE_LINE = "rgba(31, 41, 51, 0.32)"
 TEXT_COLOR = "#1F2933"
 MUTED_COLOR = "#667085"
 NAVY = "#2F3A4A"
+# Semantic color convention (colorblind-safe red/blue pairing, shared across the
+# offer-stack views): RED marks tightening / upside price risk (thin sell depth,
+# positive price impact, supply-side tightening); BLUE marks easing / depth
+# (buy-side strength, negative price impact, comfortable stacks). Diverging
+# heatmaps use the matching "RdBu" family so red stays the "tight/price-up" pole.
 RED = "#D64545"
 BLUE = "#2563EB"
 LIGHT_BLUE = "#4F86F7"
@@ -49,6 +54,21 @@ DISPLAY_LABELS = {
     "volatility": "Volatility",
     "window": "Window",
 }
+
+
+# Heatmap payload guards: skip per-cell annotations on large matrices and cap the
+# date axis so month-plus windows do not produce extremely wide, heavy figures.
+MAX_HEATMAP_ANNOTATION_CELLS = 200
+MAX_HEATMAP_DATE_COLUMNS = 62
+
+
+def _cap_recent_dates(pivot: pd.DataFrame, axis: int = 1, limit: int = MAX_HEATMAP_DATE_COLUMNS) -> pd.DataFrame:
+    """Keep only the most recent `limit` date labels along `axis` of a pivoted heatmap."""
+    if pivot.shape[axis] <= limit:
+        return pivot
+    if axis == 1:
+        return pivot.loc[:, sorted(pivot.columns)[-limit:]]
+    return pivot.loc[sorted(pivot.index)[-limit:], :]
 
 
 def apply_terminal_layout(fig: go.Figure, height: int = 430) -> go.Figure:
@@ -145,7 +165,9 @@ def area_line(df: pd.DataFrame, x: str, y: str, color: str, title: str) -> go.Fi
 
 
 def heatmap(matrix: pd.DataFrame, title: str) -> go.Figure:
-    fig = px.imshow(matrix, text_auto=".2f", aspect="auto", color_continuous_scale="RdBu_r", zmin=-1 if title.lower().find("correlation") >= 0 else None, zmax=1 if title.lower().find("correlation") >= 0 else None, title=title, template=PLOT_TEMPLATE, labels=_labels())
+    # Annotate cells only while the matrix stays readable; large grids rely on hover.
+    text_auto = ".2f" if matrix.size <= MAX_HEATMAP_ANNOTATION_CELLS else False
+    fig = px.imshow(matrix, text_auto=text_auto, aspect="auto", color_continuous_scale="RdBu_r", zmin=-1 if title.lower().find("correlation") >= 0 else None, zmax=1 if title.lower().find("correlation") >= 0 else None, title=title, template=PLOT_TEMPLATE, labels=_labels())
     fig.update_layout(xaxis_title="", yaxis_title="")
     return apply_terminal_layout(fig)
 
@@ -319,7 +341,7 @@ def offer_stack_curve_chart(df: pd.DataFrame, title: str = "JEPX Bidding Curve")
             y=float(clearing),
             line_color=AMBER,
             line_dash="dot",
-            annotation_text=f"Estimated clearing {float(clearing):.2f}",
+            annotation_text=f"Estimated clearing {float(clearing):.2f} JPY/kWh",
             annotation_position="top right",
         )
     fig.update_layout(
@@ -333,15 +355,18 @@ def offer_stack_curve_chart(df: pd.DataFrame, title: str = "JEPX Bidding Curve")
 
 
 def offer_stack_depth_heatmap(df: pd.DataFrame, title: str = "Stack Tightness Heatmap") -> go.Figure:
+    """Tightest-depth heatmap. Date columns are capped at MAX_HEATMAP_DATE_COLUMNS (most recent kept)."""
     if df.empty:
         return apply_terminal_layout(go.Figure().update_layout(title=title), height=470)
     plot_df = df.copy()
     plot_df["delivery_date"] = pd.to_datetime(plot_df["delivery_date"], errors="coerce").dt.strftime("%Y-%m-%d")
-    pivot = plot_df.pivot_table(index="time_code", columns="delivery_date", values="tightest_depth_mw", aggfunc="mean")
+    pivot = _cap_recent_dates(plot_df.pivot_table(index="time_code", columns="delivery_date", values="tightest_depth_mw", aggfunc="mean"))
     fig = px.imshow(
         pivot,
         aspect="auto",
-        color_continuous_scale="RdYlGn",
+        # CVD-safe diverging scale; red = thin/tight (upside price risk), blue = deep/easing,
+        # matching the sensitivity heatmap's RdBu_r polarity (red = price-up).
+        color_continuous_scale="RdBu",
         title=title,
         template=PLOT_TEMPLATE,
         labels=dict(x="Delivery date", y="Time code", color="Tightest depth (MW)"),
@@ -356,6 +381,7 @@ def offer_stack_price_sensitivity_heatmap(
     shock_mw: int = 500,
     title: str = "Price Sensitivity to Demand Shock",
 ) -> go.Figure:
+    """Price-impact heatmap. Date columns are capped at MAX_HEATMAP_DATE_COLUMNS (most recent kept)."""
     if df.empty:
         return apply_terminal_layout(go.Figure().update_layout(title=title), height=470)
     plot_df = df.copy()
@@ -363,7 +389,7 @@ def offer_stack_price_sensitivity_heatmap(
     if shock_mask.any():
         plot_df = plot_df[shock_mask]
     plot_df["delivery_date"] = pd.to_datetime(plot_df["delivery_date"], errors="coerce").dt.strftime("%Y-%m-%d")
-    pivot = plot_df.pivot_table(index="time_code", columns="delivery_date", values="price_impact_jpy_kwh", aggfunc="mean")
+    pivot = _cap_recent_dates(plot_df.pivot_table(index="time_code", columns="delivery_date", values="price_impact_jpy_kwh", aggfunc="mean"))
     fig = px.imshow(
         pivot,
         aspect="auto",
@@ -544,7 +570,7 @@ def offer_stack_shift_chart(df: pd.DataFrame, title: str = "Bidding Curve Shift"
             line_color=AMBER,
             line_dash="dot",
             line_width=1,
-            annotation_text=f"Clearing {float(clearing):.2f}",
+            annotation_text=f"Clearing {float(clearing):.2f} JPY/kWh",
             annotation_position="top right",
         )
         summary = df.attrs.get("summary", {}) if isinstance(df.attrs.get("summary"), dict) else {}
@@ -581,9 +607,8 @@ def offer_stack_period_shift_chart(df: pd.DataFrame, title: str = "Offer-Stack S
     fig = go.Figure()
     if df.empty:
         return apply_terminal_layout(fig.update_layout(title=title), height=390)
-    plot_df = df.copy()
     period = (
-        plot_df.groupby("delivery_period", as_index=False)[["supply_tightening_mw", "demand_strength_mw", "net_tightening_pressure_mw"]]
+        df.groupby("delivery_period", as_index=False)[["supply_tightening_mw", "demand_strength_mw", "net_tightening_pressure_mw"]]
         .mean()
         .sort_values("delivery_period")
     )
@@ -636,9 +661,8 @@ def offer_stack_price_attribution_chart(df: pd.DataFrame, title: str = "Price Mo
     fig = go.Figure()
     if df.empty:
         return apply_terminal_layout(fig.update_layout(title=title), height=390)
-    plot_df = df.copy()
     period = (
-        plot_df.groupby("delivery_period", as_index=False)[
+        df.groupby("delivery_period", as_index=False)[
             [
                 "supply_price_contribution_jpy_kwh",
                 "demand_price_contribution_jpy_kwh",
@@ -730,18 +754,19 @@ def intraday_convergence_chart(df: pd.DataFrame, title: str = "Day-Ahead vs Intr
         hovermode="x unified",
         xaxis_title="",
         yaxis=dict(title="JPY/kWh"),
-        yaxis2=dict(title="Spread", overlaying="y", side="right", showgrid=False),
+        yaxis2=dict(title="Spread (JPY/kWh)", overlaying="y", side="right", showgrid=False),
         legend_title_text="",
     )
     return apply_terminal_layout(fig, height=430)
 
 
 def intraday_liquidity_heatmap(df: pd.DataFrame, value: str = "total_volume_kwh", title: str = "Intraday Liquidity by Product") -> go.Figure:
+    """Liquidity heatmap. Date columns are capped at MAX_HEATMAP_DATE_COLUMNS (most recent kept)."""
     if df.empty:
         return apply_terminal_layout(go.Figure().update_layout(title=title))
     plot_df = df.copy()
     plot_df["delivery_date"] = pd.to_datetime(plot_df["delivery_date"], errors="coerce").dt.strftime("%Y-%m-%d")
-    pivot = plot_df.pivot_table(index="time_code", columns="delivery_date", values=value, aggfunc="mean")
+    pivot = _cap_recent_dates(plot_df.pivot_table(index="time_code", columns="delivery_date", values=value, aggfunc="mean"))
     color_title = "Volume (kWh)" if value == "total_volume_kwh" else "Contracts"
     fig = px.imshow(
         pivot,
@@ -759,7 +784,7 @@ def intraday_liquidity_heatmap(df: pd.DataFrame, value: str = "total_volume_kwh"
 def baseload_price_volume_chart(df: pd.DataFrame, title: str = "JEPX Baseload Market Tracker") -> go.Figure:
     if df.empty:
         return apply_terminal_layout(go.Figure().update_layout(title=title))
-    plot_df = df.dropna(subset=["clearing_price_jpy_kwh"]).copy()
+    plot_df = df.dropna(subset=["clearing_price_jpy_kwh"])
     fig = px.scatter(
         plot_df,
         x="trade_date",
@@ -824,12 +849,13 @@ def forward_curve_chart(df: pd.DataFrame, title: str = "Forward Curve") -> go.Fi
 
 
 def curve_heatmap(df: pd.DataFrame, title: str) -> go.Figure:
+    """Curve-history heatmap. Curve-date rows are capped at MAX_HEATMAP_DATE_COLUMNS (most recent kept)."""
     temp = df.copy()
     if temp.empty:
         return apply_terminal_layout(go.Figure().update_layout(title=title))
     temp["curve_date"] = temp["curve_date"].dt.strftime("%Y-%m-%d")
     temp["contract_month"] = temp["contract_month"].dt.strftime("%Y-%m")
-    pivot = temp.pivot_table(index="curve_date", columns="contract_month", values="price", aggfunc="mean")
+    pivot = _cap_recent_dates(temp.pivot_table(index="curve_date", columns="contract_month", values="price", aggfunc="mean"), axis=0)
     fig = px.imshow(pivot, aspect="auto", color_continuous_scale="Viridis", title=title, template=PLOT_TEMPLATE, labels=_labels())
     fig.update_layout(xaxis_title="Contract Month", yaxis_title="Curve Date")
     fig.update_coloraxes(colorbar_title=_unit_title(df))

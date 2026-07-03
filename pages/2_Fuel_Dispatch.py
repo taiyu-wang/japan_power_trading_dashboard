@@ -11,7 +11,7 @@ from src.charts import PLOT_TEMPLATE, apply_terminal_layout, line_chart, spread_
 from src.config import ASSET_GROUPS
 from src.data_loader import cached_spread_suite, cached_srmc_comparison, load_prepared_historical
 from src.transformations import normalize_to_100
-from src.utils import configure_page, download_button, page_header, sample_data_notice
+from src.utils import configure_page, download_button, page_header, render_chart, sample_data_notice
 
 
 configure_page("Fuel & Dispatch")
@@ -83,55 +83,64 @@ def indexed_pair_chart(data: pd.DataFrame, pair_markets: list[str], labels: dict
     return apply_terminal_layout(fig)
 
 
-st.markdown("### Fuel and Power Repricing")
-st.plotly_chart(line_chart(normalize_to_100(selected_df), "date", "normalized", "market", "Selected Market Repricing Since Window Start", "Index = 100"), width="stretch")
-
-for title, group in {"LNG": ASSET_GROUPS["LNG"], "Coal": ASSET_GROUPS["Coal"], "Crude": ASSET_GROUPS["Crude"], "FX": ["USDJPY"]}.items():
-    group_df = filtered_df[filtered_df["market"].isin(group)]
-    if not group_df.empty:
-        y_title = "JPY per USD" if title == "FX" else None
-        st.plotly_chart(line_chart(group_df, "date", "price", "market", f"{title} Price History", y_title), width="stretch")
-
-st.markdown("### Dispatch Stack")
-srmc = cached_srmc_comparison(
-    filtered_df,
-    gas_efficiency=gas_efficiency,
-    coal_efficiency=coal_efficiency,
-    gas_vom_jpy_mwh=gas_vom,
-    coal_vom_jpy_mwh=coal_vom,
+repricing_tab, history_tab, dispatch_tab, rv_tab = st.tabs(
+    ["Repricing", "Price History", "Dispatch Stack", "Relative Value"]
 )
-st.caption("SRMC is shown in JPY/kWh. Delivered CFR Japan coal is preferred when available; Newcastle is fallback benchmark context.")
-if srmc.empty:
-    st.warning("SRMC view needs JKM, JCC, USDJPY, JEPX system, and either CFR Japan coal or Newcastle coal data in the selected range.")
-else:
-    st.plotly_chart(srmc_comparison_chart(srmc, "Fuel SRMC Stack vs JEPX System"), width="stretch")
 
-st.markdown("### Relative-Value Screens")
-jkm_coal_markets = ["JKM", "NEWCASTLE_COAL"]
-jkm_coal_subset = filtered_df[filtered_df["market"].isin(jkm_coal_markets)]
-if set(jkm_coal_markets).issubset(set(jkm_coal_subset["market"].unique())):
-    st.plotly_chart(
-        indexed_pair_chart(
-            jkm_coal_subset,
-            jkm_coal_markets,
-            {"JKM": "JKM LNG", "NEWCASTLE_COAL": "Newcastle thermal coal"},
-            "JKM vs Newcastle Coal Repricing Since Window Start",
-        ),
-        width="stretch",
+with repricing_tab:
+    st.markdown("### Fuel and Power Repricing")
+    render_chart(line_chart(normalize_to_100(selected_df), "date", "normalized", "market", "Selected Market Repricing Since Window Start", "Index = 100"))
+
+with history_tab:
+    st.markdown("### Fuel and FX Price History")
+    for title, group in {"LNG": ASSET_GROUPS["LNG"], "Coal": ASSET_GROUPS["Coal"], "Crude": ASSET_GROUPS["Crude"], "FX": ["USDJPY"]}.items():
+        group_df = filtered_df[filtered_df["market"].isin(group)]
+        if not group_df.empty:
+            y_title = "JPY per USD" if title == "FX" else None
+            render_chart(line_chart(group_df, "date", "price", "market", f"{title} Price History", y_title))
+
+with dispatch_tab:
+    st.markdown("### Dispatch Stack")
+    srmc = cached_srmc_comparison(
+        filtered_df,
+        gas_efficiency=gas_efficiency,
+        coal_efficiency=coal_efficiency,
+        gas_vom_jpy_mwh=gas_vom,
+        coal_vom_jpy_mwh=coal_vom,
     )
+    st.caption("SRMC is shown in JPY/kWh. Delivered CFR Japan coal is preferred when available; Newcastle is fallback benchmark context.")
+    if srmc.empty:
+        st.warning("SRMC view needs JKM, JCC, USDJPY, JEPX system, and either CFR Japan coal or Newcastle coal data in the selected range.")
+        st.info("Widen the date range or keep the default markets selected so all SRMC inputs are present.")
+    else:
+        render_chart(srmc_comparison_chart(srmc, "Fuel SRMC Stack vs JEPX System"))
 
-pairs = {
-    "JKM versus JCC-linked LNG": ["JKM", "JCC_LINKED_LNG"],
-    "Power versus LNG": ["JEPX_SYSTEM", "JKM"],
-    "Power versus coal": ["JEPX_SYSTEM", "NEWCASTLE_COAL"],
-    "Brent versus JKM": ["BRENT", "JKM"],
-    "USDJPY impact overlay": ["USDJPY", "JEPX_SYSTEM"],
-}
-for title, pair_markets in pairs.items():
-    pair_df = filtered_df[filtered_df["market"].isin(pair_markets)]
-    if not pair_df.empty:
-        st.plotly_chart(line_chart(normalize_to_100(pair_df), "date", "normalized", "market", title, "Index = 100"), width="stretch")
+with rv_tab:
+    st.markdown("### Relative-Value Screens")
+    jkm_coal_markets = ["JKM", "NEWCASTLE_COAL"]
+    jkm_coal_subset = filtered_df[filtered_df["market"].isin(jkm_coal_markets)]
+    if set(jkm_coal_markets).issubset(set(jkm_coal_subset["market"].unique())):
+        render_chart(
+            indexed_pair_chart(
+                jkm_coal_subset,
+                jkm_coal_markets,
+                {"JKM": "JKM LNG", "NEWCASTLE_COAL": "Newcastle thermal coal"},
+                "JKM vs Newcastle Coal Repricing Since Window Start",
+            )
+        )
 
-spreads = cached_spread_suite(filtered_df)
-st.plotly_chart(spread_chart(spreads, "Fuel and Power Spread Screen", "Proxy spread / unconverted units"), width="stretch")
-download_button(pd.concat([selected_df, spreads], ignore_index=True, sort=False), "fuel_dispatch_filtered.csv")
+    pairs = {
+        "JKM versus JCC-linked LNG": ["JKM", "JCC_LINKED_LNG"],
+        "Power versus LNG": ["JEPX_SYSTEM", "JKM"],
+        "Power versus coal": ["JEPX_SYSTEM", "NEWCASTLE_COAL"],
+        "Brent versus JKM": ["BRENT", "JKM"],
+        "USDJPY impact overlay": ["USDJPY", "JEPX_SYSTEM"],
+    }
+    for title, pair_markets in pairs.items():
+        pair_df = filtered_df[filtered_df["market"].isin(pair_markets)]
+        if not pair_df.empty:
+            render_chart(line_chart(normalize_to_100(pair_df), "date", "normalized", "market", title, "Index = 100"))
+
+    spreads = cached_spread_suite(filtered_df)
+    render_chart(spread_chart(spreads, "Fuel and Power Spread Screen", "Proxy spread / unconverted units"))
+    download_button(pd.concat([selected_df, spreads], ignore_index=True, sort=False), "fuel_dispatch_filtered.csv")
