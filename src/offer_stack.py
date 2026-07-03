@@ -239,16 +239,43 @@ def prepare_offer_stack_curve(
     return curve.reset_index(drop=True)
 
 
+def _nearest_price_index(prices: np.ndarray, target: float) -> int:
+    """Positional index of the price nearest to ``target`` on a sorted price array.
+
+    Matches ``(series - target).abs().idxmin()`` exactly, including first-occurrence
+    tie-breaking when ``target`` is equidistant from two prices or the nearest price
+    is duplicated, while replacing the full-array scan with a binary search.
+    """
+    position = int(np.searchsorted(prices, target, side="left"))
+    if position >= len(prices):
+        position = len(prices) - 1
+    elif position > 0 and (target - prices[position - 1]) <= (prices[position] - target):
+        position -= 1
+    return int(np.searchsorted(prices, prices[position], side="left"))
+
+
+def _price_at_net_supply_arrays(prices: np.ndarray, net_supply: np.ndarray, target_net_supply_mw: float) -> float:
+    if len(prices) == 0:
+        return float("nan")
+    if target_net_supply_mw > 0:
+        at_or_above = net_supply >= target_net_supply_mw
+        if at_or_above.any():
+            return float(prices[int(np.argmax(at_or_above))])
+    elif target_net_supply_mw < 0:
+        at_or_below = net_supply <= target_net_supply_mw
+        if at_or_below.any():
+            return float(prices[len(net_supply) - 1 - int(np.argmax(at_or_below[::-1]))])
+    return float(prices[int(np.argmin(np.abs(net_supply - target_net_supply_mw)))])
+
+
 def _price_at_net_supply(curve: pd.DataFrame, target_net_supply_mw: float) -> float:
     if curve.empty:
         return float("nan")
-    if target_net_supply_mw > 0 and curve["net_supply_mw"].ge(target_net_supply_mw).any():
-        idx = curve[curve["net_supply_mw"].ge(target_net_supply_mw)].index[0]
-    elif target_net_supply_mw < 0 and curve["net_supply_mw"].le(target_net_supply_mw).any():
-        idx = curve[curve["net_supply_mw"].le(target_net_supply_mw)].index[-1]
-    else:
-        idx = (curve["net_supply_mw"] - target_net_supply_mw).abs().idxmin()
-    return float(curve.loc[idx, "bid_price_jpy_kwh"])
+    return _price_at_net_supply_arrays(
+        curve["bid_price_jpy_kwh"].to_numpy(dtype=float),
+        curve["net_supply_mw"].to_numpy(dtype=float),
+        float(target_net_supply_mw),
+    )
 
 
 def _stack_regime(upside_depth_mw: float, downside_depth_mw: float) -> str:
@@ -281,11 +308,13 @@ def calculate_offer_stack_depth(df: pd.DataFrame, price_band: float = 5.0) -> pd
         clearing = curve.attrs.get("clearing_price_estimate", pd.NA)
         if curve.empty or pd.isna(clearing):
             continue
-        at_clear = curve.loc[(curve["bid_price_jpy_kwh"] - float(clearing)).abs().idxmin(), "net_supply_mw"]
+        prices = curve["bid_price_jpy_kwh"].to_numpy(dtype=float)
+        net_supply = curve["net_supply_mw"].to_numpy(dtype=float)
+        at_clear = net_supply[_nearest_price_index(prices, float(clearing))]
         up_price = float(clearing) + float(price_band)
         down_price = float(clearing) - float(price_band)
-        up_net = curve.loc[(curve["bid_price_jpy_kwh"] - up_price).abs().idxmin(), "net_supply_mw"]
-        down_net = curve.loc[(curve["bid_price_jpy_kwh"] - down_price).abs().idxmin(), "net_supply_mw"]
+        up_net = net_supply[_nearest_price_index(prices, up_price)]
+        down_net = net_supply[_nearest_price_index(prices, down_price)]
         upside_depth = abs(float(up_net) - float(at_clear))
         downside_depth = abs(float(at_clear) - float(down_net))
         rows.append(
@@ -308,36 +337,40 @@ def calculate_offer_stack_scenarios(
     df: pd.DataFrame,
     demand_shifts_mw: tuple[int, ...] = (-1000, -500, 500, 1000),
 ) -> pd.DataFrame:
-    depth = calculate_offer_stack_depth(df, price_band=5.0)
-    if depth.empty:
+    if df.empty:
         return pd.DataFrame()
+    required = {"delivery_date", "time_code", "area_group", "bid_price_jpy_kwh", "sell_cumulative_mw", "buy_cumulative_mw"}
+    missing = sorted(required.difference(df.columns))
+    if missing:
+        raise ValueError(f"Offer-stack depth calculation is missing required columns: {', '.join(missing)}")
+
     rows: list[dict] = []
     work = df.copy()
     work["delivery_date"] = pd.to_datetime(work["delivery_date"], errors="coerce").dt.normalize()
-    for _, item in depth.iterrows():
-        curve = prepare_offer_stack_curve(work, item["delivery_date"], int(item["time_code"]), str(item["area_group"]))
-        if curve.empty:
+    for (delivery_date, time_code, area_group), group in work.groupby(["delivery_date", "time_code", "area_group"], dropna=False):
+        curve = prepare_offer_stack_curve(group, delivery_date, int(time_code), str(area_group))
+        clearing = curve.attrs.get("clearing_price_estimate", pd.NA)
+        if curve.empty or pd.isna(clearing):
             continue
-        base_price = float(item["clearing_price_estimate"])
+        prices = curve["bid_price_jpy_kwh"].to_numpy(dtype=float)
+        net_supply = curve["net_supply_mw"].to_numpy(dtype=float)
+        base_price = float(clearing)
         for shift in demand_shifts_mw:
-            scenario_price = _price_at_net_supply(curve, float(shift))
+            scenario_price = _price_at_net_supply_arrays(prices, net_supply, float(shift))
             rows.append(
                 {
-                    "delivery_date": item["delivery_date"],
-                    "time_code": int(item["time_code"]),
-                    "area_group": item["area_group"],
+                    "delivery_date": delivery_date,
+                    "time_code": int(time_code),
+                    "area_group": str(area_group),
                     "base_price_jpy_kwh": base_price,
                     "demand_shift_mw": int(shift),
                     "scenario_price_jpy_kwh": scenario_price,
                     "price_impact_jpy_kwh": scenario_price - base_price,
                 }
             )
+    if not rows:
+        return pd.DataFrame()
     return pd.DataFrame(rows).sort_values(["delivery_date", "time_code", "area_group", "demand_shift_mw"]).reset_index(drop=True)
-
-
-def _nearest_curve_row(curve: pd.DataFrame, price: float) -> pd.Series:
-    idx = (curve["bid_price_jpy_kwh"] - float(price)).abs().idxmin()
-    return curve.loc[idx]
 
 
 def _shock_column_suffix(shock_mw: float) -> str:
@@ -375,12 +408,14 @@ def calculate_offer_stack_price_sensitivity(
         else:
             anchors.extend((f"price_{float(price):g}", float(price)) for price in reference_prices)
 
+        prices = curve["bid_price_jpy_kwh"].to_numpy(dtype=float)
+        net_supply = curve["net_supply_mw"].to_numpy(dtype=float)
         for reference_level, reference_price in anchors:
-            reference = _nearest_curve_row(curve, reference_price)
-            base_price = float(reference["bid_price_jpy_kwh"])
-            base_net = float(reference["net_supply_mw"])
+            reference_idx = _nearest_price_index(prices, float(reference_price))
+            base_price = float(prices[reference_idx])
+            base_net = float(net_supply[reference_idx])
             for shock in shocks_mw:
-                scenario_price = _price_at_net_supply(curve, base_net + float(shock))
+                scenario_price = _price_at_net_supply_arrays(prices, net_supply, base_net + float(shock))
                 impact = scenario_price - base_price
                 rows.append(
                     {

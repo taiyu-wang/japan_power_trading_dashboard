@@ -112,21 +112,68 @@ def fetch_tokyo_kansai_half_hourly_supply() -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 
+THERMAL_MW_COLUMNS = ["gas_mw", "coal_mw", "oil_mw", "thermal_other_mw"]
+CLEAN_MW_COLUMNS = ["nuclear_mw", "hydro_mw", "biomass_mw", "solar_mw", "wind_mw", "geothermal_mw"]
+
+_GWH_SOURCE_COLUMNS = sorted(
+    {col for cols in GENERATION_SOURCE_MAP.values() for col in (cols if isinstance(cols, list) else [cols])}
+)
+
+
 def _positive_gwh(series: pd.Series) -> pd.Series:
     return series.clip(lower=0) * 0.5 / 1000
+
+
+def _positive_gwh_column(col: str) -> str:
+    return f"{col}_positive_gwh"
+
+
+_DERIVED_SUPPLY_COLUMNS = [
+    "month",
+    "thermal_mw",
+    "clean_supply_mw",
+    "residual_thermal_mw",
+    "renewable_curtailment_mwh",
+    "thermal_gwh",
+    "clean_supply_gwh",
+    "demand_gwh",
+] + [_positive_gwh_column(col) for col in _GWH_SOURCE_COLUMNS]
+
+
+def enrich_half_hourly_supply(df: pd.DataFrame) -> pd.DataFrame:
+    """Derive the shared columns consumed by the aggregate_* functions in one pass."""
+    work = df.copy()
+    work["month"] = pd.to_datetime(work["date"], errors="coerce").dt.to_period("M").dt.to_timestamp()
+    for col in _GWH_SOURCE_COLUMNS:
+        work[_positive_gwh_column(col)] = _positive_gwh(work[col])
+    work["thermal_mw"] = work[THERMAL_MW_COLUMNS].sum(axis=1)
+    work["clean_supply_mw"] = work[CLEAN_MW_COLUMNS].sum(axis=1)
+    work["residual_thermal_mw"] = work["area_demand_mw"] - work["clean_supply_mw"]
+    work["renewable_curtailment_mwh"] = (
+        work["solar_curtailment_mw"].clip(lower=0) + work["wind_curtailment_mw"].clip(lower=0)
+    ) * 0.5
+    work["thermal_gwh"] = sum(work[_positive_gwh_column(col)] for col in THERMAL_MW_COLUMNS)
+    work["clean_supply_gwh"] = sum(work[_positive_gwh_column(col)] for col in CLEAN_MW_COLUMNS)
+    work["demand_gwh"] = work["area_demand_mw"].clip(lower=0) * 0.5 / 1000
+    return work
+
+
+def _ensure_enriched(df: pd.DataFrame) -> pd.DataFrame:
+    if all(col in df.columns for col in _DERIVED_SUPPLY_COLUMNS):
+        return df
+    return enrich_half_hourly_supply(df)
 
 
 def aggregate_monthly_generation_mix(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame()
-    work = df.copy()
-    work["month"] = pd.to_datetime(work["date"], errors="coerce").dt.to_period("M").dt.to_timestamp()
+    work = _ensure_enriched(df)
     rows: list[pd.DataFrame] = []
     for generation_type, source_cols in GENERATION_SOURCE_MAP.items():
         cols = source_cols if isinstance(source_cols, list) else [source_cols]
         tmp = work[["month", "area"]].copy()
         tmp["generation_type"] = generation_type
-        tmp["generation_gwh"] = sum(_positive_gwh(work[col]) for col in cols)
+        tmp["generation_gwh"] = sum(work[_positive_gwh_column(col)] for col in cols)
         rows.append(tmp)
     out = pd.concat(rows, ignore_index=True)
     monthly = out.groupby(["month", "area", "generation_type"], as_index=False)["generation_gwh"].sum()
@@ -139,13 +186,7 @@ def aggregate_monthly_generation_mix(df: pd.DataFrame) -> pd.DataFrame:
 def aggregate_daily_supply_shape(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame()
-    work = df.copy()
-    thermal_cols = ["gas_mw", "coal_mw", "oil_mw", "thermal_other_mw"]
-    clean_cols = ["nuclear_mw", "hydro_mw", "biomass_mw", "solar_mw", "wind_mw", "geothermal_mw"]
-    work["thermal_mw"] = work[thermal_cols].sum(axis=1)
-    work["clean_supply_mw"] = work[clean_cols].sum(axis=1)
-    work["residual_thermal_mw"] = work["area_demand_mw"] - work["clean_supply_mw"]
-    work["renewable_curtailment_mwh"] = (work["solar_curtailment_mw"].clip(lower=0) + work["wind_curtailment_mw"].clip(lower=0)) * 0.5
+    work = _ensure_enriched(df)
     midday = work["period_id"].between(21, 28)
     evening = work["period_id"].between(35, 42)
 
@@ -188,13 +229,7 @@ def aggregate_daily_supply_shape(df: pd.DataFrame) -> pd.DataFrame:
 def aggregate_residual_thermal(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return pd.DataFrame()
-    work = df.copy()
-    thermal_cols = ["gas_mw", "coal_mw", "oil_mw", "thermal_other_mw"]
-    clean_cols = ["nuclear_mw", "hydro_mw", "biomass_mw", "solar_mw", "wind_mw", "geothermal_mw"]
-    work["month"] = pd.to_datetime(work["date"], errors="coerce").dt.to_period("M").dt.to_timestamp()
-    work["thermal_gwh"] = sum(_positive_gwh(work[col]) for col in thermal_cols)
-    work["clean_supply_gwh"] = sum(_positive_gwh(work[col]) for col in clean_cols)
-    work["demand_gwh"] = work["area_demand_mw"].clip(lower=0) * 0.5 / 1000
+    work = _ensure_enriched(df)
     out = work.groupby(["month", "area"], as_index=False)[["thermal_gwh", "clean_supply_gwh", "demand_gwh"]].sum()
     out["residual_thermal_share_pct"] = (out["thermal_gwh"] / out["demand_gwh"] * 100).where(out["demand_gwh"] > 0)
     out["source"] = JAPANESE_POWER_SOURCE
@@ -204,9 +239,10 @@ def aggregate_residual_thermal(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_processed_supply_mix_artifacts(raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    monthly = aggregate_monthly_generation_mix(raw)
-    daily_shape = aggregate_daily_supply_shape(raw)
-    residual = aggregate_residual_thermal(raw)
+    enriched = raw if raw.empty else enrich_half_hourly_supply(raw)
+    monthly = aggregate_monthly_generation_mix(enriched)
+    daily_shape = aggregate_daily_supply_shape(enriched)
+    residual = aggregate_residual_thermal(enriched)
     return monthly, daily_shape, residual
 
 

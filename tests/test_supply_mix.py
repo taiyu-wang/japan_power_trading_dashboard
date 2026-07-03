@@ -5,6 +5,9 @@ from src.supply_mix import add_generation_share, normalize_generation_mix, resid
 from src.supply_mix_pipeline import (
     aggregate_daily_supply_shape,
     aggregate_monthly_generation_mix,
+    aggregate_residual_thermal,
+    build_processed_supply_mix_artifacts,
+    enrich_half_hourly_supply,
     normalize_regional_half_hourly_supply,
 )
 
@@ -132,6 +135,73 @@ def test_daily_supply_shape_returns_trader_metrics():
     assert shape.iloc[0]["solar_midday_avg_mw"] == 300
     assert shape.iloc[0]["renewable_curtailment_mwh"] == 64
     assert shape.iloc[0]["residual_thermal_peak_mw"] > 0
+
+
+def _half_hourly_supply_fixture() -> pd.DataFrame:
+    frames = []
+    for area in ["Tokyo", "Kansai"]:
+        rows = []
+        for date in ["2026-03-31", "2026-04-01"]:
+            for period in range(1, 49):
+                rows.append(
+                    {
+                        "Datetime": f"{date} {((period - 1) // 2):02d}:{'30' if period % 2 == 0 else '00'}:00",
+                        "Date": date,
+                        "PeriodID(1 to 48)": period,
+                        "Area Demand (MW)": 1000 + period,
+                        "Nuclear": 100,
+                        "Thermal (LNG)": 300 + period,
+                        "Thermal (Coal)": 200,
+                        "Thermal (Oil)": -5 if period < 10 else 10,
+                        "Thermal (Other)": 20,
+                        "Hydroelectric": 50,
+                        "Geothermal": 5,
+                        "Biomass": 20,
+                        "Solar PV Output": 300 if 21 <= period <= 28 else 0,
+                        "Solar PV Curtailment": 10 if 21 <= period <= 28 else 0,
+                        "Wind Power Output": 5,
+                        "Wind Power Curtailment": 1,
+                        "Pumped Storage": -30,
+                        "Battery Storage": -2 if period % 2 else 2,
+                        "Interconnected Lines": 100,
+                        "Others": 5,
+                        "Total": 1000 + period,
+                    }
+                )
+        frames.append(normalize_regional_half_hourly_supply(pd.DataFrame(rows), area))
+    return pd.concat(frames, ignore_index=True)
+
+
+def test_aggregates_on_enriched_frame_match_standalone_results():
+    raw = _half_hourly_supply_fixture()
+    enriched = enrich_half_hourly_supply(raw)
+
+    pd.testing.assert_frame_equal(aggregate_monthly_generation_mix(enriched), aggregate_monthly_generation_mix(raw))
+    pd.testing.assert_frame_equal(aggregate_daily_supply_shape(enriched), aggregate_daily_supply_shape(raw))
+    pd.testing.assert_frame_equal(aggregate_residual_thermal(enriched), aggregate_residual_thermal(raw))
+
+
+def test_build_processed_supply_mix_artifacts_matches_individual_aggregates():
+    raw = _half_hourly_supply_fixture()
+
+    monthly, daily_shape, residual = build_processed_supply_mix_artifacts(raw)
+
+    pd.testing.assert_frame_equal(monthly, aggregate_monthly_generation_mix(raw))
+    pd.testing.assert_frame_equal(daily_shape, aggregate_daily_supply_shape(raw))
+    pd.testing.assert_frame_equal(residual, aggregate_residual_thermal(raw))
+
+
+def test_aggregate_residual_thermal_reports_monthly_share():
+    raw = _half_hourly_supply_fixture()
+
+    residual = aggregate_residual_thermal(raw)
+
+    assert set(residual["month"]) == {pd.Timestamp("2026-03-01"), pd.Timestamp("2026-04-01")}
+    assert set(residual["area"]) == {"Tokyo", "Kansai"}
+    row = residual.iloc[0]
+    assert row["thermal_gwh"] > 0
+    assert row["demand_gwh"] > 0
+    assert 0 < row["residual_thermal_share_pct"] < 100
 
 
 def test_residual_thermal_summary_combines_thermal_and_clean_supply():

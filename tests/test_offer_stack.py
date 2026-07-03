@@ -1,9 +1,11 @@
 from io import StringIO
 
+import numpy as np
 import pandas as pd
 
 from src.offer_stack import (
     JEPX_OFFER_STACK_COLUMNS,
+    _nearest_price_index,
     build_offer_stack_signal_payload,
     calculate_offer_stack_depth,
     calculate_offer_stack_price_sensitivity,
@@ -116,6 +118,94 @@ def test_calculate_offer_stack_depth_measures_mw_around_clearing_price():
     assert depth.iloc[0]["upside_depth_mw"] == 2000
     assert depth.iloc[0]["downside_depth_mw"] == 2000
     assert depth.iloc[0]["stack_regime"] == "Balanced stack"
+
+
+def test_nearest_price_index_matches_idxmin_including_ties_and_duplicates():
+    prices = np.array([0.0, 4.0, 4.0, 6.0, 10.0, 10.0, 10.0, 16.0, 20.0])
+    series = pd.Series(prices)
+    targets = [-5.0, 0.0, 2.0, 3.0, 4.0, 5.0, 8.0, 10.0, 13.0, 18.0, 20.0, 25.0]
+
+    for target in targets:
+        expected = int((series - target).abs().idxmin())
+        assert _nearest_price_index(prices, target) == expected, f"mismatch at target={target}"
+
+
+def test_calculate_offer_stack_depth_ties_resolve_to_lower_price_like_idxmin():
+    # up_price (13) is equidistant from 10 and 16; down_price (7) from 4 and 10.
+    # The prior idxmin implementation picked the first (lower-price) row on ties.
+    stack = pd.DataFrame(
+        {
+            "delivery_date": ["2026-05-31"] * 5,
+            "time_code": [1] * 5,
+            "area_group": ["System Price"] * 5,
+            "bid_price_jpy_kwh": [0, 4, 10, 16, 20],
+            "sell_cumulative_mw": [1000, 2000, 3000, 4000, 5000],
+            "buy_cumulative_mw": [5000, 4000, 3000, 2000, 1000],
+        }
+    )
+
+    depth = calculate_offer_stack_depth(stack, price_band=3)
+
+    assert depth.iloc[0]["clearing_price_estimate"] == 10
+    assert depth.iloc[0]["upside_depth_mw"] == 0
+    assert depth.iloc[0]["downside_depth_mw"] == 2000
+
+
+def test_calculate_offer_stack_scenarios_matches_prior_per_row_implementation():
+    rows = []
+    for day, offset in zip(["2026-05-30", "2026-05-31"], [0, 250]):
+        for area in ["System Price", "Tokyo"]:
+            for time_code in [1, 37]:
+                for price, sell, buy in [(0, 1000, 5200), (5, 2000, 4100), (10, 3000, 3000), (15, 4000, 1900), (20, 5000, 800)]:
+                    rows.append(
+                        {
+                            "delivery_date": day,
+                            "time_code": time_code,
+                            "area_group": area,
+                            "bid_price_jpy_kwh": price,
+                            "sell_cumulative_mw": sell + offset,
+                            "buy_cumulative_mw": buy - offset,
+                        }
+                    )
+    stack = pd.DataFrame(rows)
+    shifts = (-800, -300, 300, 800)
+
+    scenarios = calculate_offer_stack_scenarios(stack, demand_shifts_mw=shifts)
+
+    def price_at_net_supply_reference(curve, target):
+        if target > 0 and curve["net_supply_mw"].ge(target).any():
+            idx = curve[curve["net_supply_mw"].ge(target)].index[0]
+        elif target < 0 and curve["net_supply_mw"].le(target).any():
+            idx = curve[curve["net_supply_mw"].le(target)].index[-1]
+        else:
+            idx = (curve["net_supply_mw"] - target).abs().idxmin()
+        return float(curve.loc[idx, "bid_price_jpy_kwh"])
+
+    depth = calculate_offer_stack_depth(stack, price_band=5.0)
+    expected_rows = []
+    work = stack.copy()
+    work["delivery_date"] = pd.to_datetime(work["delivery_date"], errors="coerce").dt.normalize()
+    for _, item in depth.iterrows():
+        curve = prepare_offer_stack_curve(work, item["delivery_date"], int(item["time_code"]), str(item["area_group"]))
+        base_price = float(item["clearing_price_estimate"])
+        for shift in shifts:
+            scenario_price = price_at_net_supply_reference(curve, float(shift))
+            expected_rows.append(
+                {
+                    "delivery_date": item["delivery_date"],
+                    "time_code": int(item["time_code"]),
+                    "area_group": item["area_group"],
+                    "base_price_jpy_kwh": base_price,
+                    "demand_shift_mw": int(shift),
+                    "scenario_price_jpy_kwh": scenario_price,
+                    "price_impact_jpy_kwh": scenario_price - base_price,
+                }
+            )
+    expected = pd.DataFrame(expected_rows).sort_values(
+        ["delivery_date", "time_code", "area_group", "demand_shift_mw"]
+    ).reset_index(drop=True)
+
+    pd.testing.assert_frame_equal(scenarios, expected)
 
 
 def test_calculate_offer_stack_scenarios_reprices_demand_shift():
