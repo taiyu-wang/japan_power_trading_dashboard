@@ -7,23 +7,22 @@ import pandas as pd
 sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from src.data_loader import (
+    cached_offer_stack_signal_payload,
     get_forward_curves,
     get_power_news,
     get_weather_temperatures,
-    load_historical_prices,
     load_jepx_offer_stack_compact_curves,
     load_jepx_offer_stack_depth,
+    load_prepared_historical,
     load_uploaded_power_news,
 )
-from src.preprocessing import prepare_historical
-from src.offer_stack import build_offer_stack_signal_payload
 from src.signals import generate_trading_signals, signal_methodology
 from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
 
 
 configure_page("Trading Signals")
 
-df = prepare_historical(load_historical_prices())
+df = load_prepared_historical()
 with st.sidebar:
     st.header("Signal Console")
     use_live_curves = st.toggle("Refresh live public curves", value=False, help="Uses bundled curves by default for deployment stability.")
@@ -47,7 +46,7 @@ if not offer_stack_depth.empty:
     latest_offer_stack_depth = offer_stack_depth[
         pd.to_datetime(offer_stack_depth["delivery_date"], errors="coerce").eq(latest_offer_stack_date)
     ].copy()
-    stack_signal_payload = build_offer_stack_signal_payload(latest_offer_stack_curves, depth=latest_offer_stack_depth)
+    stack_signal_payload = cached_offer_stack_signal_payload(latest_offer_stack_curves, depth=latest_offer_stack_depth)
 else:
     stack_signal_payload = pd.DataFrame()
 news, news_warnings, news_source_label = get_power_news(use_live_news)

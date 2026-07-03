@@ -18,18 +18,19 @@ from src.charts import (
 )
 from src.data_loader import (
     cached_offer_stack_depth,
+    cached_offer_stack_period_shift,
     cached_offer_stack_price_sensitivity,
     cached_offer_stack_scenarios,
+    cached_offer_stack_shift,
+    cached_offer_stack_shift_benchmarks,
+    cached_offer_stack_shift_by_block,
+    cached_offer_stack_signal_payload,
+    cached_tokyo_kansai_stack_tightness_spread,
     get_jepx_offer_stack,
     load_jepx_offer_stack_compact_curves,
     load_jepx_offer_stack_depth,
 )
 from src.offer_stack import (
-    build_offer_stack_signal_payload,
-    calculate_offer_stack_period_shift,
-    calculate_offer_stack_shift,
-    calculate_offer_stack_shift_benchmarks,
-    calculate_tokyo_kansai_stack_tightness_spread,
     offer_stack_time_period,
     prepare_offer_stack_curve,
 )
@@ -83,26 +84,7 @@ def _shift_takeaway(summary: dict) -> str:
 
 
 def _build_shift_by_block(filtered_curves: pd.DataFrame, prior_date: pd.Timestamp, current_date: pd.Timestamp, area_group: str) -> pd.DataFrame:
-    rows: list[dict] = []
-    time_codes = sorted(
-        filtered_curves.loc[filtered_curves["delivery_date"].isin([prior_date, current_date]), "time_code"].dropna().astype(int).unique()
-    )
-    for block_code in time_codes:
-        shift = calculate_offer_stack_shift(filtered_curves, prior_date, current_date, int(block_code), area_group)
-        summary = shift.attrs.get("summary", {})
-        if not summary:
-            continue
-        rows.append(
-            {
-                "time_code": int(block_code),
-                "delivery_block": _time_block(int(block_code)),
-                "clearing_price_estimate": summary.get("current_clearing_price_estimate"),
-                "sell_shift_at_clearing_mw": summary.get("sell_shift_at_clearing_mw"),
-                "buy_shift_at_clearing_mw": summary.get("buy_shift_at_clearing_mw"),
-                "net_depth_shift_at_clearing_mw": summary.get("net_depth_shift_at_clearing_mw"),
-            }
-        )
-    return pd.DataFrame(rows)
+    return cached_offer_stack_shift_by_block(filtered_curves, prior_date, current_date, area_group)
 
 
 def _signal_interpretation(row: pd.Series, scenarios: pd.DataFrame, spread_row: pd.Series | None = None) -> list[str]:
@@ -249,7 +231,7 @@ scenario_day_base = filtered_curves[
 ]
 day_sensitivity = cached_offer_stack_price_sensitivity(scenario_day_base, shocks_mw=(-1000, -500, 500, 1000))
 
-area_spread = calculate_tokyo_kansai_stack_tightness_spread(all_depth_source, price_band=float(price_band))
+area_spread = cached_tokyo_kansai_stack_tightness_spread(all_depth_source, price_band=float(price_band))
 area_spread = area_spread[area_spread["delivery_date"].eq(selected_date.normalize())].copy() if not area_spread.empty else pd.DataFrame()
 selected_spread = area_spread[area_spread["time_code"].eq(time_code)].tail(1) if not area_spread.empty else pd.DataFrame()
 spread_row = selected_spread.iloc[0] if not selected_spread.empty else None
@@ -313,7 +295,7 @@ with shift_tab:
     if prior_date is None:
         st.info("Curve shift needs at least two delivery dates in the selected view.")
     else:
-        shift = calculate_offer_stack_shift(filtered_curves, prior_date, current_date, time_code, area_group)
+        shift = cached_offer_stack_shift(filtered_curves, prior_date, current_date, time_code, area_group)
         shift_summary = shift.attrs.get("summary", {})
         st.caption(
             f"Comparison: {pd.Timestamp(prior_date).date()} vs {current_date.date()} for product {time_code}. "
@@ -332,7 +314,7 @@ with shift_tab:
         with st.expander("Benchmark and block-level diagnostics", expanded=False):
             st.markdown("#### Benchmark Curve Shift")
             st.caption("Latest selected block versus prior 7-day, 30-day, and selected-window average curves.")
-            benchmarks = calculate_offer_stack_shift_benchmarks(
+            benchmarks = cached_offer_stack_shift_benchmarks(
                 filtered_curves,
                 current_date=current_date,
                 time_code=time_code,
@@ -385,7 +367,7 @@ with shift_tab:
         st.caption(
             "Aggregates all 48 half-hour curves into trading periods. Positive supply-side tightening means less sell depth; positive buy-side strength means stronger demand depth."
         )
-        period_shift = calculate_offer_stack_period_shift(filtered_curves, prior_date, current_date, area_group)
+        period_shift = cached_offer_stack_period_shift(filtered_curves, prior_date, current_date, area_group)
         if period_shift.empty:
             st.info("Time-of-day shift attribution is unavailable for this comparison.")
         else:
@@ -433,7 +415,7 @@ with spread_tab:
         st.plotly_chart(offer_stack_tightness_spread_chart(area_spread, f"Tokyo/Kansai Stack Tightness | {selected_date.date()}"), width="stretch")
 
     st.markdown("### Stack-Derived Desk Prompts")
-    signal_payload = build_offer_stack_signal_payload(filtered_curves, depth=depth)
+    signal_payload = cached_offer_stack_signal_payload(filtered_curves, depth=depth)
     if signal_payload.empty:
         st.info("No stack-derived prompts are available for the selected view.")
     else:

@@ -24,22 +24,29 @@ from .config import (
     SUPPLY_MIX_RESIDUAL_THERMAL_PATH,
     WEATHER_DATA_PATH,
 )
-from .indicators import calculate_srmc_comparison
+from .indicators import calculate_srmc_comparison, detect_spikes, spread_suite
 from .live_forward_curves import fetch_live_forward_curves
 from .news import fetch_public_power_news_with_diagnostics, normalize_news_events, sample_power_news
 from .offer_stack import (
+    build_offer_stack_signal_payload,
     calculate_offer_stack_depth,
+    calculate_offer_stack_period_shift,
     calculate_offer_stack_price_sensitivity,
     calculate_offer_stack_scenarios,
+    calculate_offer_stack_shift,
+    calculate_offer_stack_shift_benchmarks,
+    calculate_tokyo_kansai_stack_tightness_spread,
     fetch_latest_month_jepx_offer_stack,
     normalize_jepx_offer_stack_upload,
+    offer_stack_time_period,
 )
-from .jepx_market_data import normalize_jepx_baseload, normalize_jepx_intraday
+from .jepx_market_data import intraday_liquidity_by_day, normalize_jepx_baseload, normalize_jepx_intraday
 from .power_futures import normalize_power_futures
+from .preprocessing import prepare_historical
 from .signals import generate_market_commentary
 from .supply_mix import normalize_generation_mix
 from .transformations import rolling_volatility
-from .weather import fetch_open_meteo_daily_temperatures, normalize_weather_data
+from .weather import fetch_open_meteo_daily_temperatures, normalize_weather_data, weather_power_join
 
 
 HISTORICAL_COLUMNS = ["date", "market", "region", "asset_class", "frequency", "contract", "price", "currency", "unit"]
@@ -98,6 +105,16 @@ def load_historical_prices(path: str | Path = HISTORICAL_DATA_PATH) -> pd.DataFr
     df = pd.read_csv(path, parse_dates=["date"], dtype=HISTORICAL_PRICE_DTYPES)
     df["market"] = df["market"].astype(str)
     return df.sort_values(["market", "date"]).reset_index(drop=True)
+
+
+@st.cache_data(show_spinner=False)
+def load_prepared_historical(path: str | Path = HISTORICAL_DATA_PATH) -> pd.DataFrame:
+    """Cached composition of load_historical_prices + prepare_historical.
+
+    Every page starts from this frame; caching the composition avoids re-running
+    missing-value fills, winsorization, and calendar-column derivation on each rerun.
+    """
+    return prepare_historical(load_historical_prices(path))
 
 
 @st.cache_data(show_spinner=False)
@@ -336,6 +353,117 @@ def cached_offer_stack_price_sensitivity(
 @st.cache_data(show_spinner=False)
 def cached_rolling_volatility(df: pd.DataFrame, window: int = 30, annualization: int = 252) -> pd.DataFrame:
     return rolling_volatility(df, window=window, annualization=annualization)
+
+
+@st.cache_data(show_spinner=False)
+def cached_spread_suite(df: pd.DataFrame) -> pd.DataFrame:
+    return spread_suite(df)
+
+
+@st.cache_data(show_spinner=False)
+def cached_detect_spikes(df: pd.DataFrame, market: str, z_threshold: float = 2.5) -> pd.DataFrame:
+    return detect_spikes(df, market, z_threshold=z_threshold)
+
+
+@st.cache_data(show_spinner=False)
+def cached_weather_power_join(weather: pd.DataFrame, power: pd.DataFrame) -> pd.DataFrame:
+    return weather_power_join(weather, power)
+
+
+@st.cache_data(show_spinner=False)
+def cached_intraday_liquidity_by_day(intraday: pd.DataFrame, spot_prices: pd.DataFrame | None = None) -> pd.DataFrame:
+    return intraday_liquidity_by_day(intraday, spot_prices)
+
+
+@st.cache_data(show_spinner=False)
+def cached_offer_stack_signal_payload(
+    df: pd.DataFrame,
+    depth: pd.DataFrame | None = None,
+    shocks_mw: tuple[int, ...] = (-1000, -500, 500, 1000),
+    price_band: float = 5.0,
+) -> pd.DataFrame:
+    return build_offer_stack_signal_payload(df, depth=depth, shocks_mw=shocks_mw, price_band=price_band)
+
+
+@st.cache_data(show_spinner=False)
+def cached_offer_stack_shift(
+    df: pd.DataFrame,
+    prior_date,
+    current_date,
+    time_code: int,
+    area_group: str = "System Price",
+) -> pd.DataFrame:
+    return calculate_offer_stack_shift(df, prior_date, current_date, time_code, area_group=area_group)
+
+
+@st.cache_data(show_spinner=False)
+def cached_offer_stack_shift_benchmarks(
+    df: pd.DataFrame,
+    current_date=None,
+    time_code: int | None = None,
+    area_group: str = "System Price",
+    lookback_days: tuple[int, ...] = (7, 30),
+    selected_start=None,
+    selected_end=None,
+) -> pd.DataFrame:
+    return calculate_offer_stack_shift_benchmarks(
+        df,
+        current_date=current_date,
+        time_code=time_code,
+        area_group=area_group,
+        lookback_days=lookback_days,
+        selected_start=selected_start,
+        selected_end=selected_end,
+    )
+
+
+@st.cache_data(show_spinner=False)
+def cached_offer_stack_period_shift(
+    df: pd.DataFrame,
+    prior_date,
+    current_date,
+    area_group: str = "System Price",
+) -> pd.DataFrame:
+    return calculate_offer_stack_period_shift(df, prior_date, current_date, area_group=area_group)
+
+
+@st.cache_data(show_spinner=False)
+def cached_tokyo_kansai_stack_tightness_spread(df: pd.DataFrame, price_band: float = 5.0) -> pd.DataFrame:
+    return calculate_tokyo_kansai_stack_tightness_spread(df, price_band=price_band)
+
+
+@st.cache_data(show_spinner=False)
+def cached_offer_stack_shift_by_block(
+    df: pd.DataFrame,
+    prior_date,
+    current_date,
+    area_group: str = "System Price",
+) -> pd.DataFrame:
+    """Summarize the per-block curve shift across every delivery block in one cached pass.
+
+    The Market Structure page needs this for up to 48 half-hour blocks per rerun; caching
+    the whole loop keys the frame hash once instead of once per block.
+    """
+    rows: list[dict] = []
+    time_codes = sorted(
+        df.loc[df["delivery_date"].isin([prior_date, current_date]), "time_code"].dropna().astype(int).unique()
+    )
+    for block_code in time_codes:
+        shift = calculate_offer_stack_shift(df, prior_date, current_date, int(block_code), area_group)
+        summary = shift.attrs.get("summary", {})
+        if not summary:
+            continue
+        rows.append(
+            {
+                "time_code": int(block_code),
+                "delivery_block": offer_stack_time_period(int(block_code)),
+                "clearing_price_estimate": summary.get("current_clearing_price_estimate"),
+                "sell_shift_at_clearing_mw": summary.get("sell_shift_at_clearing_mw"),
+                "buy_shift_at_clearing_mw": summary.get("buy_shift_at_clearing_mw"),
+                "net_depth_shift_at_clearing_mw": summary.get("net_depth_shift_at_clearing_mw"),
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def _missing_columns(df: pd.DataFrame, required: set[str]) -> list[str]:

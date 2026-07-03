@@ -2,9 +2,8 @@ import pandas as pd
 import streamlit as st
 
 from src.config import APP_TITLE, DEFAULT_MARKETS, MARKET_NOTES
-from src.data_loader import cached_market_commentary, cached_srmc_comparison, get_forward_curves, load_historical_prices
+from src.data_loader import cached_market_commentary, cached_srmc_comparison, get_forward_curves, load_prepared_historical
 from src.indicators import latest_snapshot
-from src.preprocessing import prepare_historical
 from src.transformations import normalize_to_100
 from src.charts import line_chart, srmc_comparison_chart
 from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
@@ -12,7 +11,7 @@ from src.utils import configure_page, dataframe_with_dates, download_button, pag
 
 configure_page("Overview")
 
-hist = prepare_historical(load_historical_prices())
+hist = load_prepared_historical()
 default_focus_start = pd.Timestamp("2026-02-01").date()
 
 with st.sidebar:

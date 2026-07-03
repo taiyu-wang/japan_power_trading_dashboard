@@ -9,16 +9,14 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from src.charts import PLOT_TEMPLATE, apply_terminal_layout, line_chart, spread_chart, srmc_comparison_chart
 from src.config import ASSET_GROUPS
-from src.data_loader import cached_srmc_comparison, load_historical_prices
-from src.indicators import spread_suite
-from src.preprocessing import prepare_historical
+from src.data_loader import cached_spread_suite, cached_srmc_comparison, load_prepared_historical
 from src.transformations import normalize_to_100
 from src.utils import configure_page, download_button, page_header, sample_data_notice
 
 
 configure_page("Fuel & Dispatch")
 
-df = prepare_historical(load_historical_prices())
+df = load_prepared_historical()
 default_start = max(pd.Timestamp("2026-02-01").date(), df["date"].min().date())
 
 with st.sidebar:
@@ -134,6 +132,6 @@ for title, pair_markets in pairs.items():
     if not pair_df.empty:
         st.plotly_chart(line_chart(normalize_to_100(pair_df), "date", "normalized", "market", title, "Index = 100"), width="stretch")
 
-spreads = spread_suite(filtered_df)
+spreads = cached_spread_suite(filtered_df)
 st.plotly_chart(spread_chart(spreads, "Fuel and Power Spread Screen", "Proxy spread / unconverted units"), width="stretch")
 download_button(pd.concat([selected_df, spreads], ignore_index=True, sort=False), "fuel_dispatch_filtered.csv")

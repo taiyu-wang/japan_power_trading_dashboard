@@ -7,15 +7,13 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from src.charts import bar_chart, line_chart, temperature_power_chart
 from src.config import DEFAULT_FOCUS_START, WEATHER_SOURCE_NOTE
-from src.data_loader import get_weather_temperatures, load_historical_prices
-from src.preprocessing import prepare_historical
-from src.weather import weather_power_join
+from src.data_loader import cached_weather_power_join, get_weather_temperatures, load_prepared_historical
 from src.utils import configure_page, download_button, page_header, sample_data_notice
 
 
 configure_page("Weather & Seasonality")
 
-hist = prepare_historical(load_historical_prices())
+hist = load_prepared_historical()
 power = hist[hist["asset_class"] == "Power"]
 min_date, max_date = hist["date"].min().date(), hist["date"].max().date()
 default_start = max(pd.Timestamp(DEFAULT_FOCUS_START).date(), min_date)
@@ -35,7 +33,7 @@ weather, warnings, source_label = get_weather_temperatures(use_live_weather, sta
 for warning in warnings:
     st.warning(warning)
 weather = weather[weather["date"].dt.date.between(start, end) & weather["region"].isin(regions)]
-joined = weather_power_join(weather, power[power["date"].dt.date.between(start, end)])
+joined = cached_weather_power_join(weather, power[power["date"].dt.date.between(start, end)])
 
 page_header(
     "Weather & Seasonality",

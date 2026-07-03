@@ -7,17 +7,21 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from src.charts import intraday_convergence_chart, intraday_liquidity_heatmap, line_chart, spread_chart, temperature_power_chart
 from src.config import MARKET_NOTES
-from src.data_loader import get_weather_temperatures, load_historical_prices, load_jepx_intraday
-from src.indicators import detect_spikes, spread_suite
-from src.jepx_market_data import intraday_liquidity_by_day
-from src.preprocessing import prepare_historical
-from src.weather import weather_power_join
+from src.data_loader import (
+    cached_detect_spikes,
+    cached_intraday_liquidity_by_day,
+    cached_spread_suite,
+    cached_weather_power_join,
+    get_weather_temperatures,
+    load_jepx_intraday,
+    load_prepared_historical,
+)
 from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
 
 
 configure_page("Power Market")
 
-df = prepare_historical(load_historical_prices())
+df = load_prepared_historical()
 power = df[df["asset_class"] == "Power"]
 markets = ["JEPX_SYSTEM", "JEPX_TOKYO", "JEPX_KANSAI", "JEPX_INTRADAY", "JAPAN_POWER_FUTURES"]
 default_focus_start = pd.Timestamp("2026-02-01").date()
@@ -53,7 +57,7 @@ st.info(MARKET_NOTES["JAPAN_POWER_FUTURES"])
 st.markdown("### Price Stack")
 st.plotly_chart(line_chart(filtered, "date", "price", "market", "Japan Power Price Stack", "JPY/kWh"), width="stretch")
 
-spreads = spread_suite(df)
+spreads = cached_spread_suite(df)
 st.markdown("### Basis and Intraday")
 st.plotly_chart(spread_chart(spreads[spreads["market"].isin(["Tokyo minus Kansai", "Spot minus intraday"])], "Regional Basis and Spot-Intraday Spread", "JPY/kWh"), width="stretch")
 
@@ -66,7 +70,7 @@ else:
     if intraday_filtered.empty:
         st.info("No JEPX intraday records in the selected date range.")
     else:
-        daily_intraday = intraday_liquidity_by_day(intraday_filtered, df)
+        daily_intraday = cached_intraday_liquidity_by_day(intraday_filtered, df)
         i1, i2, i3, i4 = st.columns(4)
         latest_intraday = daily_intraday.sort_values("delivery_date").tail(1)
         if not latest_intraday.empty:
@@ -80,7 +84,7 @@ else:
         download_button(intraday_filtered, "jepx_intraday_filtered.csv", "Export JEPX intraday CSV")
 
 weather = weather[weather["date"].dt.date.between(start, end)]
-joined_weather = weather_power_join(weather, power[power["date"].dt.date.between(start, end)])
+joined_weather = cached_weather_power_join(weather, power[power["date"].dt.date.between(start, end)])
 st.markdown("### Weather-Price Context")
 st.caption(f"Weather source: {weather_source}. Temperature screens are weather-price proxies, not observed power demand MW.")
 for warning in weather_warnings:
@@ -100,5 +104,5 @@ dataframe_with_dates(weekday, width="stretch", hide_index=True)
 
 st.markdown("### Spike Checklist")
 st.caption("Large daily moves for the selected market. Use as an event checklist, not as a standalone signal.")
-dataframe_with_dates(detect_spikes(df, spike_market)[["date", "market", "price", "return_zscore"]].tail(20), width="stretch", hide_index=True)
+dataframe_with_dates(cached_detect_spikes(df, spike_market)[["date", "market", "price", "return_zscore"]].tail(20), width="stretch", hide_index=True)
 download_button(filtered, "power_market_filtered.csv")
