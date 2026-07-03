@@ -1,15 +1,18 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from io import StringIO
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import requests
+
+from .http_client import get_session
 
 
 JEPX_BASE_URL = "https://www.jepx.jp"
+JEPX_FETCH_MAX_WORKERS = 5
 JEPX_BID_CURVE_DIR = "spot_bid_curves"
 JEPX_AREA_DIR = "spot_splitting_areas"
 JEPX_DATE_URL = f"{JEPX_BASE_URL}/js/get_graph_date.php?dir={JEPX_BID_CURVE_DIR}"
@@ -122,13 +125,13 @@ def parse_jepx_available_offer_stack_dates(text: str) -> AvailableOfferStackDate
 
 
 def fetch_jepx_offer_stack_available_dates(timeout: int = 20) -> AvailableOfferStackDates:
-    response = requests.get(JEPX_DATE_URL, headers=JEPX_HEADERS, timeout=timeout)
+    response = get_session().get(JEPX_DATE_URL, headers=JEPX_HEADERS, timeout=timeout)
     response.raise_for_status()
     return parse_jepx_available_offer_stack_dates(response.text)
 
 
 def _read_jepx_csv(url: str, timeout: int = 20) -> pd.DataFrame:
-    response = requests.get(url, headers=JEPX_HEADERS, timeout=timeout)
+    response = get_session().get(url, headers=JEPX_HEADERS, timeout=timeout)
     response.raise_for_status()
     if not response.text.strip():
         return pd.DataFrame()

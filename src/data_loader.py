@@ -23,18 +23,46 @@ from .config import (
     SUPPLY_MIX_RESIDUAL_THERMAL_PATH,
     WEATHER_DATA_PATH,
 )
+from .indicators import calculate_srmc_comparison
 from .live_forward_curves import fetch_live_forward_curves
 from .news import fetch_public_power_news_with_diagnostics, normalize_news_events, sample_power_news
-from .offer_stack import fetch_latest_month_jepx_offer_stack, normalize_jepx_offer_stack_upload
+from .offer_stack import (
+    calculate_offer_stack_depth,
+    calculate_offer_stack_price_sensitivity,
+    calculate_offer_stack_scenarios,
+    fetch_latest_month_jepx_offer_stack,
+    normalize_jepx_offer_stack_upload,
+)
 from .jepx_market_data import normalize_jepx_baseload, normalize_jepx_intraday
 from .power_futures import normalize_power_futures
+from .signals import generate_market_commentary
 from .supply_mix import normalize_generation_mix
+from .transformations import rolling_volatility
 from .weather import fetch_open_meteo_daily_temperatures, normalize_weather_data
 
 
 HISTORICAL_COLUMNS = ["date", "market", "region", "asset_class", "frequency", "contract", "price", "currency", "unit"]
 FORWARD_CURVE_COLUMNS = ["curve_date", "contract_month", "market", "region", "price", "currency", "unit"]
 FORWARD_CURVE_REQUIRED = {"curve_date", "contract_month", "market", "price"}
+
+# Plain string/float dtypes skip pandas type inference on load without changing downstream
+# behavior (object/float64 are what inference would produce for these columns anyway).
+HISTORICAL_PRICE_DTYPES = {
+    "market": str,
+    "region": str,
+    "asset_class": str,
+    "frequency": str,
+    "contract": str,
+    "price": "float64",
+    "currency": str,
+    "unit": str,
+}
+
+# Live market pulls (forward curves, weather, JEPX offer stack) are multi-request fetches of
+# slowly-changing public data; 30 minutes balances freshness against hammering public endpoints.
+LIVE_MARKET_TTL_SECONDS = 1800
+# News feeds update intraday and are cheap to re-poll; 15 minutes keeps the monitor current.
+NEWS_TTL_SECONDS = 900
 
 
 @dataclass(frozen=True)
@@ -49,9 +77,24 @@ class DatasetDiagnostics:
         return not self.errors
 
 
+def _read_processed_table(path: str | Path, parse_dates: list[str] | None = None) -> pd.DataFrame:
+    """Read a processed artifact, preferring a sibling Parquet file (typed, faster) over the CSV."""
+    csv_path = Path(path)
+    parquet_path = csv_path.with_suffix(".parquet")
+    if parquet_path.exists():
+        df = pd.read_parquet(parquet_path)
+        for col in parse_dates or []:
+            if col in df.columns:
+                df[col] = pd.to_datetime(df[col], errors="coerce")
+        return df
+    if not csv_path.exists():
+        return pd.DataFrame()
+    return pd.read_csv(csv_path, parse_dates=parse_dates)
+
+
 @st.cache_data(show_spinner=False)
 def load_historical_prices(path: str | Path = HISTORICAL_DATA_PATH) -> pd.DataFrame:
-    df = pd.read_csv(path, parse_dates=["date"])
+    df = pd.read_csv(path, parse_dates=["date"], dtype=HISTORICAL_PRICE_DTYPES)
     df["market"] = df["market"].astype(str)
     return df.sort_values(["market", "date"]).reset_index(drop=True)
 
@@ -62,7 +105,7 @@ def load_forward_curves(path: str | Path = FORWARD_CURVES_PATH) -> pd.DataFrame:
     return df.sort_values(["market", "curve_date", "contract_month"]).reset_index(drop=True)
 
 
-@st.cache_data(ttl=1800, show_spinner=False)
+@st.cache_data(ttl=LIVE_MARKET_TTL_SECONDS, show_spinner=False)
 def load_live_forward_curves() -> tuple[pd.DataFrame, list[str]]:
     result = fetch_live_forward_curves()
     return result.data.sort_values(["market", "curve_date", "contract_month"]).reset_index(drop=True), result.warnings
@@ -88,7 +131,7 @@ def load_weather_temperatures(path: str | Path = WEATHER_DATA_PATH) -> pd.DataFr
     return normalize_weather_data(pd.read_csv(path))
 
 
-@st.cache_data(ttl=1800, show_spinner=False)
+@st.cache_data(ttl=LIVE_MARKET_TTL_SECONDS, show_spinner=False)
 def load_live_weather_temperatures(start_date, end_date) -> pd.DataFrame:
     return fetch_open_meteo_daily_temperatures(start_date, end_date)
 
@@ -113,23 +156,20 @@ def load_generation_mix(path: str | Path = SUPPLY_MIX_PATH) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_processed_generation_mix(path: str | Path = SUPPLY_MIX_MONTHLY_PATH) -> pd.DataFrame:
-    if not Path(path).exists():
+    raw = _read_processed_table(path)
+    if raw.empty:
         return pd.DataFrame()
-    return normalize_generation_mix(pd.read_csv(path))
+    return normalize_generation_mix(raw)
 
 
 @st.cache_data(show_spinner=False)
 def load_supply_mix_daily_shape(path: str | Path = SUPPLY_MIX_DAILY_SHAPE_PATH) -> pd.DataFrame:
-    if not Path(path).exists():
-        return pd.DataFrame()
-    return pd.read_csv(path, parse_dates=["date"])
+    return _read_processed_table(path, parse_dates=["date"])
 
 
 @st.cache_data(show_spinner=False)
 def load_supply_mix_residual_thermal(path: str | Path = SUPPLY_MIX_RESIDUAL_THERMAL_PATH) -> pd.DataFrame:
-    if not Path(path).exists():
-        return pd.DataFrame()
-    return pd.read_csv(path, parse_dates=["month"])
+    return _read_processed_table(path, parse_dates=["month"])
 
 
 def get_generation_mix(use_processed: bool = True) -> tuple[pd.DataFrame, list[str], str]:
@@ -161,7 +201,7 @@ def load_power_news(path: str | Path = NEWS_EVENTS_PATH) -> pd.DataFrame:
     return sample_power_news()
 
 
-@st.cache_data(ttl=900, show_spinner=False)
+@st.cache_data(ttl=NEWS_TTL_SECONDS, show_spinner=False)
 def load_live_power_news_with_diagnostics() -> tuple[pd.DataFrame, list[str], list[str]]:
     return fetch_public_power_news_with_diagnostics()
 
@@ -210,7 +250,7 @@ def load_jepx_offer_stack_compact_curves(path: str | Path = JEPX_OFFER_STACK_CUR
     return pd.read_csv(path, parse_dates=["delivery_date"])
 
 
-@st.cache_data(ttl=1800, show_spinner=False)
+@st.cache_data(ttl=LIVE_MARKET_TTL_SECONDS, show_spinner=False)
 def load_live_jepx_offer_stack_latest_month(days: int = 31) -> pd.DataFrame:
     return fetch_latest_month_jepx_offer_stack(days=days)
 
