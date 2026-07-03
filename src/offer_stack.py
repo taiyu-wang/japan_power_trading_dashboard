@@ -904,16 +904,16 @@ def write_offer_stack_processed_artifacts(
     raw_path: str | Path,
     depth_path: str | Path,
     compact_curves_path: str | Path,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+    sensitivity_path: str | Path,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     raw = pd.read_csv(raw_path, parse_dates=["delivery_date"])
     depth, compact = generate_offer_stack_processed_artifacts(raw)
-    depth_output = Path(depth_path)
-    compact_output = Path(compact_curves_path)
-    depth_output.parent.mkdir(parents=True, exist_ok=True)
-    compact_output.parent.mkdir(parents=True, exist_ok=True)
-    depth.to_csv(depth_output, index=False)
-    compact.to_csv(compact_output, index=False)
-    return depth, compact
+    sensitivity = calculate_offer_stack_price_sensitivity(raw)
+    for frame, path in ((depth, depth_path), (compact, compact_curves_path), (sensitivity, sensitivity_path)):
+        output = Path(path)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        frame.to_csv(output, index=False)
+    return depth, compact, sensitivity
 
 
 def fetch_jepx_offer_stack_for_date(delivery_date, timeout: int = 20) -> pd.DataFrame:
@@ -925,30 +925,111 @@ def fetch_jepx_offer_stack_for_date(delivery_date, timeout: int = 20) -> pd.Data
     return normalize_jepx_offer_stack(bid_curve, area_mapping, source_url=bid_url)
 
 
-def fetch_jepx_offer_stack_range(start_date, end_date, timeout: int = 20) -> pd.DataFrame:
+def _offer_stack_daily_cache_path(cache_dir: str | Path, delivery_date: pd.Timestamp) -> Path:
+    date_label = pd.Timestamp(delivery_date).strftime("%Y%m%d")
+    return Path(cache_dir) / f"jepx_offer_stack_{date_label}.csv"
+
+
+def _load_cached_offer_stack_day(cache_path: Path) -> pd.DataFrame | None:
+    if not cache_path.exists():
+        return None
+    try:
+        return normalize_jepx_offer_stack_upload(pd.read_csv(cache_path))
+    except Exception:
+        # An unreadable/partial cache file falls back to a fresh fetch (which rewrites it).
+        return None
+
+
+def _fetch_offer_stack_day(
+    delivery_date: pd.Timestamp,
+    timeout: int,
+    cache_dir: Path | None,
+    allow_cache_read: bool,
+) -> pd.DataFrame:
+    cache_path = _offer_stack_daily_cache_path(cache_dir, delivery_date) if cache_dir is not None else None
+    if cache_path is not None and allow_cache_read:
+        cached = _load_cached_offer_stack_day(cache_path)
+        if cached is not None:
+            return cached
+    day = fetch_jepx_offer_stack_for_date(delivery_date, timeout=timeout)
+    if cache_path is not None and not day.empty:
+        cache_path.parent.mkdir(parents=True, exist_ok=True)
+        day.to_csv(cache_path, index=False)
+    return day
+
+
+def fetch_jepx_offer_stack_range(
+    start_date,
+    end_date,
+    timeout: int = 20,
+    use_disk_cache: bool = True,
+    cache_dir: str | Path | None = None,
+    latest_available=None,
+) -> pd.DataFrame:
+    """Fetch normalized JEPX offer-stack days for an inclusive date range.
+
+    Days are downloaded concurrently (bounded by ``JEPX_FETCH_MAX_WORKERS``) over the
+    shared HTTP session. JEPX history is immutable, so with ``use_disk_cache`` each
+    day is persisted under ``data/raw/`` and served from disk on later refreshes.
+    Dates on or after ``latest_available`` (default: the range end) are always
+    re-fetched because the newest published day can still be intra-day incomplete.
+    A single day's failure aborts the whole range, matching the prior serial fetch.
+    """
     start = pd.Timestamp(start_date).normalize()
     end = pd.Timestamp(end_date).normalize()
     if end < start:
         raise ValueError("end_date must be on or after start_date")
 
-    frames: list[pd.DataFrame] = []
-    for delivery_date in pd.date_range(start, end, freq="D"):
-        day = fetch_jepx_offer_stack_for_date(delivery_date, timeout=timeout)
-        if not day.empty:
-            frames.append(day)
+    resolved_cache_dir: Path | None = None
+    if use_disk_cache:
+        if cache_dir is None:
+            from .config import JEPX_OFFER_STACK_DAILY_CACHE_DIR
+
+            cache_dir = JEPX_OFFER_STACK_DAILY_CACHE_DIR
+        resolved_cache_dir = Path(cache_dir)
+    refresh_from = pd.Timestamp(latest_available).normalize() if latest_available is not None else end
+
+    dates = list(pd.date_range(start, end, freq="D"))
+
+    def fetch_one(delivery_date: pd.Timestamp) -> pd.DataFrame:
+        return _fetch_offer_stack_day(
+            delivery_date,
+            timeout=timeout,
+            cache_dir=resolved_cache_dir,
+            allow_cache_read=delivery_date < refresh_from,
+        )
+
+    if len(dates) == 1:
+        results = [fetch_one(dates[0])]
+    else:
+        with ThreadPoolExecutor(max_workers=min(JEPX_FETCH_MAX_WORKERS, len(dates))) as executor:
+            results = list(executor.map(fetch_one, dates))
+
+    frames = [day for day in results if not day.empty]
     if not frames:
         return pd.DataFrame(columns=JEPX_OFFER_STACK_COLUMNS)
     return pd.concat(frames, ignore_index=True)
 
 
-def fetch_latest_month_jepx_offer_stack(days: int = 31, timeout: int = 20) -> pd.DataFrame:
+def fetch_latest_month_jepx_offer_stack(days: int = 31, timeout: int = 20, use_disk_cache: bool = True) -> pd.DataFrame:
     available = fetch_jepx_offer_stack_available_dates(timeout=timeout)
     start = max(available.oldest, available.latest - pd.Timedelta(days=days - 1))
-    return fetch_jepx_offer_stack_range(start, available.latest, timeout=timeout)
+    return fetch_jepx_offer_stack_range(
+        start,
+        available.latest,
+        timeout=timeout,
+        use_disk_cache=use_disk_cache,
+        latest_available=available.latest,
+    )
 
 
-def write_latest_month_jepx_offer_stack(output_path: str | Path, days: int = 31, timeout: int = 20) -> pd.DataFrame:
-    data = fetch_latest_month_jepx_offer_stack(days=days, timeout=timeout)
+def write_latest_month_jepx_offer_stack(
+    output_path: str | Path,
+    days: int = 31,
+    timeout: int = 20,
+    use_disk_cache: bool = True,
+) -> pd.DataFrame:
+    data = fetch_latest_month_jepx_offer_stack(days=days, timeout=timeout, use_disk_cache=use_disk_cache)
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
     data.to_csv(output, index=False)
@@ -956,19 +1037,26 @@ def write_latest_month_jepx_offer_stack(output_path: str | Path, days: int = 31,
 
 
 def main() -> None:
-    from .config import JEPX_OFFER_STACK_CURVES_COMPACT_PATH, JEPX_OFFER_STACK_DEPTH_PATH, JEPX_OFFER_STACK_LATEST_MONTH_PATH
+    from .config import (
+        JEPX_OFFER_STACK_CURVES_COMPACT_PATH,
+        JEPX_OFFER_STACK_DEPTH_PATH,
+        JEPX_OFFER_STACK_LATEST_MONTH_PATH,
+        JEPX_OFFER_STACK_SENSITIVITY_PATH,
+    )
 
     data = write_latest_month_jepx_offer_stack(JEPX_OFFER_STACK_LATEST_MONTH_PATH)
-    depth, compact = write_offer_stack_processed_artifacts(
+    depth, compact, sensitivity = write_offer_stack_processed_artifacts(
         JEPX_OFFER_STACK_LATEST_MONTH_PATH,
         JEPX_OFFER_STACK_DEPTH_PATH,
         JEPX_OFFER_STACK_CURVES_COMPACT_PATH,
+        JEPX_OFFER_STACK_SENSITIVITY_PATH,
     )
     start = data["delivery_date"].min().date() if not data.empty else "n/a"
     end = data["delivery_date"].max().date() if not data.empty else "n/a"
     print(f"Wrote {len(data):,} JEPX offer-stack rows to {JEPX_OFFER_STACK_LATEST_MONTH_PATH}")
     print(f"Wrote {len(depth):,} compact depth rows to {JEPX_OFFER_STACK_DEPTH_PATH}")
     print(f"Wrote {len(compact):,} compact curve rows to {JEPX_OFFER_STACK_CURVES_COMPACT_PATH}")
+    print(f"Wrote {len(sensitivity):,} price-sensitivity rows to {JEPX_OFFER_STACK_SENSITIVITY_PATH}")
     print(f"Coverage: {start} to {end}")
 
 

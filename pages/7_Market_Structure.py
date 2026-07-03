@@ -17,16 +17,16 @@ from src.charts import (
     offer_stack_tightness_spread_chart,
 )
 from src.data_loader import (
+    cached_offer_stack_depth,
+    cached_offer_stack_price_sensitivity,
+    cached_offer_stack_scenarios,
     get_jepx_offer_stack,
     load_jepx_offer_stack_compact_curves,
     load_jepx_offer_stack_depth,
 )
 from src.offer_stack import (
     build_offer_stack_signal_payload,
-    calculate_offer_stack_depth,
-    calculate_offer_stack_price_sensitivity,
     calculate_offer_stack_period_shift,
-    calculate_offer_stack_scenarios,
     calculate_offer_stack_shift,
     calculate_offer_stack_shift_benchmarks,
     calculate_tokyo_kansai_stack_tightness_spread,
@@ -188,7 +188,7 @@ date_filtered_curves = curve_data[curve_data["delivery_date"].dt.date.between(st
 filtered_curves = date_filtered_curves[date_filtered_curves["area_group"].eq(area_group)].copy()
 
 if using_raw:
-    all_depth_source = calculate_offer_stack_depth(date_filtered_curves, price_band=float(price_band))
+    all_depth_source = cached_offer_stack_depth(date_filtered_curves, price_band=float(price_band))
     filtered_depth_source = (
         all_depth_source[all_depth_source["area_group"].eq(area_group)].copy() if not all_depth_source.empty else pd.DataFrame()
     )
@@ -241,13 +241,13 @@ scenario_base = filtered_curves[
     & filtered_curves["time_code"].eq(time_code)
     & filtered_curves["area_group"].eq(area_group)
 ]
-scenarios = calculate_offer_stack_scenarios(scenario_base, demand_shifts_mw=(-1000, -500, 500, 1000))
+scenarios = cached_offer_stack_scenarios(scenario_base, demand_shifts_mw=(-1000, -500, 500, 1000))
 
 scenario_day_base = filtered_curves[
     filtered_curves["delivery_date"].eq(selected_date.normalize())
     & filtered_curves["area_group"].eq(area_group)
 ]
-day_sensitivity = calculate_offer_stack_price_sensitivity(scenario_day_base, shocks_mw=(-1000, -500, 500, 1000))
+day_sensitivity = cached_offer_stack_price_sensitivity(scenario_day_base, shocks_mw=(-1000, -500, 500, 1000))
 
 area_spread = calculate_tokyo_kansai_stack_tightness_spread(all_depth_source, price_band=float(price_band))
 area_spread = area_spread[area_spread["delivery_date"].eq(selected_date.normalize())].copy() if not area_spread.empty else pd.DataFrame()

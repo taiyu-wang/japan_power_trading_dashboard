@@ -3,7 +3,14 @@ from io import StringIO
 import pandas as pd
 import pytest
 
-from src.data_loader import load_jepx_offer_stack_compact_curves, load_jepx_offer_stack_depth, load_uploaded_curve, normalize_forward_curve_upload, validate_forward_curve
+from src.data_loader import (
+    _read_processed_table,
+    load_jepx_offer_stack_compact_curves,
+    load_jepx_offer_stack_depth,
+    load_uploaded_curve,
+    normalize_forward_curve_upload,
+    validate_forward_curve,
+)
 
 
 def test_uploaded_curve_accepts_minimal_schema_and_fills_defaults():
@@ -56,3 +63,28 @@ def test_processed_offer_stack_loaders_parse_dates(tmp_path):
 
     assert depth.iloc[0]["delivery_date"] == pd.Timestamp("2026-06-02")
     assert compact.iloc[0]["delivery_date"] == pd.Timestamp("2026-06-02")
+
+
+def test_read_processed_table_prefers_parquet_sibling(tmp_path):
+    csv_path = tmp_path / "artifact.csv"
+    csv_path.write_text("delivery_date,value\n2026-06-01,1\n")
+    pd.DataFrame({"delivery_date": ["2026-06-02"], "value": [2]}).to_parquet(tmp_path / "artifact.parquet")
+
+    out = _read_processed_table(csv_path, parse_dates=["delivery_date"])
+
+    assert out.iloc[0]["value"] == 2
+    assert out.iloc[0]["delivery_date"] == pd.Timestamp("2026-06-02")
+
+
+def test_read_processed_table_falls_back_to_csv(tmp_path):
+    csv_path = tmp_path / "artifact.csv"
+    csv_path.write_text("delivery_date,value\n2026-06-01,1\n")
+
+    out = _read_processed_table(csv_path, parse_dates=["delivery_date"])
+
+    assert out.iloc[0]["value"] == 1
+    assert out.iloc[0]["delivery_date"] == pd.Timestamp("2026-06-01")
+
+
+def test_read_processed_table_returns_empty_frame_when_missing(tmp_path):
+    assert _read_processed_table(tmp_path / "absent.csv", parse_dates=["delivery_date"]).empty

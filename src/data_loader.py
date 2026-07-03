@@ -14,6 +14,7 @@ from .config import (
     JEPX_OFFER_STACK_CURVES_COMPACT_PATH,
     JEPX_OFFER_STACK_DEPTH_PATH,
     JEPX_OFFER_STACK_LATEST_MONTH_PATH,
+    JEPX_OFFER_STACK_SENSITIVITY_PATH,
     MARKET_MAPPING_PATH,
     NEWS_EVENTS_PATH,
     POWER_FUTURES_PATH,
@@ -238,16 +239,17 @@ def load_jepx_offer_stack(path: str | Path = JEPX_OFFER_STACK_LATEST_MONTH_PATH)
 
 @st.cache_data(show_spinner=False)
 def load_jepx_offer_stack_depth(path: str | Path = JEPX_OFFER_STACK_DEPTH_PATH) -> pd.DataFrame:
-    if not Path(path).exists():
-        return pd.DataFrame()
-    return pd.read_csv(path, parse_dates=["delivery_date"])
+    return _read_processed_table(path, parse_dates=["delivery_date"])
 
 
 @st.cache_data(show_spinner=False)
 def load_jepx_offer_stack_compact_curves(path: str | Path = JEPX_OFFER_STACK_CURVES_COMPACT_PATH) -> pd.DataFrame:
-    if not Path(path).exists():
-        return pd.DataFrame()
-    return pd.read_csv(path, parse_dates=["delivery_date"])
+    return _read_processed_table(path, parse_dates=["delivery_date"])
+
+
+@st.cache_data(show_spinner=False)
+def load_jepx_offer_stack_price_sensitivity(path: str | Path = JEPX_OFFER_STACK_SENSITIVITY_PATH) -> pd.DataFrame:
+    return _read_processed_table(path, parse_dates=["delivery_date"])
 
 
 @st.cache_data(ttl=LIVE_MARKET_TTL_SECONDS, show_spinner=False)
@@ -283,9 +285,7 @@ def load_uploaded_jepx_offer_stack(uploaded_file) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_jepx_intraday(path: str | Path = JEPX_INTRADAY_PATH) -> pd.DataFrame:
-    if not Path(path).exists():
-        return pd.DataFrame()
-    return pd.read_csv(path, parse_dates=["delivery_date"])
+    return _read_processed_table(path, parse_dates=["delivery_date"])
 
 
 def load_uploaded_jepx_intraday(uploaded_file) -> pd.DataFrame:
@@ -294,13 +294,48 @@ def load_uploaded_jepx_intraday(uploaded_file) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_jepx_baseload(path: str | Path = JEPX_BASELOAD_PATH) -> pd.DataFrame:
-    if not Path(path).exists():
-        return pd.DataFrame()
-    return pd.read_csv(path, parse_dates=["trade_date"])
+    return _read_processed_table(path, parse_dates=["trade_date"])
 
 
 def load_uploaded_jepx_baseload(uploaded_file) -> pd.DataFrame:
     return normalize_jepx_baseload(pd.read_csv(uploaded_file))
+
+
+# Cached wrappers around pure derived-analytics functions. The underlying functions stay
+# DataFrame-in/DataFrame-out in their own modules; st.cache_data keys on every argument,
+# so slider/kwarg changes produce distinct cache entries and repeat reruns are free.
+@st.cache_data(show_spinner=False)
+def cached_srmc_comparison(df: pd.DataFrame, **assumptions) -> pd.DataFrame:
+    return calculate_srmc_comparison(df, **assumptions)
+
+
+@st.cache_data(show_spinner=False)
+def cached_market_commentary(df: pd.DataFrame) -> list[str]:
+    return generate_market_commentary(df)
+
+
+@st.cache_data(show_spinner=False)
+def cached_offer_stack_depth(df: pd.DataFrame, price_band: float = 5.0) -> pd.DataFrame:
+    return calculate_offer_stack_depth(df, price_band=price_band)
+
+
+@st.cache_data(show_spinner=False)
+def cached_offer_stack_scenarios(df: pd.DataFrame, demand_shifts_mw: tuple[int, ...] = (-1000, -500, 500, 1000)) -> pd.DataFrame:
+    return calculate_offer_stack_scenarios(df, demand_shifts_mw=demand_shifts_mw)
+
+
+@st.cache_data(show_spinner=False)
+def cached_offer_stack_price_sensitivity(
+    df: pd.DataFrame,
+    shocks_mw: tuple[int, ...] = (-1000, -500, 500, 1000),
+    reference_prices: tuple[float, ...] | None = None,
+) -> pd.DataFrame:
+    return calculate_offer_stack_price_sensitivity(df, shocks_mw=shocks_mw, reference_prices=reference_prices)
+
+
+@st.cache_data(show_spinner=False)
+def cached_rolling_volatility(df: pd.DataFrame, window: int = 30, annualization: int = 252) -> pd.DataFrame:
+    return rolling_volatility(df, window=window, annualization=annualization)
 
 
 def _missing_columns(df: pd.DataFrame, required: set[str]) -> list[str]:

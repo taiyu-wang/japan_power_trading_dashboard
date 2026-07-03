@@ -2,7 +2,10 @@ from io import StringIO
 
 import numpy as np
 import pandas as pd
+import pytest
+import requests
 
+import src.offer_stack as offer_stack_module
 from src.offer_stack import (
     JEPX_OFFER_STACK_COLUMNS,
     _nearest_price_index,
@@ -15,11 +18,13 @@ from src.offer_stack import (
     calculate_offer_stack_shift_benchmarks,
     calculate_tokyo_kansai_stack_tightness_spread,
     compact_offer_stack_curves,
+    fetch_jepx_offer_stack_range,
     generate_offer_stack_processed_artifacts,
     normalize_jepx_offer_stack,
     normalize_jepx_offer_stack_upload,
     parse_jepx_available_offer_stack_dates,
     prepare_offer_stack_curve,
+    write_offer_stack_processed_artifacts,
 )
 
 
@@ -437,3 +442,121 @@ def test_build_offer_stack_signal_payload_adds_stack_signal_fields():
     assert payload.iloc[0]["stack_price_impact_up_1000mw_jpy_kwh"] == 5
     assert payload.iloc[0]["stack_price_impact_down_1000mw_jpy_kwh"] == -5
     assert payload.iloc[0]["stack_up_down_asymmetry_jpy_kwh"] == 0
+
+
+def _offer_stack_day_frame(delivery_date) -> pd.DataFrame:
+    raw = pd.DataFrame(
+        {
+            "delivery_date": [pd.Timestamp(delivery_date)] * 5,
+            "time_code": [1] * 5,
+            "area_group_code": [""] * 5,
+            "area_group": ["System Price"] * 5,
+            "bid_price_jpy_kwh": [0.0, 5.0, 10.0, 15.0, 20.0],
+            "sell_cumulative_mw": [1000.0, 2000.0, 3000.0, 4000.0, 5000.0],
+            "buy_cumulative_mw": [5000.0, 4000.0, 3000.0, 2000.0, 1000.0],
+            "source": ["JEPX day-ahead bidding curve"] * 5,
+            "source_url": ["https://www.jepx.jp/example.csv"] * 5,
+            "downloaded_at": [pd.Timestamp("2026-06-01 00:00:00")] * 5,
+        }
+    )
+    return normalize_jepx_offer_stack_upload(raw)
+
+
+def test_fetch_jepx_offer_stack_range_matches_serial_concat_and_skips_empty_days(monkeypatch):
+    calls: list[pd.Timestamp] = []
+
+    def fake_fetch(delivery_date, timeout=20):
+        date_value = pd.Timestamp(delivery_date).normalize()
+        calls.append(date_value)
+        if date_value == pd.Timestamp("2026-06-02"):
+            return pd.DataFrame(columns=JEPX_OFFER_STACK_COLUMNS)
+        return _offer_stack_day_frame(date_value)
+
+    monkeypatch.setattr(offer_stack_module, "fetch_jepx_offer_stack_for_date", fake_fetch)
+
+    out = fetch_jepx_offer_stack_range("2026-06-01", "2026-06-03", use_disk_cache=False)
+
+    expected = pd.concat(
+        [_offer_stack_day_frame("2026-06-01"), _offer_stack_day_frame("2026-06-03")],
+        ignore_index=True,
+    )
+    assert sorted(calls) == list(pd.date_range("2026-06-01", "2026-06-03", freq="D"))
+    pd.testing.assert_frame_equal(out, expected)
+
+
+def test_fetch_jepx_offer_stack_range_propagates_single_day_failure(monkeypatch):
+    def fake_fetch(delivery_date, timeout=20):
+        if pd.Timestamp(delivery_date).normalize() == pd.Timestamp("2026-06-02"):
+            raise requests.HTTPError("JEPX returned 503")
+        return _offer_stack_day_frame(delivery_date)
+
+    monkeypatch.setattr(offer_stack_module, "fetch_jepx_offer_stack_for_date", fake_fetch)
+
+    with pytest.raises(requests.HTTPError):
+        fetch_jepx_offer_stack_range("2026-06-01", "2026-06-03", use_disk_cache=False)
+
+
+def test_fetch_jepx_offer_stack_range_serves_cached_days_and_refetches_latest(monkeypatch, tmp_path):
+    calls: list[pd.Timestamp] = []
+
+    def fake_fetch(delivery_date, timeout=20):
+        date_value = pd.Timestamp(delivery_date).normalize()
+        calls.append(date_value)
+        return _offer_stack_day_frame(date_value)
+
+    monkeypatch.setattr(offer_stack_module, "fetch_jepx_offer_stack_for_date", fake_fetch)
+
+    first = fetch_jepx_offer_stack_range("2026-06-01", "2026-06-03", cache_dir=tmp_path)
+
+    assert sorted(calls) == list(pd.date_range("2026-06-01", "2026-06-03", freq="D"))
+    assert (tmp_path / "jepx_offer_stack_20260601.csv").exists()
+
+    second = fetch_jepx_offer_stack_range("2026-06-01", "2026-06-03", cache_dir=tmp_path)
+
+    # Only the latest available date bypasses the immutable per-day cache.
+    assert calls[3:] == [pd.Timestamp("2026-06-03")]
+    pd.testing.assert_frame_equal(second, first)
+
+
+def test_fetch_jepx_offer_stack_range_latest_available_guard_controls_cache_bypass(monkeypatch, tmp_path):
+    calls: list[pd.Timestamp] = []
+
+    def fake_fetch(delivery_date, timeout=20):
+        date_value = pd.Timestamp(delivery_date).normalize()
+        calls.append(date_value)
+        return _offer_stack_day_frame(date_value)
+
+    monkeypatch.setattr(offer_stack_module, "fetch_jepx_offer_stack_for_date", fake_fetch)
+
+    fetch_jepx_offer_stack_range("2026-06-01", "2026-06-03", cache_dir=tmp_path)
+    calls.clear()
+
+    # When JEPX has newer data than the requested range, every cached day is reused.
+    out = fetch_jepx_offer_stack_range(
+        "2026-06-01", "2026-06-03", cache_dir=tmp_path, latest_available="2026-06-10"
+    )
+
+    assert calls == []
+    assert out["delivery_date"].nunique() == 3
+
+
+def test_write_offer_stack_processed_artifacts_writes_depth_compact_and_sensitivity(tmp_path):
+    raw_path = tmp_path / "jepx_offer_stack_latest_1m.csv"
+    _offer_stack_day_frame("2026-06-02").to_csv(raw_path, index=False)
+    depth_path = tmp_path / "jepx_offer_stack_depth.csv"
+    compact_path = tmp_path / "jepx_offer_stack_curves_compact.csv"
+    sensitivity_path = tmp_path / "jepx_offer_stack_price_sensitivity.csv"
+
+    depth, compact, sensitivity = write_offer_stack_processed_artifacts(
+        raw_path, depth_path, compact_path, sensitivity_path
+    )
+
+    assert depth_path.exists()
+    assert compact_path.exists()
+    assert sensitivity_path.exists()
+    assert not depth.empty
+    assert not compact.empty
+    assert sensitivity["reference_level"].unique().tolist() == ["clearing"]
+    reloaded = pd.read_csv(sensitivity_path)
+    assert len(reloaded) == len(sensitivity)
+    assert "sensitivity_jpy_kwh_per_100mw" in reloaded.columns

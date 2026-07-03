@@ -13,8 +13,10 @@ SUPPLY_MIX_DAILY_SHAPE_PATH = DATA_DIR / "processed" / "tokyo_kansai_generation_
 SUPPLY_MIX_RESIDUAL_THERMAL_PATH = DATA_DIR / "processed" / "tokyo_kansai_residual_thermal.csv"
 NEWS_EVENTS_PATH = DATA_DIR / "sample_power_news.csv"
 JEPX_OFFER_STACK_LATEST_MONTH_PATH = DATA_DIR / "raw" / "jepx_offer_stack_latest_1m.csv"
+JEPX_OFFER_STACK_DAILY_CACHE_DIR = DATA_DIR / "raw" / "jepx_offer_stack_daily"
 JEPX_OFFER_STACK_DEPTH_PATH = DATA_DIR / "processed" / "jepx_offer_stack_depth.csv"
 JEPX_OFFER_STACK_CURVES_COMPACT_PATH = DATA_DIR / "processed" / "jepx_offer_stack_curves_compact.csv"
+JEPX_OFFER_STACK_SENSITIVITY_PATH = DATA_DIR / "processed" / "jepx_offer_stack_price_sensitivity.csv"
 JEPX_INTRADAY_PATH = DATA_DIR / "processed" / "jepx_intraday_latest.csv"
 JEPX_BASELOAD_PATH = DATA_DIR / "processed" / "jepx_baseload_market.csv"
 

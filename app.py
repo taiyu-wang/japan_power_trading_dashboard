@@ -2,10 +2,9 @@ import pandas as pd
 import streamlit as st
 
 from src.config import APP_TITLE, DEFAULT_MARKETS, MARKET_NOTES
-from src.data_loader import get_forward_curves, load_historical_prices
-from src.indicators import calculate_srmc_comparison, latest_snapshot
+from src.data_loader import cached_market_commentary, cached_srmc_comparison, get_forward_curves, load_historical_prices
+from src.indicators import latest_snapshot
 from src.preprocessing import prepare_historical
-from src.signals import generate_market_commentary
 from src.transformations import normalize_to_100
 from src.charts import line_chart, srmc_comparison_chart
 from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
@@ -68,11 +67,11 @@ with left:
     st.plotly_chart(line_chart(normalize_to_100(filtered), "date", "normalized", "market", "Cross-Asset Repricing Since Window Start", "Index = 100"), width="stretch")
 with right:
     st.markdown("### Desk Commentary")
-    for item in generate_market_commentary(filtered):
+    for item in cached_market_commentary(filtered):
         st.markdown(f"- {item}")
     download_button(filtered, "filtered_market_data.csv")
 
-srmc = calculate_srmc_comparison(
+srmc = cached_srmc_comparison(
     srmc_filtered,
     gas_efficiency=gas_efficiency,
     coal_efficiency=coal_efficiency,

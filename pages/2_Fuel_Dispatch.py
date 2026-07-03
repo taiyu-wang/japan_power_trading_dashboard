@@ -9,8 +9,8 @@ sys.path.append(str(Path(__file__).resolve().parents[1]))
 
 from src.charts import PLOT_TEMPLATE, apply_terminal_layout, line_chart, spread_chart, srmc_comparison_chart
 from src.config import ASSET_GROUPS
-from src.data_loader import load_historical_prices
-from src.indicators import calculate_srmc_comparison, spread_suite
+from src.data_loader import cached_srmc_comparison, load_historical_prices
+from src.indicators import spread_suite
 from src.preprocessing import prepare_historical
 from src.transformations import normalize_to_100
 from src.utils import configure_page, download_button, page_header, sample_data_notice
@@ -95,7 +95,7 @@ for title, group in {"LNG": ASSET_GROUPS["LNG"], "Coal": ASSET_GROUPS["Coal"], "
         st.plotly_chart(line_chart(group_df, "date", "price", "market", f"{title} Price History", y_title), width="stretch")
 
 st.markdown("### Dispatch Stack")
-srmc = calculate_srmc_comparison(
+srmc = cached_srmc_comparison(
     filtered_df,
     gas_efficiency=gas_efficiency,
     coal_efficiency=coal_efficiency,
