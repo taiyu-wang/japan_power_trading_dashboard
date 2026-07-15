@@ -3,7 +3,7 @@
     {
       "artifact": "jepx_baseload.csv",
       "dataset_id": "jepx_baseload",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "JEPX baseload",
       "observation_end": "2026-01-30",
       "observation_start": "2024-08-30",
@@ -15,11 +15,11 @@
     {
       "artifact": "jepx_intraday.csv",
       "dataset_id": "jepx_intraday",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "JEPX intraday",
-      "observation_end": "2026-07-15",
+      "observation_end": "2026-07-16",
       "observation_start": "2026-04-01",
-      "row_count": 5059,
+      "row_count": 5107,
       "source": "JEPX public intraday CSV",
       "stale_after_days": 4,
       "status": "current"
@@ -27,11 +27,11 @@
     {
       "artifact": "jepx_offer_stack_curves.csv",
       "dataset_id": "jepx_offer_stack_curves",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "JEPX compact offer-stack curves",
-      "observation_end": "2026-07-15",
-      "observation_start": "2026-07-09",
-      "row_count": 17730,
+      "observation_end": "2026-07-16",
+      "observation_start": "2026-07-10",
+      "row_count": 17550,
       "source": "JEPX processed aggregate bidding curves",
       "stale_after_days": 4,
       "status": "current"
@@ -39,11 +39,11 @@
     {
       "artifact": "jepx_offer_stack_depth.csv",
       "dataset_id": "jepx_offer_stack_depth",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "JEPX offer-stack depth",
-      "observation_end": "2026-07-15",
-      "observation_start": "2026-07-09",
-      "row_count": 2955,
+      "observation_end": "2026-07-16",
+      "observation_start": "2026-07-10",
+      "row_count": 2925,
       "source": "JEPX processed aggregate bidding curves",
       "stale_after_days": 4,
       "status": "current"
@@ -51,11 +51,11 @@
     {
       "artifact": "jepx_spot_daily.csv",
       "dataset_id": "jepx_spot_daily",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "JEPX day-ahead spot prices",
-      "observation_end": "2026-07-15",
+      "observation_end": "2026-07-16",
       "observation_start": "2025-04-01",
-      "row_count": 1413,
+      "row_count": 1416,
       "source": "JEPX public day-ahead spot summary CSV",
       "stale_after_days": 4,
       "status": "current"
@@ -63,7 +63,7 @@
     {
       "artifact": "power_news.csv",
       "dataset_id": "news",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "Japan power news",
       "observation_end": "2026-07-13",
       "observation_start": "2025-11-10",
@@ -75,7 +75,7 @@
     {
       "artifact": "supply_mix_monthly.csv",
       "dataset_id": "supply_mix",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "Tokyo/Kansai monthly generation mix",
       "observation_end": "2026-06-01",
       "observation_start": "2024-03-01",
@@ -87,11 +87,11 @@
     {
       "artifact": "supply_mix_daily_shape.csv",
       "dataset_id": "supply_mix_daily_shape",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "Tokyo/Kansai daily supply shape",
-      "observation_end": "2026-07-14",
+      "observation_end": "2026-07-15",
       "observation_start": "2024-03-01",
-      "row_count": 1701,
+      "row_count": 1703,
       "source": "JapanesePower.org regional half-hourly supply mix",
       "stale_after_days": 4,
       "status": "current"
@@ -99,7 +99,7 @@
     {
       "artifact": "supply_mix_residual_thermal.csv",
       "dataset_id": "supply_mix_residual_thermal",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "Tokyo/Kansai residual thermal",
       "observation_end": "2026-06-01",
       "observation_start": "2024-03-01",
@@ -111,17 +111,17 @@
     {
       "artifact": "weather_temperatures.csv",
       "dataset_id": "weather",
-      "fetched_at": "2026-07-14T23:24:26.735766+00:00",
+      "fetched_at": "2026-07-15T23:28:05.880647+00:00",
       "label": "Tokyo/Kansai weather",
-      "observation_end": "2026-07-09",
-      "observation_start": "2023-07-09",
+      "observation_end": "2026-07-10",
+      "observation_start": "2023-07-10",
       "row_count": 2194,
       "source": "Open-Meteo Historical Weather API",
       "stale_after_days": 7,
       "status": "current"
     }
   ],
-  "generated_at": "2026-07-14T23:24:26.735766+00:00",
+  "generated_at": "2026-07-15T23:28:05.880647+00:00",
   "overall_status": "current",
   "version": 1,
   "warnings": []
