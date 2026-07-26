@@ -1,5 +1,4 @@
 date,market,region,station,temperature_mean_c,temperature_max_c,temperature_min_c,cooling_degree_day,heating_degree_day,source,source_note
-2023-07-20,KANSAI_TEMP,Kansai,Kansai / Osaka,27.2,32.2,23.0,5.199999999999999,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2023-07-21,KANSAI_TEMP,Kansai,Kansai / Osaka,26.8,32.4,21.2,4.800000000000001,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2023-07-22,KANSAI_TEMP,Kansai,Kansai / Osaka,27.6,32.7,23.0,5.600000000000001,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2023-07-23,KANSAI_TEMP,Kansai,Kansai / Osaka,28.3,33.1,24.2,6.300000000000001,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
@@ -1096,7 +1095,7 @@ date,market,region,station,temperature_mean_c,temperature_max_c,temperature_min_
 2026-07-18,KANSAI_TEMP,Kansai,Kansai / Osaka,31.7,35.8,27.8,9.7,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2026-07-19,KANSAI_TEMP,Kansai,Kansai / Osaka,31.8,35.7,29.2,9.8,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2026-07-20,KANSAI_TEMP,Kansai,Kansai / Osaka,32.1,36.4,29.1,10.100000000000001,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
-2023-07-20,TOKYO_TEMP,Tokyo,Tokyo,28.1,32.5,25.0,6.100000000000001,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
+2026-07-21,KANSAI_TEMP,Kansai,Kansai / Osaka,33.0,38.3,29.2,11.0,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2023-07-21,TOKYO_TEMP,Tokyo,Tokyo,27.5,31.9,23.8,5.5,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2023-07-22,TOKYO_TEMP,Tokyo,Tokyo,27.3,33.3,22.3,5.300000000000001,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2023-07-23,TOKYO_TEMP,Tokyo,Tokyo,27.6,34.4,22.6,5.600000000000001,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
@@ -2193,3 +2192,4 @@ date,market,region,station,temperature_mean_c,temperature_max_c,temperature_min_
 2026-07-18,TOKYO_TEMP,Tokyo,Tokyo,27.2,29.2,25.3,5.199999999999999,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2026-07-19,TOKYO_TEMP,Tokyo,Tokyo,28.7,32.6,25.0,6.699999999999999,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
 2026-07-20,TOKYO_TEMP,Tokyo,Tokyo,31.6,37.1,25.8,9.600000000000001,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
+2026-07-21,TOKYO_TEMP,Tokyo,Tokyo,32.7,38.1,27.8,10.700000000000003,0.0,open_meteo_archive,Open-Meteo Historical Weather API daily temperature; verify station/grid basis for production use.
