@@ -19,6 +19,33 @@ def classify_source_label(source_label: str | None) -> SourceStatus:
     label = (source_label or "").strip()
     lower = label.lower()
 
+    if "provenance-gated" in lower:
+        return SourceStatus(
+            source_label=label,
+            category="Dated public / desk inputs",
+            confidence="Input dependent",
+            desk_use="Current rule evaluation",
+            caveat="Sample and stale inputs are excluded. Provenance labels are not an independent audit of source accuracy.",
+        )
+
+    if "public" in lower and ("synthetic" in lower or "sample" in lower):
+        return SourceStatus(
+            source_label=label,
+            category="Mixed public / sample history",
+            confidence="Varies by observation",
+            desk_use="Historical context; inspect each quote's source",
+            caveat="Public and synthetic rows coexist. Only qualifying dated public or desk inputs enter current alerts.",
+        )
+
+    if "scheduled public news" in lower:
+        return SourceStatus(
+            source_label=label,
+            category="Public news snapshot",
+            confidence="Publisher dependent",
+            desk_use="Event monitoring",
+            caveat="Check publication date and the linked publisher; collection time is not event time.",
+        )
+
     if not label or "no local" in lower:
         return SourceStatus(
             source_label=label or "Unspecified",

@@ -127,6 +127,26 @@ def test_uploaded_curve_rejects_missing_required_columns():
         load_uploaded_curve(csv)
 
 
+def test_uploaded_curve_rejects_infinite_prices():
+    csv = StringIO("curve_date,contract_month,market,price\n2026-10-01,2026-11-01,JKM,inf\n")
+    with pytest.raises(ValueError, match="non-finite"):
+        load_uploaded_curve(csv)
+
+
+def test_uploaded_curve_duplicates_are_averaged_in_the_dataset():
+    csv = StringIO("curve_date,contract_month,market,price\n2026-10-01,2026-11-01,JKM,10\n2026-10-01,2026-11-01,JKM,12\n")
+    out = load_uploaded_curve(csv)
+    assert len(out) == 1
+    assert out.iloc[0]["price"] == 11
+    assert any("Duplicate" in warning for warning in out.attrs["diagnostics"].warnings)
+
+
+def test_uploaded_curve_rejects_inconsistent_units():
+    csv = StringIO("curve_date,contract_month,market,price,currency,unit\n2026-10-01,2026-11-01,JKM,10,USD,MMBtu\n2026-10-01,2026-12-01,JKM,12,USD,kWh\n")
+    with pytest.raises(ValueError, match="inconsistent unit"):
+        load_uploaded_curve(csv)
+
+
 def test_forward_curve_validation_flags_invalid_dates_and_prices():
     raw = pd.DataFrame(
         {

@@ -10,15 +10,16 @@ from src.data_loader import (
     get_forward_curves,
     get_power_news,
     get_weather_temperatures,
-    load_historical_prices,
+    get_historical_prices as load_historical_prices,
     load_jepx_offer_stack_compact_curves,
     load_jepx_offer_stack_depth,
     load_uploaded_power_news,
 )
 from src.preprocessing import prepare_historical
 from src.offer_stack import build_offer_stack_signal_payload
+from src.market_context import japan_today
 from src.signals import generate_trading_signals, signal_methodology
-from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
+from src.utils import configure_page, dataframe_with_dates, download_button, page_header, signal_watchlist
 
 
 configure_page("Trading Signals")
@@ -36,7 +37,7 @@ with st.sidebar:
 
 curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
 weather, weather_warnings, weather_source_label = get_weather_temperatures(False)
-signals = generate_trading_signals(df, curves, weather)
+signals = generate_trading_signals(df, curves, weather, srmc_settings=st.session_state.get("srmc_settings"))
 offer_stack_curves = load_jepx_offer_stack_compact_curves()
 offer_stack_depth = load_jepx_offer_stack_depth()
 if not offer_stack_depth.empty:
@@ -64,23 +65,20 @@ page_header(
     "Trading Signals",
     f"Rule-based desk prompts for dislocations, repricing lag, curve structure, and weather-sensitive setups. Curve source: {curve_source_label}. Weather source: {weather_source_label}. News source: {news_source_label}.",
     {
-        "Historical signal inputs": "Bundled synthetic historical prices",
+        "Historical signal inputs": "Provenance-gated current observations",
         "Forward curves": curve_source_label,
         "Weather": weather_source_label,
         "News": news_source_label,
         "Offer-stack signals": "Processed compact JEPX offer-stack analytics" if not offer_stack_depth.empty else "No local JEPX offer-stack CSV",
     },
 )
-sample_data_notice()
 for warning in curve_warnings + weather_warnings:
     st.warning(warning)
 
-if signals.empty:
-    st.info("No active desk signals for the current data window. Market relationships are inside configured monitoring bands.")
-else:
+if not signals.empty:
     cols = st.columns(4)
     cols[0].metric("Active signals", len(signals))
-    cols[1].metric("Top confidence", f"{signals['confidence_score'].max():.0f}/100")
+    cols[1].metric("Top evidence strength", signals.iloc[0]["evidence_strength"])
     cols[2].metric("Curve calls", int(signals["signal_name"].str.contains("Curve", case=False).sum()))
     cols[3].metric("Spread/fuel calls", int(signals["signal_name"].str.contains("LNG|Coal|Power|Tokyo|Spot", case=False).sum()))
 
@@ -100,26 +98,15 @@ with st.expander("How signals are generated", expanded=False):
         "Market-structure cards are generated separately from processed JEPX aggregate bidding-curve analytics: latest delivery date, thinnest depth blocks, and available upside shock estimates."
     )
 
-for _, signal in signals.iterrows():
-    st.markdown(
-        f"""
-        <div class="signal-card">
-            <h4>{signal['signal_name']} | {signal['direction']}</h4>
-            <div class="small-muted">Signal time: {signal['signal_time_sgt']} | Market data through: {signal['market_data_as_of']} | Confidence score: {signal['confidence_score']:.0f}/100</div>
-            <p><strong>Rationale:</strong> {signal['rationale']}</p>
-            <p><strong>Trader takeaway:</strong> {signal['trader_interpretation']}</p>
-            <p><strong>Market implication:</strong> {signal['possible_market_implication']}</p>
-            <div class="small-muted"><strong>Invalidation:</strong> {signal['invalidation']}</div>
-            <div class="small-muted"><strong>Metrics:</strong> {signal['supporting_metrics']}</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+signal_watchlist(signals)
 
 download_button(signals, "trading_signals.csv", "Export signals as CSV")
 
 st.markdown("### Market-Structure Signals")
 st.caption("Stack-derived prompts from public JEPX aggregate bidding curves. These are ex-post market-depth diagnostics, not participant-level offer signals.")
+if not stack_signal_payload.empty and pd.to_datetime(stack_signal_payload["delivery_date"]).max() < japan_today() - pd.Timedelta(days=4):
+    st.warning("Offer-stack observations are older than four days. Review historical diagnostics on Market Structure; no current stack alerts are shown.")
+    stack_signal_payload = stack_signal_payload.iloc[:0]
 if stack_signal_payload.empty:
     st.info("No market-structure signal payload is available. Refresh or rebuild the JEPX offer-stack processed files.")
 else:
@@ -155,17 +142,13 @@ else:
         published = item["published_at"].strftime("%Y-%m-%d") if hasattr(item["published_at"], "strftime") else str(item["published_at"])
         url = item["url"]
         title = item["title"]
-        link = f"[{title}]({url})" if url else title
-        st.markdown(
-            f"""
-            <div class="signal-card">
-                <h4>{link}</h4>
-                <div class="small-muted">{published} | {item['source']} | {item['category']} | {item['market_tag']}</div>
-                <p>{item['summary']}</p>
-                <div class="small-muted"><strong>Desk relevance:</strong> {item['impact_hint']}</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.caption(f"{published} | {item['source']} | {item['category']}")
+        if str(url).startswith(("http://", "https://")):
+            st.link_button(title, url, icon=":material/open_in_new:")
+        else:
+            st.write(title)
+        with st.expander("Event detail"):
+            st.write(item["summary"])
+            st.caption(item["impact_hint"])
     dataframe_with_dates(news, width="stretch", hide_index=True)
     download_button(news, "japan_power_news.csv", "Export news CSV")

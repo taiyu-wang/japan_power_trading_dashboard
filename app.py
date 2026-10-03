@@ -1,100 +1,69 @@
 import pandas as pd
 import streamlit as st
 
-from src.config import APP_TITLE, DEFAULT_MARKETS, MARKET_NOTES
-from src.data_loader import get_forward_curves, load_historical_prices
-from src.indicators import calculate_srmc_comparison, latest_snapshot
+from src.charts import line_chart
+from src.config import DEFAULT_MARKETS
+from src.data_loader import get_historical_prices, get_power_news
 from src.preprocessing import prepare_historical
-from src.signals import generate_market_commentary
-from src.transformations import normalize_to_100
-from src.charts import line_chart, srmc_comparison_chart
-from src.utils import configure_page, dataframe_with_dates, download_button, page_header, sample_data_notice
+from src.signals import generate_trading_signals
+from src.utils import analysis_window, configure_page, download_button, market_board, signal_watchlist
 
 
-configure_page("Overview")
+def render_overview():
+    configure_page("Overview")
+    history = prepare_historical(get_historical_prices())
+    with st.sidebar:
+        start, end = analysis_window(history)
+        markets = st.multiselect("Market board", sorted(history["market"].unique()), default=[m for m in DEFAULT_MARKETS if m in set(history["market"])])
+    filtered = history[history["date"].dt.date.between(start, end)]
+    st.title("Japan Fuel & Power")
+    st.caption(f"Desk overview | {start:%d %b %Y} - {end:%d %b %Y} | Delivery dates in JST")
+    power = filtered[filtered["market"].isin(["JEPX_SYSTEM", "JEPX_TOKYO", "JEPX_KANSAI"])]
+    cols = st.columns(3)
+    for col, market, label in zip(cols, ["JEPX_SYSTEM", "JEPX_TOKYO", "JEPX_KANSAI"], ["System", "Tokyo", "Kansai"]):
+        observations = power[power["market"].eq(market)].dropna(subset=["price"]).sort_values("date")
+        if observations.empty:
+            col.metric(label, "n/a")
+        else:
+            quote = observations.iloc[-1]
+            col.metric(label, f"{quote['price']:.2f} JPY/kWh")
+            col.caption(f"{quote['date']:%d %b %Y} | {quote.get('source_type', 'unverified').title()}")
+    if not power.empty:
+        st.plotly_chart(line_chart(power, "date", "price", "market", "Japan power prices", "JPY/kWh"), width="stretch")
+    st.subheader("Market board")
+    st.caption("Latest observation per market, independent of the chart window. Changes end at each quote date.")
+    market_board(history[history["market"].isin(markets)])
+    st.subheader("Current desk watchlist")
+    signals = generate_trading_signals(history, pd.DataFrame(), srmc_settings=st.session_state.get("srmc_settings"))
+    signal_watchlist(signals)
+    st.page_link("views/5_Trading_Signals.py", label="All alerts and market news", icon=":material/notifications:")
+    st.page_link("views/2_Fuel_Dispatch.py", label="Fuel & margins", icon=":material/bolt:")
+    news, warnings, source = get_power_news(False)
+    if not news.empty and "sample" not in source.lower():
+        st.subheader("Japan power events")
+        for _, event in news.head(3).iterrows():
+            st.caption(f"{event['published_at']:%d %b %Y} | {event['source']}")
+            if str(event["url"]).startswith(("https://", "http://")):
+                st.link_button(event["title"], event["url"], icon=":material/open_in_new:")
+            else:
+                st.write(event["title"])
+    issues = history.attrs.get("load_warnings", []) + warnings
+    if issues:
+        with st.expander("Data availability"):
+            for issue in issues:
+                st.warning(issue)
+    download_button(filtered[filtered["market"].isin(markets)], "overview_market_data.csv")
 
-hist = prepare_historical(load_historical_prices())
-default_focus_start = pd.Timestamp("2026-02-01").date()
 
-with st.sidebar:
-    st.header("Market Console")
-    use_live_curves = st.toggle("Refresh live public curves", value=False, help="Bundled curves load fastest on Streamlit Cloud. Enable to attempt live Brent/JCC-derived curves.")
-    markets = st.multiselect("Markets", sorted(hist["market"].unique()), default=DEFAULT_MARKETS)
-    min_date, max_date = hist["date"].min().date(), hist["date"].max().date()
-    default_start = max(default_focus_start, min_date)
-    date_range = st.date_input("Date range", value=(default_start, max_date), min_value=min_date, max_value=max_date)
-    with st.expander("SRMC assumptions"):
-        gas_efficiency = st.slider("Gas efficiency", 0.45, 0.62, 0.55, 0.01)
-        coal_efficiency = st.slider("Coal efficiency", 0.34, 0.46, 0.40, 0.01)
-        gas_vom = st.number_input("Gas VOM (JPY/MWh)", value=500.0, step=50.0)
-        coal_vom = st.number_input("Coal VOM (JPY/MWh)", value=700.0, step=50.0)
-    if len(date_range) == 2:
-        start, end = date_range
-    else:
-        start, end = min_date, max_date
-    with st.expander("Data source notes"):
-        st.caption("Curve source defaults to bundled CSV for fast deployed startup. Live mode pulls public Brent where available; JCC/JCC-linked LNG are Brent-derived proxies. JKM, coal, and Japan power forwards require vendor settlement or upload.")
-
-curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
-for warning in curve_warnings:
-    st.sidebar.warning(warning)
-
-page_header(
-    "Overview",
-    f"{APP_TITLE}: institutional-style market intelligence for Japan LNG, coal, crude, FX, and power markets.",
-    {
-        "Historical prices": "Bundled synthetic historical prices",
-        "Forward curves": curve_source_label,
-        "SRMC inputs": "Derived from dashboard fuel, FX, and power data",
-    },
-)
-sample_data_notice()
-
-filtered = hist[(hist["market"].isin(markets)) & (hist["date"].dt.date.between(start, end))]
-srmc_filtered = hist[hist["date"].dt.date.between(start, end)]
-
-snapshot = latest_snapshot(hist[hist["market"].isin(DEFAULT_MARKETS)])
-cards = st.columns(7)
-for col, market in zip(cards, DEFAULT_MARKETS):
-    row = snapshot[snapshot["market"] == market]
-    if row.empty:
-        col.metric(market, "n/a")
-    else:
-        r = row.iloc[0]
-        col.metric(market, f"{r['price']:,.2f}", f"{r['change_30d_pct']:.1f}% 30d")
-
-left, right = st.columns([2, 1])
-with left:
-    st.plotly_chart(line_chart(normalize_to_100(filtered), "date", "normalized", "market", "Cross-Asset Repricing Since Window Start", "Index = 100"), width="stretch")
-with right:
-    st.markdown("### Desk Commentary")
-    for item in generate_market_commentary(filtered):
-        st.markdown(f"- {item}")
-    download_button(filtered, "filtered_market_data.csv")
-
-srmc = calculate_srmc_comparison(
-    srmc_filtered,
-    gas_efficiency=gas_efficiency,
-    coal_efficiency=coal_efficiency,
-    gas_vom_jpy_mwh=gas_vom,
-    coal_vom_jpy_mwh=coal_vom,
-)
-st.markdown("### SRMC Stack vs JEPX System Price")
-st.caption("Fuel SRMC lines are shown in JPY/kWh. Coal SRMC uses CFR Japan delivered coal when available, with Newcastle as fallback; thermal conversion assumes 6,000 kcal/kg NAR and selected efficiency. The amber band visualizes JCC-linked gas SRMC from 11% to 13% slope.")
-if srmc.empty:
-    st.warning("SRMC view needs JKM, JCC, USDJPY, JEPX system price, and either CFR Japan coal or Newcastle coal data in the selected date range.")
-else:
-    st.plotly_chart(srmc_comparison_chart(srmc, "Coal SRMC, JKM Gas SRMC, JCC 11-13% Gas SRMC Band, and JEPX System"), width="stretch")
-
-st.markdown("### Forward Curve Monitor")
-st.caption(f"Curve source: {curve_source_label}. Public/derived marks are screening inputs, not licensed settlement data.")
-front = curves.sort_values("curve_date").groupby(["market", "curve_date"]).head(1).groupby("market").tail(1)
-front_columns = ["market", "curve_date", "contract_month", "price", "currency", "unit"]
-for optional_col in ["contract_type", "source_note"]:
-    if optional_col in front.columns:
-        front_columns.append(optional_col)
-dataframe_with_dates(front[front_columns], width="stretch", hide_index=True)
-
-st.markdown("### Contract and Data Source Notes")
-for market in ["JCC", "BRENT", "JAPAN_POWER_FUTURES", "JEPX_SYSTEM"]:
-    st.markdown(f"- **{market}:** {MARKET_NOTES[market]}")
+st.set_page_config(page_title="Japan Fuel & Power", layout="wide")
+page = st.navigation([
+    st.Page(render_overview, title="Overview", icon=":material/dashboard:", default=True),
+    st.Page("views/1_Power_Market.py", title="Power & Liquidity", url_path="Power_Market", icon=":material/bolt:"),
+    st.Page("views/7_Market_Structure.py", title="Market Structure", url_path="Market_Structure", icon=":material/stacked_line_chart:"),
+    st.Page("views/2_Fuel_Dispatch.py", title="Fuel & Margins", url_path="Fuel_Dispatch", icon=":material/local_fire_department:"),
+    st.Page("views/6_Supply_Mix.py", title="Fundamentals", url_path="Supply_Mix", icon=":material/wb_sunny:"),
+    st.Page("views/3_Forward_Curves.py", title="Curves & Hedges", url_path="Forward_Curves", icon=":material/timeline:"),
+    st.Page("views/4_Weather_Seasonality.py", title="Weather & Seasonality", url_path="Weather_Seasonality", visibility="hidden"),
+    st.Page("views/5_Trading_Signals.py", title="Trading Signals", url_path="Trading_Signals", visibility="hidden"),
+])
+page.run()

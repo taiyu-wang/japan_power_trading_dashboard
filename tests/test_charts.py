@@ -145,8 +145,10 @@ def test_offer_stack_shift_chart_uses_readable_hover_labels():
     assert {"Sell depth shift", "Buy depth shift"}.issubset({trace.name for trace in fig.data})
     assert "Shift:" in fig.data[0].hovertemplate
     assert "sell_shift_mw" not in fig.data[0].hovertemplate
-    assert fig.layout.xaxis.title.text == "Bid price around clearing (JPY/kWh)"
+    assert fig.layout.xaxis3.title.text == "Bid price around clearing (JPY/kWh)"
     assert fig.layout.yaxis.title.text == "Cumulative depth shift (MW)"
+    assert {trace.yaxis for trace in fig.data} == {"y", "y2", "y3"}
+    assert fig.layout.yaxis.range == fig.layout.yaxis2.range == fig.layout.yaxis3.range
     assert max(fig.data[0].x) < 1000
 
 

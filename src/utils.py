@@ -11,7 +11,8 @@ from .source_quality import source_status_table
 def configure_page(page_title: str = APP_TITLE) -> None:
     st.set_page_config(page_title=page_title, page_icon="📈", layout="wide")
     inject_trading_css()
-    render_freshness_bar()
+    with st.sidebar.expander("Published feed status"):
+        render_freshness_bar()
 
 
 _FRESHNESS_GROUPS = [
@@ -82,307 +83,49 @@ def sample_data_notice() -> None:
 
 def inject_trading_css() -> None:
     st.markdown(
-        """
-        <style>
-        :root {
-            --oe-bg: #F5F7FB;
-            --oe-paper: #FFFFFF;
-            --oe-paper-soft: #F0F4F7;
-            --oe-grid: rgba(31, 41, 51, 0.045);
-            --oe-line: #E3E8EF;
-            --oe-line-strong: #CBD5E1;
-            --oe-ink: #1F2933;
-            --oe-muted: #667085;
-            --oe-faint: #98A2B3;
-            --accent: #008A66;
-            --accent-soft: #E4F6EF;
-            --accent-ink: #0B3B2E;
-            --accent-red: #D64545;
-            --risk: #D64545;
-            --positive: #008A66;
-            --solar: #F4E300;
-            --coal: #2F3136;
-            --gas: #D65F5F;
-            --hydro: #2F80ED;
-        }
-        .stApp {
-            background: var(--oe-bg);
-            color: var(--oe-ink);
-            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
-        .main .block-container {
-            padding-top: 1.75rem;
-            padding-bottom: 3rem;
-            max-width: 1480px;
-        }
-        section[data-testid="stSidebar"] {
-            background: #FFFFFF;
-            border-right: 1px solid var(--oe-line);
-            box-shadow: 8px 0 22px rgba(31, 41, 51, 0.04);
-        }
-        section[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"][href$="/"] span[label="app"] p {
-            font-size: 0;
-        }
-        section[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"][href$="/"] span[label="app"] p::after {
-            content: "Overview";
-            font-size: 1rem;
-        }
-        section[data-testid="stSidebar"] [data-testid="stSidebarHeader"] {
-            border-bottom: 1px solid var(--oe-line);
-            padding-top: 1.2rem;
-            padding-bottom: 1rem;
-        }
-        section[data-testid="stSidebar"] [data-testid="stSidebarHeader"]::before {
-            content: "Japan Power";
-            display: block;
-            color: var(--oe-ink);
-            font-size: 1.08rem;
-            line-height: 1.15;
-            font-weight: 750;
-            letter-spacing: 0;
-        }
-        section[data-testid="stSidebar"] [data-testid="stSidebarHeader"]::after {
-            content: "Fuel & market intelligence";
-            display: block;
-            color: var(--oe-muted);
-            font-size: 0.75rem;
-            line-height: 1.2;
-            margin-top: 3px;
-        }
-        section[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"] {
-            border-radius: 8px;
-            margin: 2px 10px;
-            min-height: 36px;
-            color: var(--oe-muted);
-            font-weight: 600;
-        }
-        section[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"]:hover,
-        section[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"][aria-current="page"] {
-            background: var(--oe-paper-soft);
-            color: var(--oe-ink);
-        }
-        section[data-testid="stSidebar"] a[data-testid="stSidebarNavLink"][aria-current="page"]::before {
-            content: "";
-            width: 6px;
-            height: 6px;
-            border-radius: 999px;
-            background: var(--accent);
-            margin-right: 2px;
-        }
-        section[data-testid="stSidebar"] button,
-        section[data-testid="stSidebar"] [data-baseweb="select"] > div,
-        section[data-testid="stSidebar"] [data-baseweb="input"] > div {
-            border-color: var(--oe-line-strong);
-            background: #FFFFFF;
-            border-radius: 8px;
-        }
-        div[data-testid="stMetric"] {
-            background: #FFFFFF;
-            border: 1px solid var(--oe-line);
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(31, 41, 51, 0.06);
-            padding: 13px 15px;
-        }
-        div[data-testid="stMetric"] label {
-            color: var(--oe-muted);
-            font-weight: 650;
-            letter-spacing: 0.01em;
-        }
-        div[data-testid="stMetricLabel"],
-        div[data-testid="stMetricLabel"] p {
-            max-width: 100%;
-            white-space: normal;
-            overflow-wrap: anywhere;
-            line-height: 1.15;
-        }
-        div[data-testid="stMetricValue"] {
-            color: var(--oe-ink);
-            font-size: 1.45rem !important;
-            font-weight: 720;
-            line-height: 1.05;
-            font-variant-numeric: tabular-nums;
-        }
-        .desk-panel {
-            background: #FFFFFF;
-            border: 1px solid var(--oe-line);
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(31, 41, 51, 0.055);
-            padding: 16px;
-        }
-        .signal-card {
-            background: #FFFFFF;
-            border-left: 4px solid var(--accent);
-            border-top: 1px solid var(--oe-line);
-            border-right: 1px solid var(--oe-line);
-            border-bottom: 1px solid var(--oe-line);
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(31, 41, 51, 0.055);
-            padding: 15px 16px;
-            margin-bottom: 12px;
-        }
-        .small-muted { color: var(--oe-muted); font-size: 0.88rem; }
-        .source-chip {
-            display: inline-block;
-            border: 1px solid var(--oe-line);
-            border-radius: 999px;
-            padding: 3px 10px;
-            margin: 0 6px 6px 0;
-            color: var(--accent);
-            background: var(--accent-soft);
-            font-size: 0.82rem;
-            font-weight: 650;
-        }
-        .freshness-strip {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: -0.35rem 0 0.85rem;
-            min-height: 28px;
-        }
-        .freshness-chip {
-            display: inline-flex;
-            align-items: center;
-            min-height: 24px;
-            border: 1px solid var(--oe-line);
-            border-radius: 999px;
-            padding: 2px 9px;
-            background: #FFFFFF;
-            color: var(--oe-muted);
-            font-size: 0.75rem;
-            font-weight: 650;
-            font-variant-numeric: tabular-nums;
-        }
-        .freshness-current {
-            border-color: #A7DCC8;
-            background: #E8F7F1;
-            color: #087158;
-        }
-        .freshness-delayed,
-        .freshness-partial {
-            border-color: #E6C878;
-            background: #FFF8DF;
-            color: #805F00;
-        }
-        .freshness-stale,
-        .freshness-unavailable {
-            border-color: #E8B3B3;
-            background: #FDECEC;
-            color: #A33131;
-        }
-        .freshness-source {
-            margin-left: auto;
-            color: var(--oe-faint);
-            font-size: 0.72rem;
-        }
-        div[data-testid="stVerticalBlockBorderWrapper"],
-        div[data-testid="stExpander"],
-        div[data-testid="stDataFrame"],
-        div[data-testid="stTable"] {
-            border-color: var(--oe-line) !important;
-        }
-        div[data-testid="stDataFrame"],
-        div[data-testid="stTable"] {
-            background: #FFFFFF;
-            border-radius: 8px;
-        }
-        div[data-testid="stPlotlyChart"] {
-            background: #FFFFFF;
-            border: 1px solid var(--oe-line);
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(31, 41, 51, 0.055);
-            padding: 8px 8px 2px;
-        }
-        [data-baseweb="tag"] {
-            background: var(--oe-paper-soft) !important;
-            border: 1px solid var(--oe-line-strong) !important;
-            color: var(--accent) !important;
-        }
-        [data-baseweb="tag"] span,
-        [data-baseweb="tag"] svg {
-            color: var(--accent) !important;
-            fill: var(--accent) !important;
-        }
-        .stButton button,
-        .stDownloadButton button,
-        button[kind="secondary"],
-        button[kind="primary"] {
-            border-radius: 8px;
-            border: 1px solid var(--oe-line-strong);
-            background: #FFFFFF;
-            color: var(--oe-ink);
-            font-weight: 650;
-            min-height: 36px;
-        }
-        .stButton button:hover,
-        .stDownloadButton button:hover,
-        button[kind="secondary"]:hover,
-        button[kind="primary"]:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background: var(--accent-soft);
-        }
-        button[kind="primary"] {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #FFFFFF;
-        }
-        button[kind="primary"]:hover {
-            background: #00775A;
-            border-color: #00775A;
-            color: #FFFFFF;
-        }
-        button[data-baseweb="tab"] {
-            color: var(--oe-muted);
-            font-weight: 650;
-        }
-        button[data-baseweb="tab"][aria-selected="true"] {
-            color: var(--accent);
-        }
-        [data-baseweb="tab-highlight"] {
-            background-color: var(--accent) !important;
-        }
-        .js-plotly-plot .main-svg text,
-        .js-plotly-plot .gtitle,
-        .js-plotly-plot .xtick text,
-        .js-plotly-plot .ytick text,
-        .js-plotly-plot .legendtext {
-            fill: var(--oe-ink) !important;
-        }
-        .js-plotly-plot .gridlayer path {
-            stroke: var(--oe-line) !important;
-        }
-        .js-plotly-plot .zerolinelayer path {
-            stroke: var(--oe-line-strong) !important;
-        }
-        h1, h2, h3 {
-            color: var(--oe-ink);
-            letter-spacing: 0;
-        }
-        h1 {
-            font-size: 1.95rem !important;
-            line-height: 1.12;
-            font-weight: 720;
-            padding-bottom: 0.15rem;
-            border-bottom: 0;
-        }
-        h3 {
-            margin-top: 0.65rem;
-        }
-        div[data-testid="stMetricValue"],
-        div[data-testid="stMarkdownContainer"],
-        div[data-testid="stCaptionContainer"],
-        label,
-        p {
-            color: var(--oe-ink);
-        }
-        div[data-testid="stCaptionContainer"],
-        .stCaption,
-        small {
-            color: var(--oe-muted) !important;
-        }
-        </style>
-        """,
+        f"""<style>
+        :root {{
+            --desk-paper: rgba(127,127,127,0.04); --desk-ink: inherit;
+            --desk-muted: inherit; --desk-line: rgba(127,127,127,0.25);
+        }}
+        [data-testid="stMainBlockContainer"] {{ padding-top: 1.5rem; max-width: 1480px; }}
+        [data-testid="stSidebar"] {{ border-right: 1px solid var(--desk-line); }}
+        h1 {{ font-size: 1.7rem !important; letter-spacing: 0; }}
+        h2 {{ font-size: 1.2rem !important; letter-spacing: 0; }}
+        h3 {{ font-size: 1.05rem !important; letter-spacing: 0; }}
+        [data-testid="stMetric"] {{
+            padding: 12px 14px; border: 1px solid var(--desk-line);
+            border-radius: 6px; background: var(--desk-paper);
+        }}
+        [data-testid="stMetricValue"] {{
+            font-size: 1.45rem !important; font-variant-numeric: tabular-nums;
+        }}
+        [data-testid="stMetricLabel"] p {{ white-space: normal; overflow-wrap: anywhere; }}
+        [data-testid="stPlotlyChart"] {{ padding: 0; }}
+        .desk-panel, .signal-card {{
+            padding: 12px 0; border-bottom: 1px solid var(--desk-line);
+            background: transparent; color: var(--desk-ink);
+        }}
+        .small-muted {{ color: inherit; opacity: 0.75; font-size: 0.8rem; }}
+        .source-chip {{
+            display: inline-block; font-size: 0.75rem; color: var(--desk-muted);
+            margin: 0 12px 6px 0; padding: 0; background: transparent;
+        }}
+        .freshness-strip {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+        .freshness-chip {{
+            font-size: 0.72rem; border-left: 3px solid var(--desk-line);
+            padding: 3px 6px; color: var(--desk-ink);
+        }}
+        .freshness-current {{ border-color: #2F8F71; }}
+        .freshness-delayed, .freshness-partial {{ border-color: #D39B36; }}
+        .freshness-stale, .freshness-unavailable {{ border-color: #D65F5F; }}
+        .freshness-source {{ color: var(--desk-muted); font-size: 0.72rem; }}
+        @media (max-width: 640px) {{
+            [data-testid="stMainBlockContainer"] {{ padding: 1rem 0.75rem; }}
+            h1 {{ font-size: 1.45rem !important; }}
+            [data-testid="stMetricValue"] {{ font-size: 1.25rem !important; }}
+        }}
+        </style>""",
         unsafe_allow_html=True,
     )
 
@@ -397,7 +140,7 @@ def format_price(value: float, currency: str = "", unit: str = "") -> str:
     return f"{value:,.2f}"
 
 
-DATE_DISPLAY_COLUMNS = {"date", "curve_date", "contract_month", "front_month", "delivery_date"}
+DATE_DISPLAY_COLUMNS = {"date", "curve_date", "contract_month", "delivery_date"}
 
 
 def format_dates_for_display(df: pd.DataFrame) -> pd.DataFrame:
@@ -428,7 +171,7 @@ def source_status_panel(sources: dict[str, str], expanded: bool = False) -> None
         return
     status = source_status_table(sources)
     chips = "".join(
-        f"<span class='source-chip'>{row['dataset']}: {row['confidence']}</span>"
+        f"<span class='source-chip'>{escape(row['dataset'])}: {escape(row['category'])}</span>"
         for _, row in status.iterrows()
     )
     st.markdown(chips, unsafe_allow_html=True)
@@ -441,3 +184,52 @@ def page_header(title: str, subtitle: str, sources: dict[str, str] | None = None
     st.caption(subtitle)
     if sources:
         source_status_panel(sources)
+
+
+def analysis_window(df: pd.DataFrame) -> tuple:
+    first, last = df["date"].min().date(), df["date"].max().date()
+    saved = st.session_state.get("analysis_period", "30D")
+    choices = ["7D", "30D", "90D", "Feb 2026 onward", "Custom"]
+    choice = st.selectbox("Analysis period", choices, index=choices.index(saved), key="_analysis_period")
+    st.session_state["analysis_period"] = choice
+    if choice == "Custom":
+        window = st.session_state.get("analysis_dates", (first, last))
+        window = tuple(min(last, max(first, pd.Timestamp(value).date())) for value in window)
+        result = st.date_input("Delivery date range", window, min_value=first, max_value=last, key="_analysis_dates")
+        if len(result) == 2:
+            st.session_state["analysis_dates"] = result
+            return result
+        return window
+    start = pd.Timestamp("2026-02-01") if choice == "Feb 2026 onward" else pd.Timestamp(last) - pd.Timedelta(days=int(choice[:-1]) - 1)
+    return max(first, start.date()), last
+
+
+def market_board(df: pd.DataFrame) -> None:
+    from .indicators import latest_snapshot
+    from .market_context import MARKET_LABELS
+    if df.empty:
+        st.info("No observations in this period.")
+        return
+    board = latest_snapshot(df)
+    board["Market"] = board["market"].map(MARKET_LABELS).fillna(board["market"])
+    board["Source"] = board.get("source_type", pd.Series("unverified", index=board.index)).str.title()
+    board["Status"] = board["age_days"].map(lambda age: "Current" if age <= 4 else "Stale")
+    board.loc[board["Source"].eq("Synthetic"), "Status"] = "Sample only"
+    board.loc[board["Source"].eq("Unverified"), "Status"] = "Unverified"
+    board = board.rename(columns={"price": "Price", "unit": "Unit", "date": "Observation date", "change_30d_pct": "30d to quote (%)"})
+    dataframe_with_dates(board[["Market", "Price", "Unit", "Observation date", "30d to quote (%)", "Source", "Status"]], hide_index=True, width="stretch", column_config={"Price": st.column_config.NumberColumn(format="%.2f"), "30d to quote (%)": st.column_config.NumberColumn(format="%.1f")})
+
+
+def signal_watchlist(signals: pd.DataFrame) -> None:
+    if signals.empty:
+        st.info("No eligible alerts. Stale, synthetic or insufficient-history inputs are excluded.")
+        return
+    display = signals.rename(columns={"signal_name": "Condition", "direction": "Market read", "market_data_as_of": "Evidence date", "evidence_strength": "Evidence strength"})
+    st.dataframe(display[["Condition", "Market read", "Evidence date", "Evidence strength"]], hide_index=True, width="stretch")
+    for _, signal in signals.iterrows():
+        with st.expander(signal["signal_name"]):
+            st.caption(f"Computed {signal['signal_time_sgt']} | Evidence {signal['market_data_as_of']} | Rule strength, not forecast probability")
+            st.write(signal["rationale"])
+            st.write(f"Market implication: {signal['possible_market_implication']}")
+            st.write(f"Invalidation: {signal['invalidation']}")
+            st.caption(signal["supporting_metrics"])

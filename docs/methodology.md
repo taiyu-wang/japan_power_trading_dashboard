@@ -5,8 +5,8 @@ This document summarizes the dashboard's analytical methods. The app favors trad
 ## Preprocessing
 
 - Historical prices are standardized into a long-form table by `date`, `market`, `region`, `asset_class`, `frequency`, `contract`, `price`, `currency`, and `unit`.
-- Missing values are forward/back-filled by market where appropriate.
-- Outliers are winsorized by market.
+- Raw prices, missing values and spikes are preserved by default. Winsorization is opt-in only.
+- SRMC permits bounded forward carry (fuel/FX four days, JCC 45 days); no backward filling or imputed power prices.
 - Frequency conversion supports daily, weekly, monthly, and quarterly views.
 - Cross-asset comparison uses normalization to `Index = 100` at the start of the selected window.
 
@@ -15,10 +15,10 @@ This document summarizes the dashboard's analytical methods. The app favors trad
 Forward curves are evaluated through:
 
 - front-month premium
-- quarterly strips
-- calendar averages
+- quarterly quoted-point averages (not delivery-weighted strips when coverage is incomplete)
+- first-three/first-twelve quoted-tenor averages, explicitly labelled as such
 - curve steepness
-- rolling carry
+- next-minus-first quoted tenor (not an executable carry return)
 - contango/backwardation classification
 - monthly-to-quarterly tenor policy for longer-dated views
 
@@ -49,11 +49,11 @@ The dashboard includes an 11-13% JCC-linked gas SRMC band to visualize oil-linke
 
 Spread analytics include:
 
-- LNG minus coal
+- gas SRMC minus coal SRMC, both in JPY/kWh
 - LNG minus JCC-linked LNG
 - Tokyo minus Kansai power
 - spot minus intraday
-- power minus fuel basket
+- indicative power less gas/coal SRMC margins, both in JPY/kWh
 
 Z-scores and rolling statistics are used to identify stretched relationships, but dashboard wording avoids retail-style buy/sell recommendations.
 
@@ -68,7 +68,7 @@ Weather analytics include:
 - monthly and weekly seasonal profiles
 - summer/winter regime comparison
 
-Weather data is bundled synthetic sample data unless Open-Meteo or vendor/JMA data is connected.
+Scheduled Open-Meteo observations are preferred. Synthetic samples are a labelled fallback; they cannot generate current weather alerts.
 
 ## JEPX Offer-Stack Analytics
 
@@ -94,13 +94,17 @@ Important interpretation:
 
 Offer-stack outputs are aggregate market-structure diagnostics. They are not participant-level bidding behavior.
 
+Rolling seven/30-day benchmarks require full date coverage for the chosen delivery
+block. They exclude the current day and weight each prior day equally on a common
+interpolated price grid. Selected-window benchmarks disclose their observed count.
+
 ## Trading Signals
 
 Signals are rule-based monitoring prompts. Each signal includes:
 
 - signal name
 - direction
-- confidence score
+- qualitative evidence strength (numeric heuristic retained in exports for compatibility, not a probability)
 - rationale
 - trader interpretation
 - possible market implication
@@ -108,3 +112,7 @@ Signals are rule-based monitoring prompts. Each signal includes:
 - supporting metrics
 
 The signal engine is intended to explain market conditions and relationships. It does not make predictive claims and should not be treated as an automated trading recommendation.
+
+Current alerts exclude synthetic, unlabelled and stale inputs. Calendar season alone
+does not trigger a signal. See [upgrade notes](upgrade_notes.md) for exact date,
+source and data-override conventions.

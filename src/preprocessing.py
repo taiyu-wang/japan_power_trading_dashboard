@@ -1,10 +1,12 @@
-import numpy as np
 import pandas as pd
 
 
-def handle_missing_values(df: pd.DataFrame, group_col: str = "market") -> pd.DataFrame:
+def handle_missing_values(df: pd.DataFrame, group_col: str = "market", max_gap_days: int = 4) -> pd.DataFrame:
     out = df.sort_values([group_col, "date"]).copy()
-    out["price"] = out.groupby(group_col)["price"].transform(lambda s: s.ffill().bfill())
+    observed = out["date"].where(out["price"].notna()).groupby(out[group_col]).ffill()
+    fillable = (out["date"] - observed).dt.days.le(max_gap_days)
+    fillable &= ~out[group_col].astype(str).str.startswith("JEPX")
+    out["price"] = out["price"].where(out["price"].notna() | ~fillable, out.groupby(group_col)["price"].ffill())
     return out
 
 
@@ -18,7 +20,7 @@ def winsorize_outliers(df: pd.DataFrame, group_col: str = "market", lower: float
 
 
 def convert_frequency(df: pd.DataFrame, frequency: str) -> pd.DataFrame:
-    rule_map = {"daily": "D", "weekly": "W-FRI", "monthly": "M", "quarterly": "Q"}
+    rule_map = {"daily": "D", "weekly": "W-FRI", "monthly": "ME", "quarterly": "QE"}
     rule = rule_map.get(frequency.lower(), "D")
     if rule == "D":
         return df.copy()
@@ -45,6 +47,8 @@ def add_calendar_columns(df: pd.DataFrame, date_col: str = "date") -> pd.DataFra
     return out
 
 
-def prepare_historical(df: pd.DataFrame) -> pd.DataFrame:
-    return add_calendar_columns(winsorize_outliers(handle_missing_values(df)))
-
+def prepare_historical(df: pd.DataFrame, clean: bool = False) -> pd.DataFrame:
+    out = df.sort_values(["market", "date"]).copy()
+    if clean:
+        out = winsorize_outliers(handle_missing_values(out))
+    return add_calendar_columns(out)

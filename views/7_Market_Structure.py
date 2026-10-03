@@ -181,7 +181,7 @@ with st.sidebar:
     time_code = st.slider("Delivery block", 1, 48, 37, help="JEPX day-ahead uses 48 half-hour blocks. Block 37 is around 18:00.")
     price_band = st.selectbox("Depth band", [5, 10, 20], index=0, format_func=lambda value: f"+/- {value} JPY/kWh")
     sensitivity_shock = st.selectbox("Sensitivity shock", [500, 1000], index=0, format_func=lambda value: f"+{value:,} MW net demand")
-    comparison_mode = st.selectbox("Curve shift comparison", ["Previous day", "Previous week", "Start of selected range"], index=1)
+    comparison_mode = st.selectbox("Curve shift comparison", ["Previous day", "Previous week", "Start of selected range"], index=0)
 
 start, end = date_range if len(date_range) == 2 else (default_start, default_end)
 date_filtered_curves = curve_data[curve_data["delivery_date"].dt.date.between(start, end)].copy()
@@ -213,6 +213,8 @@ page_header(
 st.info(
     "This page uses public aggregate JEPX day-ahead bidding-curve data. It is ex-post market depth, not live order-book, participant-level, or plant-level offer data."
 )
+if not using_raw:
+    st.caption("Compact charts interpolate sampled price ladders. Their estimated crossing can differ from the full-curve reference used for published depth metrics.")
 
 if filtered_curves.empty:
     st.warning("No offer-stack rows for the selected date range and area group.")
@@ -297,7 +299,8 @@ with read_tab:
 
 with shift_tab:
     st.markdown("### Curve Shift")
-    available_dates = sorted(filtered_curves["delivery_date"].dt.normalize().drop_duplicates())
+    comparison_curves = curve_data[curve_data["area_group"].eq(area_group)]
+    available_dates = sorted(comparison_curves["delivery_date"].dt.normalize().drop_duplicates())
     current_date = selected_date.normalize()
     if comparison_mode == "Previous day":
         target_prior = current_date - pd.Timedelta(days=1)
@@ -305,15 +308,13 @@ with shift_tab:
         target_prior = current_date - pd.Timedelta(days=7)
     else:
         target_prior = pd.Timestamp(start)
-    prior_candidates = [date for date in available_dates if date <= target_prior and date < current_date]
-    if not prior_candidates:
-        prior_candidates = [date for date in available_dates if date < current_date]
+    prior_candidates = [date for date in available_dates if date == target_prior and date < current_date]
     prior_date = prior_candidates[-1] if prior_candidates else None
 
     if prior_date is None:
-        st.info("Curve shift needs at least two delivery dates in the selected view.")
+        st.info(f"{comparison_mode} comparison is unavailable: no curve for {target_prior.date()}. Select another comparison or refresh coverage.")
     else:
-        shift = calculate_offer_stack_shift(filtered_curves, prior_date, current_date, time_code, area_group)
+        shift = calculate_offer_stack_shift(comparison_curves, prior_date, current_date, time_code, area_group)
         shift_summary = shift.attrs.get("summary", {})
         st.caption(
             f"Comparison: {pd.Timestamp(prior_date).date()} vs {current_date.date()} for product {time_code}. "
@@ -333,7 +334,7 @@ with shift_tab:
             st.markdown("#### Benchmark Curve Shift")
             st.caption("Latest selected block versus prior 7-day, 30-day, and selected-window average curves.")
             benchmarks = calculate_offer_stack_shift_benchmarks(
-                filtered_curves,
+                comparison_curves,
                 current_date=current_date,
                 time_code=time_code,
                 area_group=area_group,
@@ -355,13 +356,15 @@ with shift_tab:
                     }.get(value, value),
                 )
                 benchmark_view = benchmarks[benchmarks["benchmark_label"].eq(benchmark_label)]
+                coverage = benchmark_view.iloc[0]
+                st.caption(f"Baseline: {coverage['benchmark_start_date']:%Y-%m-%d} to {coverage['benchmark_end_date']:%Y-%m-%d}; {coverage['benchmark_observed_days']} observed days. Incomplete rolling windows are excluded.")
                 st.plotly_chart(
                     offer_stack_shift_chart(benchmark_view, f"{area_group} Latest vs {benchmark_label.replace('_', ' ')}"),
                     width="stretch",
                 )
 
             st.markdown("#### Curve Shift by Delivery Block")
-            block_shift = _build_shift_by_block(filtered_curves, prior_date, current_date, area_group)
+            block_shift = _build_shift_by_block(comparison_curves, prior_date, current_date, area_group)
             if block_shift.empty:
                 st.info("No block-level curve-shift summary is available for the selected comparison.")
             else:
@@ -385,7 +388,7 @@ with shift_tab:
         st.caption(
             "Aggregates all 48 half-hour curves into trading periods. Positive supply-side tightening means less sell depth; positive buy-side strength means stronger demand depth."
         )
-        period_shift = calculate_offer_stack_period_shift(filtered_curves, prior_date, current_date, area_group)
+        period_shift = calculate_offer_stack_period_shift(comparison_curves, prior_date, current_date, area_group)
         if period_shift.empty:
             st.info("Time-of-day shift attribution is unavailable for this comparison.")
         else:

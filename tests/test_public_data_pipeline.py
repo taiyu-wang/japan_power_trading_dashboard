@@ -38,6 +38,24 @@ def test_publish_artifacts_writes_csv_and_manifest(tmp_path):
     assert saved["datasets"][0]["status"] == "current"
 
 
+def test_compact_offer_history_retains_31_days_and_replaces_revised_delivery_dates(tmp_path):
+    def artifact(dates, value):
+        return PublishedArtifact(
+            dataset_id="jepx_offer_stack_curves", label="Compact curves", source="JEPX",
+            filename="curves.csv", observation_column="delivery_date", stale_after_days=4,
+            frame=pd.DataFrame({"delivery_date": dates, "time_code": 1, "price": value}),
+        )
+    dates = pd.date_range("2026-08-20", periods=40)
+    publish_artifacts([artifact(dates, 10)], tmp_path, fetched_at=NOW)
+    manifest = publish_artifacts([artifact(pd.date_range("2026-09-28", periods=3), 20)], tmp_path, fetched_at=NOW)
+    saved = pd.read_csv(tmp_path / "curves.csv", parse_dates=["delivery_date"])
+    assert saved["delivery_date"].min() == pd.Timestamp("2026-08-31")
+    assert len(saved) == 31
+    assert not saved.duplicated(["delivery_date", "time_code"]).any()
+    assert saved.loc[saved["delivery_date"].eq("2026-09-28"), "price"].tolist() == [20]
+    assert manifest["datasets"][0]["row_count"] == 31
+
+
 def test_run_collectors_keeps_previous_record_when_one_collector_fails(tmp_path):
     previous_news = {
         "dataset_id": "news",

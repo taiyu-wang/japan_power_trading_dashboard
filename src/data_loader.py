@@ -63,12 +63,16 @@ def _published_or_local_csv(
     if prefer_published:
         try:
             return load_published_csv(artifact, parse_dates=parse_dates)
-        except Exception:
-            pass
+        except Exception as exc:
+            warning = f"Published {artifact} unavailable ({type(exc).__name__}); using local observations."
+    else:
+        warning = ""
     local_path = Path(path)
     if not local_path.exists():
         return pd.DataFrame()
-    return pd.read_csv(local_path, parse_dates=list(parse_dates) or None)
+    frame = pd.read_csv(local_path, parse_dates=list(parse_dates) or None)
+    frame.attrs["load_warning"] = warning if prefer_published else ""
+    return frame
 
 
 def _overlay_market_history(base: pd.DataFrame, updates: list[pd.DataFrame]) -> pd.DataFrame:
@@ -93,9 +97,14 @@ def load_historical_prices(
 ) -> pd.DataFrame:
     df = pd.read_csv(path, parse_dates=["date"])
     df["market"] = df["market"].astype(str)
+    if "source_type" not in df:
+        df["source_type"] = "synthetic" if Path(path) == Path(HISTORICAL_DATA_PATH) else "uploaded"
+    if "source" not in df:
+        df["source"] = "Bundled sample" if Path(path) == Path(HISTORICAL_DATA_PATH) else "Analyst supplied"
     prefer_published = Path(path) == Path(HISTORICAL_DATA_PATH) if use_published is None else use_published
     if prefer_published:
         updates = []
+        warnings = []
         try:
             updates.append(
                 load_published_csv(
@@ -103,23 +112,75 @@ def load_historical_prices(
                     parse_dates=("date",),
                 )
             )
-        except Exception:
-            pass
+        except Exception as exc:
+            warnings.append(f"JEPX spot snapshot unavailable ({type(exc).__name__}); sample rows retained.")
         try:
             published_intraday = load_published_csv(
                 PUBLISHED_ARTIFACTS["jepx_intraday"],
                 parse_dates=("delivery_date",),
             )
             updates.append(daily_jepx_intraday_prices(published_intraday))
-        except Exception:
-            pass
+        except Exception as exc:
+            warnings.append(f"JEPX intraday snapshot unavailable ({type(exc).__name__}); sample rows retained.")
+        updates = [frame.assign(source_type="public", source="JEPX public exchange data") for frame in updates]
         df = _overlay_market_history(df, updates)
+        df.attrs["load_warnings"] = warnings
     return df.sort_values(["market", "date"]).reset_index(drop=True)
+
+
+def get_historical_prices() -> pd.DataFrame:
+    override = st.session_state.get("historical_override")
+    return override.copy() if isinstance(override, pd.DataFrame) else load_historical_prices()
+
+
+@st.cache_data(show_spinner=False)
+def load_uploaded_historical(uploaded_file) -> pd.DataFrame:
+    frame = pd.read_csv(uploaded_file)
+    frame.columns = frame.columns.str.strip()
+    required = {"date", "market", "price", "currency", "unit"}
+    missing = required.difference(frame.columns)
+    if missing:
+        raise ValueError(f"Missing columns: {', '.join(sorted(missing))}")
+    if frame.empty:
+        raise ValueError("Historical upload is empty.")
+    frame["date"] = pd.to_datetime(frame["date"], errors="coerce").dt.tz_localize(None).dt.normalize()
+    frame["price"] = pd.to_numeric(frame["price"], errors="coerce")
+    if frame[["date", "price"]].isna().any().any() or not frame["price"].map(lambda x: float('-inf') < x < float('inf')).all():
+        raise ValueError("Invalid dates or non-finite prices in historical upload.")
+    for col in ["market", "currency", "unit"]:
+        if frame[col].isna().any() or frame[col].astype(str).str.strip().eq("").any():
+            raise ValueError(f"Blank {col} in historical upload.")
+    frame["market"] = frame["market"].astype(str).str.strip().str.upper()
+    frame["currency"] = frame["currency"].astype(str).str.strip().str.upper()
+    frame["unit"] = frame["unit"].astype(str).str.strip()
+    defaults = {"region": "Japan", "frequency": "daily", "contract": "spot"}
+    for col, value in defaults.items():
+        if col not in frame:
+            frame[col] = value
+    if "asset_class" not in frame:
+        frame["asset_class"] = frame["market"].map(lambda x: "Power" if x.startswith("JEPX") else "FX" if x == "USDJPY" else "Fuel")
+    if frame.duplicated(["date", "market"]).any():
+        raise ValueError("Duplicate date/market observations; aggregate or reconcile the source first.")
+    frame["source_type"] = "uploaded"
+    frame["source"] = "Analyst-supplied history"
+    expected = {"JKM": ("USD", "MMBtu"), "DES_JAPAN_LNG": ("USD", "MMBtu"), "JCC_LINKED_LNG": ("USD", "MMBtu"), "JCC": ("USD", "bbl"), "BRENT": ("USD", "bbl"), "NEWCASTLE_COAL": ("USD", "tonne"), "CFR_JAPAN_COAL": ("USD", "tonne")}
+    expected.update({market: ("JPY", "kWh") for market in frame["market"].unique() if market.startswith("JEPX")})
+    expected["USDJPY"] = ("JPY", "JPY/USD")
+    for market, (currency, unit) in expected.items():
+        selected = frame[frame["market"].eq(market)]
+        valid_unit = selected["unit"].isin([unit, f"{currency}/{unit}"])
+        if unit == "tonne":
+            valid_unit |= selected["unit"].isin(["t", "USD/t", "ton", "USD/ton"])
+        if not selected["currency"].eq(currency).all() or not valid_unit.all():
+            raise ValueError(f"{market} requires currency {currency} and unit {unit} for consistent analytics.")
+    return frame.sort_values(["market", "date"]).reset_index(drop=True)
 
 
 @st.cache_data(show_spinner=False)
 def load_forward_curves(path: str | Path = FORWARD_CURVES_PATH) -> pd.DataFrame:
     df = pd.read_csv(path, parse_dates=["curve_date", "contract_month"])
+    if "source_type" not in df:
+        df["source_type"] = "synthetic" if Path(path) == Path(FORWARD_CURVES_PATH) else "uploaded"
     return df.sort_values(["market", "curve_date", "contract_month"]).reset_index(drop=True)
 
 
@@ -130,6 +191,9 @@ def load_live_forward_curves() -> tuple[pd.DataFrame, list[str]]:
 
 
 def get_forward_curves(use_live: bool = False) -> tuple[pd.DataFrame, list[str], str]:
+    override = st.session_state.get("curve_override")
+    if isinstance(override, pd.DataFrame):
+        return override.copy(), [], "Uploaded desk curve"
     if not use_live:
         return load_forward_curves(), [], "Bundled fallback CSV"
     try:
@@ -162,8 +226,8 @@ def get_weather_temperatures(use_live: bool = False, start_date=None, end_date=N
                 parse_dates=("date",),
             )
             return normalize_weather_data(published), [], "Scheduled Open-Meteo snapshot"
-        except Exception:
-            return load_weather_temperatures(), [], "Bundled sample weather CSV"
+        except Exception as exc:
+            return load_weather_temperatures(), [f"Published weather unavailable ({type(exc).__name__}); using sample observations."], "Bundled sample weather CSV"
     try:
         if start_date is None or end_date is None:
             fallback = load_weather_temperatures()
@@ -185,6 +249,7 @@ def load_processed_generation_mix(
     use_published: bool | None = None,
 ) -> pd.DataFrame:
     prefer_published = Path(path) == Path(SUPPLY_MIX_MONTHLY_PATH) if use_published is None else use_published
+    warning = ""
     if prefer_published:
         try:
             frame = normalize_generation_mix(
@@ -192,12 +257,13 @@ def load_processed_generation_mix(
             )
             frame.attrs["published"] = True
             return frame
-        except Exception:
-            pass
+        except Exception as exc:
+            warning = f"Published generation mix unavailable ({type(exc).__name__}); using local observations."
     if not Path(path).exists():
         return pd.DataFrame()
     frame = normalize_generation_mix(pd.read_csv(path))
     frame.attrs["published"] = False
+    frame.attrs["load_warning"] = warning
     return frame
 
 
@@ -238,7 +304,8 @@ def get_generation_mix(use_processed: bool = True) -> tuple[pd.DataFrame, list[s
                 if processed.attrs.get("published")
                 else "Bundled processed JapanesePower.org Tokyo/Kansai aggregates"
             )
-            return processed, [], source
+            warning = processed.attrs.get("load_warning")
+            return processed, [warning] if warning else [], source
         return load_generation_mix(), ["Processed public generation mix is unavailable; using bundled synthetic sample."], "Bundled synthetic regional generation mix"
     return load_generation_mix(), [], "Bundled synthetic regional generation mix"
 
@@ -281,8 +348,8 @@ def get_power_news(use_live: bool = False) -> tuple[pd.DataFrame, list[str], str
                 parse_dates=("published_at",),
             )
             return normalize_news_events(published), [], "Scheduled public news snapshot"
-        except Exception:
-            return load_power_news(), [], "Bundled sample news"
+        except Exception as exc:
+            return load_power_news(), [f"Published news unavailable ({type(exc).__name__}); using sample items."], "Bundled sample news"
     try:
         news, warnings, sources = load_live_power_news_with_diagnostics()
         if news.empty:
@@ -416,14 +483,17 @@ def validate_forward_curve(df: pd.DataFrame) -> DatasetDiagnostics:
         return DatasetDiagnostics(tuple(errors), tuple(warnings))
     if df["market"].astype(str).str.strip().eq("").any():
         errors.append("Forward curve upload contains blank market codes.")
-    if df["price"].isna().any():
-        errors.append("Forward curve upload contains non-numeric or blank prices.")
+    if df["price"].isna().any() or not df["price"].map(lambda price: float("-inf") < price < float("inf")).all():
+        errors.append("Forward curve upload contains non-numeric, blank or non-finite prices.")
     if (df["price"] <= 0).any():
         warnings.append("Forward curve upload contains non-positive prices; check units and signs.")
     if df["curve_date"].isna().any() or df["contract_month"].isna().any():
         errors.append("Forward curve upload contains invalid curve_date or contract_month values.")
     if not df[["curve_date", "contract_month", "market"]].drop_duplicates().shape[0] == len(df):
         warnings.append("Duplicate curve points detected; averages will be used in charts and analytics.")
+    for column in ["currency", "unit"]:
+        if column in df and df.groupby("market")[column].nunique().gt(1).any():
+            errors.append(f"Forward curve contains inconsistent {column} within a market.")
     if df["contract_month"].lt(df["curve_date"].dt.to_period("M").dt.start_time).any():
         warnings.append("Some contract months are earlier than curve date; verify tenor labels.")
     return DatasetDiagnostics(tuple(errors), tuple(warnings))
@@ -438,13 +508,14 @@ def normalize_forward_curve_upload(df: pd.DataFrame) -> pd.DataFrame:
     if "price" in out.columns:
         out["price"] = pd.to_numeric(out["price"], errors="coerce")
     if "market" in out.columns:
-        out["market"] = out["market"].astype(str).str.strip().str.upper()
+        out["market"] = out["market"].fillna("").astype(str).str.strip().str.upper()
     for col in ["region", "currency", "unit"]:
         if col not in out.columns:
             out[col] = ""
         out[col] = out[col].fillna("").astype(str).str.strip()
     optional_defaults = {
         "contract_type": "uploaded_curve",
+        "source_type": "uploaded",
         "source_note": "User-uploaded forward curve; verify source, settlement basis, and unit before trading use.",
     }
     for col, default in optional_defaults.items():
@@ -463,6 +534,10 @@ def load_uploaded_curve(uploaded_file) -> pd.DataFrame:
     diagnostics = validate_forward_curve(df)
     if not diagnostics.ok:
         raise ValueError("; ".join(diagnostics.errors))
+    keys = ["curve_date", "contract_month", "market"]
+    if df.duplicated(keys).any():
+        aggregates = {column: "mean" if column == "price" else "first" for column in df.columns if column not in keys}
+        df = df.groupby(keys, as_index=False).agg(aggregates)
     df.attrs["diagnostics"] = diagnostics
     return df
 

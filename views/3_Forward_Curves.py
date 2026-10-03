@@ -9,23 +9,31 @@ from src.charts import bar_chart, baseload_price_volume_chart, forward_curve_cha
 from src.config import MARKET_NOTES
 from src.data_loader import get_forward_curves, load_jepx_baseload, load_power_futures, load_uploaded_curve, load_uploaded_power_futures
 from src.indicators import forward_curve_metrics
+from src.market_context import japan_today
 from src.live_forward_curves import required_vendor_curve_sources
 from src.power_futures import power_futures_front_snapshot, power_futures_peak_premium, power_futures_source_notes
 from src.utils import configure_page, dataframe_with_dates, download_button, page_header, source_status_panel
 
 
-configure_page("Forward Curves")
+def _restore_curves():
+    st.session_state.pop("curve_override", None)
+    st.session_state["curve_upload_epoch"] = st.session_state.get("curve_upload_epoch", 0) + 1
+
+
+configure_page("Curves & Hedges")
 
 with st.sidebar:
     st.header("Curve Console")
     use_live_curves = st.toggle("Refresh live public curves", value=False, help="Bundled curves load fastest on deployed Streamlit. Enable to attempt live Brent/JCC-derived curves.")
-    uploaded = st.file_uploader("Upload forward curve CSV", type=["csv"])
+    uploaded = st.file_uploader("Upload forward curve CSV", type=["csv"], key=f"curve_upload_{st.session_state.get('curve_upload_epoch', 0)}")
+    st.button("Restore published / sample curves", icon=":material/restart_alt:", on_click=_restore_curves)
     uploaded_power_futures = st.file_uploader("Upload monthly power futures CSV", type=["csv"], key="power_futures_upload")
 
 curves, curve_warnings, curve_source_label = get_forward_curves(use_live_curves)
 if uploaded is not None:
     try:
         curves = load_uploaded_curve(uploaded)
+        st.session_state["curve_override"] = curves
         curve_source_label = "Uploaded CSV"
         curve_warnings = []
         st.sidebar.success("Uploaded curve loaded.")
@@ -37,7 +45,7 @@ if uploaded is not None:
         st.sidebar.error(str(exc))
 
 page_header(
-    "Forward Curves",
+    "Curves & Hedges",
     (
         f"Curve source: {curve_source_label}. Brent live where available; JCC/JCC-linked LNG are Brent-derived proxies. "
         "JKM, coal, and Japan power forwards require licensed/vendor settlement or upload."
@@ -79,21 +87,27 @@ manual = st.sidebar.expander("Manual curve input")
 with manual:
     manual_market = st.text_input("Market code", value=market)
     manual_price = st.number_input("Front price", value=12.0)
+    manual_currency = st.selectbox("Quote currency", ["USD", "JPY"])
+    manual_unit = st.selectbox("Quote unit", ["MMBtu", "bbl", "tonne", "kWh"])
     if st.button("Append manual front point"):
         new = pd.DataFrame(
             {
-                "curve_date": [pd.Timestamp.today().normalize()],
-                "contract_month": [pd.Timestamp.today().normalize() + pd.offsets.MonthBegin(1)],
+                "curve_date": [japan_today()],
+                "contract_month": [japan_today() + pd.offsets.MonthBegin(1)],
                 "market": [manual_market],
                 "region": ["Japan"],
                 "price": [manual_price],
-                "currency": ["USD"],
-                "unit": ["MMBtu"],
+                "currency": [manual_currency],
+                "unit": [manual_unit],
                 "contract_type": ["manual_analyst_input"],
                 "source_note": ["Manual analyst input; verify source, unit, and settlement basis before use."],
+                "source_type": ["manual_unverified"],
             }
         )
-        curves = pd.concat([curves, new], ignore_index=True)
+        mask = curves["market"].eq(manual_market) & curves["curve_date"].eq(new["curve_date"].iloc[0]) & curves["contract_month"].eq(new["contract_month"].iloc[0])
+        curves = pd.concat([curves[~mask], new], ignore_index=True)
+        st.session_state["curve_override"] = curves
+        st.rerun()
 
 filtered = curves[(curves["market"] == market) & (curves["curve_date"].dt.date.isin(curve_dates))]
 if market in MARKET_NOTES:
@@ -102,18 +116,25 @@ if "contract_type" in filtered.columns and not filtered.empty:
     contract_type = filtered["contract_type"].dropna().astype(str).unique()
     if len(contract_type):
         st.caption(f"Contract classification: {', '.join(contract_type)}")
-st.plotly_chart(forward_curve_chart(filtered, f"{market} Forward Curve Comparison"), width="stretch")
+if filtered.empty:
+    st.info("Select a market and at least one curve date.")
+else:
+    quote_date = filtered["curve_date"].max()
+    st.caption(f"Curve dated {quote_date:%d %b %Y}. Prices are not a live quote unless the stated source and vintage support it.")
+    if filtered.get("source_type", pd.Series(dtype=str)).eq("synthetic").any():
+        st.warning("Synthetic curve scenario, not executable market pricing.")
+    st.plotly_chart(forward_curve_chart(filtered, f"{market} Forward Curve Comparison"), width="stretch")
 
-metrics = forward_curve_metrics(curves[curves["market"] == market])
+metrics = forward_curve_metrics(filtered)
 latest_metrics = metrics.sort_values("curve_date").tail(1)
 cols = st.columns(5)
 if not latest_metrics.empty:
     row = latest_metrics.iloc[0]
     cols[0].metric("Front premium", f"{row['front_month_premium']:.2f}")
-    cols[1].metric("Prompt-quarter avg", f"{row['quarterly_average']:.2f}")
-    cols[2].metric("Cal strip avg", f"{row['calendar_average']:.2f}")
+    cols[1].metric("Next 3 quoted tenors", f"{row['quarterly_average']:.2f}")
+    cols[2].metric("Next 12 quoted tenors", f"{row['calendar_average']:.2f}")
     cols[3].metric("Back minus front", f"{row.get('steepness', 0):.2f}")
-    cols[4].metric("M1-M2 carry", f"{row['rolling_carry']:.2f}")
+    cols[4].metric("Next less first tenor", f"{row['rolling_carry']:.2f}")
 
 strips = filtered.assign(quarter=filtered["contract_month"].dt.to_period("Q").astype(str)).groupby(["curve_date", "quarter"], as_index=False)["price"].mean()
 st.plotly_chart(bar_chart(strips, "quarter", "price", "curve_date", "Quarterly Strip Analysis"), width="stretch")

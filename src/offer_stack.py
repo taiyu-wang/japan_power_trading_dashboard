@@ -440,7 +440,7 @@ def calculate_offer_stack_shift(
             "buy_cumulative_mw": "current_buy_cumulative_mw",
         }
     )
-    shift = current.merge(prior, on="bid_price_jpy_kwh", how="inner").sort_values("bid_price_jpy_kwh")
+    shift = _align_curve_pair(current, prior)
     shift["sell_shift_mw"] = shift["current_sell_cumulative_mw"] - shift["prior_sell_cumulative_mw"]
     shift["buy_shift_mw"] = shift["current_buy_cumulative_mw"] - shift["prior_buy_cumulative_mw"]
 
@@ -583,6 +583,21 @@ def calculate_offer_stack_period_shift(
     return out.sort_values(["_period_order", "time_code"]).drop(columns="_period_order").reset_index(drop=True)
 
 
+def _align_curve_pair(left: pd.DataFrame, right: pd.DataFrame) -> pd.DataFrame:
+    """Interpolate compact curves on a common grid within their shared price range."""
+    price_col = "bid_price_jpy_kwh"
+    lower = max(left[price_col].min(), right[price_col].min())
+    upper = min(left[price_col].max(), right[price_col].max())
+    grid = np.union1d(left[price_col], right[price_col])
+    grid = grid[(grid >= lower) & (grid <= upper)]
+    out = pd.DataFrame({price_col: grid})
+    for frame in (left, right):
+        ordered = frame.sort_values(price_col)
+        for column in ordered.columns.difference([price_col]):
+            out[column] = np.interp(grid, ordered[price_col], ordered[column])
+    return out
+
+
 def _average_offer_stack_curve(
     df: pd.DataFrame,
     start_date: pd.Timestamp,
@@ -598,12 +613,22 @@ def _average_offer_stack_curve(
         & work["area_group"].astype(str).eq(area_group)
     )
     cols = ["bid_price_jpy_kwh", "sell_cumulative_mw", "buy_cumulative_mw"]
-    sample = work.loc[mask, cols].copy()
+    sample = work.loc[mask, ["delivery_date"] + cols].copy()
     if sample.empty:
         return pd.DataFrame(columns=cols + ["net_supply_mw"])
     for col in cols:
         sample[col] = pd.to_numeric(sample[col], errors="coerce")
-    avg = sample.dropna().groupby("bid_price_jpy_kwh", as_index=False)[["sell_cumulative_mw", "buy_cumulative_mw"]].mean()
+    sample = sample.dropna()
+    daily = [group.groupby("bid_price_jpy_kwh", as_index=False)[cols[1:]].mean().sort_values("bid_price_jpy_kwh") for _, group in sample.groupby("delivery_date")]
+    if not daily:
+        return pd.DataFrame(columns=cols + ["net_supply_mw"])
+    lower = max(group["bid_price_jpy_kwh"].min() for group in daily)
+    upper = min(group["bid_price_jpy_kwh"].max() for group in daily)
+    grid = np.unique(sample["bid_price_jpy_kwh"])
+    grid = grid[(grid >= lower) & (grid <= upper)]
+    avg = pd.DataFrame({"bid_price_jpy_kwh": grid})
+    for col in cols[1:]:
+        avg[col] = np.mean([np.interp(grid, group["bid_price_jpy_kwh"], group[col]) for group in daily], axis=0)
     avg["net_supply_mw"] = avg["sell_cumulative_mw"] - avg["buy_cumulative_mw"]
     return avg.sort_values("bid_price_jpy_kwh").reset_index(drop=True)
 
@@ -654,10 +679,15 @@ def calculate_offer_stack_shift_benchmarks(
         end = current - pd.Timedelta(days=1)
         benchmark_specs.append((f"{int(days)}d_avg", start, end))
     if selected_start is not None and selected_end is not None:
-        benchmark_specs.append(("selected_avg", pd.Timestamp(selected_start).normalize(), pd.Timestamp(selected_end).normalize()))
+        benchmark_specs.append(("selected_avg", pd.Timestamp(selected_start).normalize(), min(pd.Timestamp(selected_end).normalize(), current - pd.Timedelta(days=1))))
 
     frames: list[pd.DataFrame] = []
     for label, start, end in benchmark_specs:
+        sample = area_work[area_work["delivery_date"].between(start, end) & area_work["time_code"].eq(int(time_code))]
+        observed_days = sample["delivery_date"].nunique()
+        expected_days = (end - start).days + 1
+        if label != "selected_avg" and observed_days < expected_days:
+            continue
         benchmark = _average_offer_stack_curve(area_work, start, end, int(time_code), area_group)
         if benchmark.empty:
             continue
@@ -668,12 +698,14 @@ def calculate_offer_stack_shift_benchmarks(
                 "net_supply_mw": "benchmark_net_supply_mw",
             }
         )
-        shift = current_curve.merge(benchmark, on="bid_price_jpy_kwh", how="inner")
+        shift = _align_curve_pair(current_curve, benchmark)
         if shift.empty:
             continue
         shift["benchmark_label"] = label
         shift["benchmark_start_date"] = start
         shift["benchmark_end_date"] = end
+        shift["benchmark_observed_days"] = observed_days
+        shift["benchmark_expected_days"] = expected_days
         shift["current_date"] = current
         shift["time_code"] = int(time_code)
         shift["area_group"] = area_group

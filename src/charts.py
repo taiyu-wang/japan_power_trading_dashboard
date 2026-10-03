@@ -2,15 +2,17 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 from .config import MARKET_COLORS
+from .market_context import MARKET_LABELS
 
 
 PLOT_TEMPLATE = "plotly_white"
-PAPER_BG = "#FFFFFF"
-PLOT_BG = "#FFFFFF"
-GRID_COLOR = "rgba(31, 41, 51, 0.08)"
-REFERENCE_LINE = "rgba(31, 41, 51, 0.32)"
+PAPER_BG = "rgba(0,0,0,0)"
+PLOT_BG = "rgba(0,0,0,0)"
+GRID_COLOR = "rgba(127, 127, 127, 0.18)"
+REFERENCE_LINE = "rgba(127, 127, 127, 0.5)"
 TEXT_COLOR = "#1F2933"
 MUTED_COLOR = "#667085"
 NAVY = "#2F3A4A"
@@ -20,7 +22,7 @@ LIGHT_BLUE = "#4F86F7"
 AMBER = "#D39B36"
 GREEN = "#008A66"
 TEAL = "#00A6A6"
-COAL = "#2F3136"
+COAL = "#7A8798"
 DISPLAY_LABELS = {
     "area": "Area",
     "asset_class": "Asset class",
@@ -51,13 +53,13 @@ DISPLAY_LABELS = {
 }
 
 
-def apply_terminal_layout(fig: go.Figure, height: int = 430) -> go.Figure:
+def apply_terminal_layout(fig: go.Figure, height: int = 360) -> go.Figure:
     fig.update_layout(
         template=PLOT_TEMPLATE,
         height=height,
-        margin=dict(l=42, r=24, t=78, b=40),
-        title=dict(font=dict(size=15, color=NAVY), x=0.01, xanchor="left", y=0.98, yanchor="top"),
-        font=dict(size=12, color=TEXT_COLOR),
+        margin=dict(l=48, r=24, t=64, b=40),
+        title=dict(font=dict(size=15), x=0.01, xanchor="left", y=0.98, yanchor="top"),
+        font=dict(size=12),
         paper_bgcolor=PAPER_BG,
         plot_bgcolor=PLOT_BG,
         colorway=[GREEN, BLUE, RED, TEAL, AMBER, "#7B61FF", "#C05A8A", COAL],
@@ -68,10 +70,10 @@ def apply_terminal_layout(fig: go.Figure, height: int = 430) -> go.Figure:
             xanchor="left",
             x=0,
             bgcolor="rgba(255,255,255,0)",
-            font=dict(size=11, color=TEXT_COLOR),
+            font=dict(size=12),
             itemwidth=30,
         ),
-        hoverlabel=dict(font_size=12, align="left", bgcolor="#FFFFFF", bordercolor="#E3E8EF", font_color=TEXT_COLOR),
+        hoverlabel=dict(font_size=12, align="left"),
         modebar=dict(orientation="h"),
     )
     fig.update_xaxes(showgrid=True, gridcolor=GRID_COLOR, zeroline=False, ticks="outside", ticklen=4, linecolor="#E3E8EF")
@@ -109,13 +111,19 @@ def _unit_title(df: pd.DataFrame, fallback: str = "Price / index level") -> str:
         pairs = pairs[(pairs["currency"].astype(str) != "") | (pairs["unit"].astype(str) != "")]
         if len(pairs) == 1:
             row = pairs.iloc[0]
-            return f"{row['currency']}/{row['unit']}".strip("/")
+            return row["unit"] if str(row["unit"]).startswith(str(row["currency"]) + "/") else f"{row['currency']}/{row['unit']}".strip("/")
     return fallback
 
 
 def line_chart(df: pd.DataFrame, x: str, y: str, color: str, title: str, y_title: str | None = None) -> go.Figure:
-    fig = px.line(df, x=x, y=y, color=color, title=title, color_discrete_map=MARKET_COLORS, template=PLOT_TEMPLATE, hover_data=_hover_data(df), labels=_labels())
-    fig.update_layout(hovermode="x unified", legend_title_text="", yaxis_title=y_title or y, xaxis_title="")
+    df = df.copy()
+    colors = MARKET_COLORS.copy()
+    colors["JEPX_SYSTEM"] = "#7A8798"
+    if color == "market":
+        df[color] = df[color].map(MARKET_LABELS).fillna(df[color])
+        colors.update({MARKET_LABELS.get(k, k): v for k, v in list(colors.items())})
+    fig = px.line(df, x=x, y=y, color=color, title=title, color_discrete_map=colors, template=PLOT_TEMPLATE, hover_data=_hover_data(df), labels=_labels())
+    fig.update_layout(hovermode="x unified", legend_title_text="", yaxis_title=y_title or _unit_title(df, _labels().get(y, y)), xaxis_title="")
     return apply_terminal_layout(fig)
 
 
@@ -486,95 +494,41 @@ def offer_stack_scenario_bar(df: pd.DataFrame, title: str = "Price Impact by MW 
 
 
 def offer_stack_shift_chart(df: pd.DataFrame, title: str = "Bidding Curve Shift") -> go.Figure:
-    fig = go.Figure()
+    fig = make_subplots(rows=3, cols=1, shared_xaxes=True, vertical_spacing=0.09,
+                        subplot_titles=("Supply offered: positive = more supply",
+                                        "Demand bid: positive = stronger demand",
+                                        "Net depth: positive = looser balance"))
     if df.empty:
-        return apply_terminal_layout(fig.update_layout(title=title), height=430)
+        return apply_terminal_layout(fig.update_layout(title=title), height=580)
     plot_df = df.copy()
-    for col in ["bid_price_jpy_kwh", "sell_shift_mw", "buy_shift_mw"]:
-        plot_df[col] = pd.to_numeric(plot_df[col], errors="coerce")
-    plot_df = plot_df.dropna(subset=["bid_price_jpy_kwh", "sell_shift_mw", "buy_shift_mw"]).sort_values("bid_price_jpy_kwh")
-    clearing = df.attrs.get("summary", {}).get("current_clearing_price_estimate") if isinstance(df.attrs.get("summary"), dict) else None
-    if clearing is not None and pd.notna(clearing):
-        lower = max(0, float(clearing) - 25)
-        upper = max(float(clearing) + 35, 60)
-        window = plot_df[plot_df["bid_price_jpy_kwh"].between(lower, upper)].copy()
-        if len(window) >= 3:
-            plot_df = window
-    elif plot_df["bid_price_jpy_kwh"].max() > 120:
-        window = plot_df[plot_df["bid_price_jpy_kwh"].le(120)].copy()
-        if len(window) >= 3:
-            plot_df = window
+    columns = ["bid_price_jpy_kwh", "sell_shift_mw", "buy_shift_mw"]
+    plot_df[columns] = plot_df[columns].apply(pd.to_numeric, errors="coerce")
+    plot_df = plot_df.dropna(subset=columns).sort_values("bid_price_jpy_kwh")
+    clearing = df.attrs.get("summary", {}).get("current_clearing_price_estimate")
+    upper = max(float(clearing) + 20, 40) if clearing is not None and pd.notna(clearing) else 60
+    lower = max(0, float(clearing) - 20) if clearing is not None and pd.notna(clearing) else 0
+    window = plot_df[plot_df["bid_price_jpy_kwh"].between(lower, upper)]
+    if len(window) >= 3:
+        plot_df = window
     plot_df["net_depth_shift_mw"] = plot_df["sell_shift_mw"] - plot_df["buy_shift_mw"]
-    fig.add_trace(
-        go.Scatter(
-            x=plot_df["bid_price_jpy_kwh"],
-            y=plot_df["sell_shift_mw"],
-            mode="lines+markers",
-            name="Sell depth shift",
-            line=dict(color=RED, width=2.2),
-            customdata=plot_df[["bid_price_jpy_kwh", "sell_shift_mw"]],
-            hovertemplate="Price: %{customdata[0]:.2f} JPY/kWh<br>Shift: %{customdata[1]:+,.0f} MW<br>Curve: Sell depth<extra></extra>",
-        )
-    )
-    fig.add_trace(
-        go.Scatter(
-            x=plot_df["bid_price_jpy_kwh"],
-            y=plot_df["buy_shift_mw"],
-            mode="lines+markers",
-            name="Buy depth shift",
-            line=dict(color=BLUE, width=2.2),
-            customdata=plot_df[["bid_price_jpy_kwh", "buy_shift_mw"]],
-            hovertemplate="Price: %{customdata[0]:.2f} JPY/kWh<br>Shift: %{customdata[1]:+,.0f} MW<br>Curve: Buy depth<extra></extra>",
-        )
-    )
-    fig.add_trace(
-        go.Bar(
-            x=plot_df["bid_price_jpy_kwh"],
-            y=plot_df["net_depth_shift_mw"],
-            name="Net depth shift",
-            marker_color="rgba(127, 127, 127, 0.34)",
-            customdata=plot_df[["bid_price_jpy_kwh", "net_depth_shift_mw"]],
-            hovertemplate="Price: %{customdata[0]:.2f} JPY/kWh<br>Net depth shift: %{customdata[1]:+,.0f} MW<extra></extra>",
-        )
-    )
-    fig.add_hline(y=0, line_color=REFERENCE_LINE, line_width=1)
-    if clearing is not None and pd.notna(clearing):
-        fig.add_vline(
-            x=float(clearing),
-            line_color=AMBER,
-            line_dash="dot",
-            line_width=1,
-            annotation_text=f"Clearing {float(clearing):.2f}",
-            annotation_position="top right",
-        )
-        summary = df.attrs.get("summary", {}) if isinstance(df.attrs.get("summary"), dict) else {}
-        if summary:
-            fig.add_annotation(
-                x=float(clearing),
-                y=0,
-                text=(
-                    f"Sell {summary.get('sell_shift_at_clearing_mw', 0):+,.0f} MW<br>"
-                    f"Buy {summary.get('buy_shift_at_clearing_mw', 0):+,.0f} MW<br>"
-                    f"Net {summary.get('net_depth_shift_at_clearing_mw', 0):+,.0f} MW"
-                ),
-                showarrow=True,
-                arrowhead=2,
-                ax=60,
-                ay=-70,
-                bgcolor="rgba(127, 127, 127, 0.16)",
-                bordercolor=REFERENCE_LINE,
-                borderwidth=1,
-                font=dict(size=11),
-            )
-    fig.update_layout(
-        title=title,
-        hovermode="x unified",
-        barmode="relative",
-        legend_title_text="",
-        xaxis_title="Bid price around clearing (JPY/kWh)",
-        yaxis_title="Cumulative depth shift (MW)",
-    )
-    return apply_terminal_layout(fig, height=430)
+    scale = max(1, plot_df[["sell_shift_mw", "buy_shift_mw", "net_depth_shift_mw"]].abs().max().max()) * 1.15
+    for row, (column, name, color) in enumerate([
+        ("sell_shift_mw", "Sell depth shift", RED),
+        ("buy_shift_mw", "Buy depth shift", BLUE),
+        ("net_depth_shift_mw", "Net depth shift", GREEN),
+    ], start=1):
+        fig.add_trace(go.Scatter(
+            x=plot_df["bid_price_jpy_kwh"], y=plot_df[column], mode="lines",
+            name=name, line=dict(color=color, width=2),
+            hovertemplate="Price: %{x:.2f} JPY/kWh<br>Shift: %{y:+,.0f} MW<extra>%{fullData.name}</extra>",
+        ), row=row, col=1)
+        fig.add_hline(y=0, line_color=REFERENCE_LINE, line_width=1, row=row, col=1)
+        fig.update_yaxes(range=[-scale, scale], title_text="Cumulative depth shift (MW)" if row == 1 else "MW", row=row, col=1)
+        if clearing is not None and pd.notna(clearing):
+            fig.add_vline(x=float(clearing), line_color=AMBER, line_dash="dot", row=row, col=1)
+    fig.update_layout(title=title, hovermode="x unified", showlegend=False)
+    fig.update_xaxes(title_text="Bid price around clearing (JPY/kWh)", row=3, col=1)
+    return apply_terminal_layout(fig, height=580)
 
 
 def offer_stack_period_shift_chart(df: pd.DataFrame, title: str = "Offer-Stack Shift by Time Period") -> go.Figure:

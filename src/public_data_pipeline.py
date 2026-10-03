@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections.abc import Callable, Iterable, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 import pandas as pd
@@ -88,6 +88,15 @@ def publish_artifacts(
     output.mkdir(parents=True, exist_ok=True)
     records = {record["dataset_id"]: dict(record) for record in retained_records}
     for artifact in artifacts:
+        if artifact.dataset_id in {"jepx_offer_stack_depth", "jepx_offer_stack_curves"}:
+            path = output / artifact.filename
+            current = artifact.frame.copy()
+            current["delivery_date"] = pd.to_datetime(current["delivery_date"])
+            if path.exists():
+                previous = pd.read_csv(path, parse_dates=["delivery_date"])
+                previous = previous[~previous["delivery_date"].isin(current["delivery_date"])]
+                current = pd.concat([previous, current], ignore_index=True)
+            artifact = replace(artifact, frame=trim_latest_days(current, "delivery_date", 31))
         record = _record_for_artifact(artifact, fetched_at)
         _atomic_csv_write(artifact.frame, output / artifact.filename)
         records[artifact.dataset_id] = record

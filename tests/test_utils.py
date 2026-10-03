@@ -19,6 +19,12 @@ def test_format_dates_for_display_removes_midnight_time():
     assert out.loc[0, "price"] == 12.5
 
 
+def test_front_month_price_is_not_formatted_as_a_date():
+    df = pd.DataFrame({"front_month": [12.5], "curve_date": [pd.Timestamp("2026-10-01")]})
+    out = format_dates_for_display(df)
+    assert out.loc[0, "front_month"] == 12.5
+
+
 def test_freshness_bar_html_shows_group_dates_and_status_classes():
     manifest = {
         "overall_status": "stale",

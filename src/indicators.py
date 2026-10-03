@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 
 from .transformations import calculate_curve_steepness, calculate_spread, pivot_prices
+from .market_context import bounded_prices, japan_today
 
 
 KCAL_TO_KJ = 4.1868
@@ -12,25 +13,27 @@ def coal_thermal_mwh_per_tonne(coal_kcal_kg: float = 6000.0) -> float:
     return coal_kcal_kg * 1000 * KCAL_TO_KJ / 3600 / 1000
 
 
-def _select_coal_reference(prices: pd.DataFrame, coal_markets: tuple[str, ...] = DEFAULT_COAL_MARKETS) -> tuple[pd.Series | None, str | None]:
+def _select_coal_reference(prices: pd.DataFrame, coal_markets: tuple[str, ...] = DEFAULT_COAL_MARKETS) -> tuple[pd.Series | None, pd.Series | None]:
+    selected = pd.Series(np.nan, index=prices.index, dtype=float)
+    labels = pd.Series(None, index=prices.index, dtype=object)
     for market in coal_markets:
-        if market in prices.columns and prices[market].notna().any():
-            return prices[market], market
-    return None, None
+        if market in prices:
+            mask = selected.isna() & prices[market].notna()
+            selected.loc[mask] = prices.loc[mask, market]
+            labels.loc[mask] = market
+    return (selected, labels) if selected.notna().any() else (None, None)
 
 
-def latest_snapshot(df: pd.DataFrame) -> pd.DataFrame:
+def latest_snapshot(df: pd.DataFrame, as_of=None) -> pd.DataFrame:
     latest = df.sort_values("date").groupby("market", as_index=False).tail(1)
-    one_month_ago = df["date"].max() - pd.Timedelta(days=30)
-    prev = (
-        df[df["date"] <= one_month_ago]
-        .sort_values("date")
-        .groupby("market", as_index=False)
-        .tail(1)[["market", "price"]]
-        .rename(columns={"price": "price_30d_ago"})
-    )
+    candidates = df.merge(latest[["market", "date"]].rename(columns={"date": "quote_date"}), on="market")
+    target = candidates["quote_date"] - pd.Timedelta(days=30)
+    candidates = candidates[candidates["date"].le(target) & candidates["date"].ge(target - pd.Timedelta(days=7))]
+    prev = candidates.sort_values("date").groupby("market", as_index=False).tail(1)[["market", "price"]].rename(columns={"price": "price_30d_ago"})
     out = latest.merge(prev, on="market", how="left")
     out["change_30d_pct"] = (out["price"] / out["price_30d_ago"] - 1) * 100
+    current = pd.Timestamp(as_of).normalize() if as_of is not None else japan_today()
+    out["age_days"] = (current - out["date"]).dt.days.clip(lower=0)
     return out
 
 
@@ -52,12 +55,17 @@ def calculate_srmc_comparison(
     gas_vom_jpy_mwh: float = 500.0,
     coal_vom_jpy_mwh: float = 700.0,
 ) -> pd.DataFrame:
-    prices = pivot_prices(df).ffill().bfill()
-    required = ["JKM", "JCC", "USDJPY", "JEPX_SYSTEM"]
-    missing = [market for market in required if market not in prices.columns]
-    coal_price, coal_reference_market = _select_coal_reference(prices, coal_markets)
-    if missing or coal_price is None:
+    if not 0 < gas_efficiency <= 1 or not 0 < coal_efficiency <= 1 or coal_kcal_kg <= 0:
+        raise ValueError("Efficiencies must be in (0, 1] and coal heat content must be positive.")
+    prices = bounded_prices(df)
+    if prices.empty:
         return pd.DataFrame(columns=["date", "coal_srmc", "jkm_gas_srmc", "jcc_11_srmc", "jcc_13_srmc", "jepx_system", "coal_reference_market"])
+    for market in ["JKM", "JCC", "USDJPY", "JEPX_SYSTEM"]:
+        if market not in prices:
+            prices[market] = np.nan
+    coal_price, coal_reference_market = _select_coal_reference(prices, coal_markets)
+    if coal_price is None:
+        coal_price = pd.Series(np.nan, index=prices.index)
 
     heat_rate_mmbtu_mwh = 3.412 / gas_efficiency
     coal_energy_mwh_tonne = coal_thermal_mwh_per_tonne(coal_kcal_kg)
@@ -81,23 +89,26 @@ def calculate_srmc_comparison(
             "jcc_13_srmc": jcc_13_jpy_mwh / 1000,
             "jepx_system": prices["JEPX_SYSTEM"],
         }
-    ).dropna()
+    ).dropna(subset=["jepx_system"], how="all")
 
 
-def spread_suite(df: pd.DataFrame) -> pd.DataFrame:
+def spread_suite(df: pd.DataFrame, **srmc_settings) -> pd.DataFrame:
     pairs = [
         ("JKM", "JCC_LINKED_LNG", "JKM minus JCC-linked LNG"),
-        ("JKM", "NEWCASTLE_COAL", "LNG minus coal"),
         ("JEPX_TOKYO", "JEPX_KANSAI", "Tokyo minus Kansai"),
         ("JEPX_SYSTEM", "JEPX_INTRADAY", "Spot minus intraday"),
     ]
     frames = [calculate_spread(df, left, right, name) for left, right, name in pairs]
-    prices = pivot_prices(df)
-    fuel_cols = [c for c in ["JKM", "NEWCASTLE_COAL", "JCC_LINKED_LNG"] if c in prices]
-    if fuel_cols and "JEPX_SYSTEM" in prices:
-        basket = prices[fuel_cols].mean(axis=1)
-        spread = prices["JEPX_SYSTEM"] - basket
-        frames.append(pd.DataFrame({"date": spread.index, "market": "Power minus fuel basket", "price": spread.values}))
+    for frame, (left, _, _) in zip(frames, pairs):
+        frame["unit"] = "USD/MMBtu" if left == "JKM" else "JPY/kWh"
+    srmc = calculate_srmc_comparison(df, **srmc_settings)
+    if not srmc.empty:
+        for name, left, right in [
+            ("Gas minus coal SRMC", "jkm_gas_srmc", "coal_srmc"),
+            ("Indicative gas margin", "jepx_system", "jkm_gas_srmc"),
+            ("Indicative coal margin", "jepx_system", "coal_srmc"),
+        ]:
+            frames.append(pd.DataFrame({"date": srmc["date"], "market": name, "price": srmc[left] - srmc[right], "unit": "JPY/kWh"}))
     return pd.concat(frames, ignore_index=True)
 
 
@@ -121,7 +132,7 @@ def forward_curve_metrics(curves: pd.DataFrame) -> pd.DataFrame:
                 "rolling_carry": carry,
             }
         )
-    out = pd.DataFrame(rows)
+    out = pd.DataFrame(rows, columns=["market", "curve_date", "front_month", "quarterly_average", "calendar_average", "front_month_premium", "rolling_carry"])
     if not steep.empty:
         out = out.merge(steep[["market", "curve_date", "steepness"]], on=["market", "curve_date"], how="left")
     return out

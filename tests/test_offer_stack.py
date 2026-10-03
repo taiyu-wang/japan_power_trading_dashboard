@@ -278,6 +278,49 @@ def test_calculate_offer_stack_shift_benchmarks_compares_latest_to_average_windo
     assert selected.loc[selected["bid_price_jpy_kwh"].eq(20), "sell_shift_mw"].iloc[0] == 60
 
 
+def test_incomplete_30_day_benchmark_is_not_labelled_as_30_day_average():
+    rows = []
+    for date in pd.date_range("2026-09-28", periods=5):
+        for price in [0, 10, 20]:
+            rows.append(dict(delivery_date=date, time_code=1, area_group="System Price",
+                             bid_price_jpy_kwh=price, sell_cumulative_mw=price * 100,
+                             buy_cumulative_mw=2000 - price * 100))
+    out = calculate_offer_stack_shift_benchmarks(pd.DataFrame(rows), time_code=1)
+    assert out.empty
+
+
+def test_benchmark_weights_each_day_equally_on_different_price_grids():
+    rows = []
+    for date, prices, offset in [
+        ("2026-09-30", [0, 10, 20], 0),
+        ("2026-10-01", [0, 20], 100),
+        ("2026-10-02", [0, 10, 20], 200),
+    ]:
+        for price in prices:
+            rows.append(dict(delivery_date=date, time_code=1, area_group="System Price",
+                             bid_price_jpy_kwh=price, sell_cumulative_mw=price * 100 + offset,
+                             buy_cumulative_mw=3000 - price * 100))
+    out = calculate_offer_stack_shift_benchmarks(pd.DataFrame(rows), time_code=1,
+                lookback_days=(), selected_start="2026-09-30", selected_end="2026-10-02")
+    at10 = out.loc[out["bid_price_jpy_kwh"].eq(10)].iloc[0]
+    assert at10["benchmark_sell_cumulative_mw"] == 1050
+    assert at10["sell_shift_mw"] == 150
+    assert at10["benchmark_observed_days"] == 2
+    assert at10["benchmark_end_date"] == pd.Timestamp("2026-10-01")
+
+
+def test_curve_shift_interpolates_different_grids_instead_of_dropping_prices():
+    rows = []
+    for date, prices, offset in [("2026-10-01", [0, 20], 0), ("2026-10-02", [0, 10, 20], 100)]:
+        for price in prices:
+            rows.append(dict(delivery_date=date, time_code=1, area_group="System Price",
+                             bid_price_jpy_kwh=price, sell_cumulative_mw=price * 100 + offset,
+                             buy_cumulative_mw=2000 - price * 100))
+    out = calculate_offer_stack_shift(pd.DataFrame(rows), "2026-10-01", "2026-10-02", 1)
+    assert out["bid_price_jpy_kwh"].tolist() == [0, 10, 20]
+    assert out["sell_shift_mw"].eq(100).all()
+
+
 def test_calculate_offer_stack_period_shift_attributes_supply_and_demand_moves():
     prior = pd.DataFrame(
         {

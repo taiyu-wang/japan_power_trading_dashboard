@@ -25,7 +25,8 @@ Branch: main
 Main file path: app.py
 ```
 
-No secrets are required for default sample-data mode.
+No secrets are required for default sample-data mode. Select Python 3.12.
+This upgrade requires the Streamlit 1.57 patch series in requirements.txt.
 
 If the repository owner, repository name, branch, or `app.py` path changes, delete the existing Streamlit app and redeploy it with the new coordinates. Community Cloud does not automatically move an existing deployment to new GitHub coordinates.
 
@@ -58,7 +59,9 @@ PYTHONPATH=. python -m src.public_data_pipeline \
 
 Supported lanes are `weather`, `news`, `jepx_market`, `offer_stack`, and `supply_mix`.
 
-The top-of-page freshness strip combines the scheduled public manifest with `data/data_manifest.json`, which describes bundled historical, forward, power-futures, and supply-mix snapshots.
+The sidebar Published Feed Status combines the scheduled public manifest with `data/data_manifest.json`.
+Quote-level observation dates and source classifications describe the actual inputs
+used by charts and alerts. The manifest alone does not certify those inputs.
 
 ## Refresh Bundled Sample Data
 
@@ -104,7 +107,7 @@ Only compact processed files should be committed unless there is a deliberate re
 ## Test Before Push
 
 ```bash
-python -m compileall app.py src pages tests
+python -m compileall app.py src views tests
 PYTHONPATH=. pytest
 ```
 
