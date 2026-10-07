@@ -554,6 +554,7 @@ date,market,region,asset_class,frequency,contract,price,currency,unit
 2026-10-05,JEPX_KANSAI,Kansai,Power,daily,day-ahead physical,20.298333333333336,JPY,JPY/kWh
 2026-10-06,JEPX_KANSAI,Kansai,Power,daily,day-ahead physical,17.794375,JPY,JPY/kWh
 2026-10-07,JEPX_KANSAI,Kansai,Power,daily,day-ahead physical,17.29,JPY,JPY/kWh
+2026-10-08,JEPX_KANSAI,Kansai,Power,daily,day-ahead physical,14.662291666666667,JPY,JPY/kWh
 2025-04-01,JEPX_SYSTEM,Japan,Power,daily,day-ahead physical,14.369791666666666,JPY,JPY/kWh
 2025-04-02,JEPX_SYSTEM,Japan,Power,daily,day-ahead physical,12.621458333333335,JPY,JPY/kWh
 2025-04-03,JEPX_SYSTEM,Japan,Power,daily,day-ahead physical,13.452708333333334,JPY,JPY/kWh
@@ -1109,6 +1110,7 @@ date,market,region,asset_class,frequency,contract,price,currency,unit
 2026-10-05,JEPX_SYSTEM,Japan,Power,daily,day-ahead physical,23.527708333333333,JPY,JPY/kWh
 2026-10-06,JEPX_SYSTEM,Japan,Power,daily,day-ahead physical,21.660416666666666,JPY,JPY/kWh
 2026-10-07,JEPX_SYSTEM,Japan,Power,daily,day-ahead physical,18.799166666666668,JPY,JPY/kWh
+2026-10-08,JEPX_SYSTEM,Japan,Power,daily,day-ahead physical,18.143541666666668,JPY,JPY/kWh
 2025-04-01,JEPX_TOKYO,Tokyo,Power,daily,day-ahead physical,16.869375,JPY,JPY/kWh
 2025-04-02,JEPX_TOKYO,Tokyo,Power,daily,day-ahead physical,16.125208333333333,JPY,JPY/kWh
 2025-04-03,JEPX_TOKYO,Tokyo,Power,daily,day-ahead physical,17.237083333333334,JPY,JPY/kWh
@@ -1664,3 +1666,4 @@ date,market,region,asset_class,frequency,contract,price,currency,unit
 2026-10-05,JEPX_TOKYO,Tokyo,Power,daily,day-ahead physical,26.036458333333332,JPY,JPY/kWh
 2026-10-06,JEPX_TOKYO,Tokyo,Power,daily,day-ahead physical,26.730416666666667,JPY,JPY/kWh
 2026-10-07,JEPX_TOKYO,Tokyo,Power,daily,day-ahead physical,23.154583333333335,JPY,JPY/kWh
+2026-10-08,JEPX_TOKYO,Tokyo,Power,daily,day-ahead physical,23.519166666666667,JPY,JPY/kWh
